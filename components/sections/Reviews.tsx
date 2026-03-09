@@ -66,7 +66,7 @@ export default function Reviews({ dict }: { dict: any }) {
               )}
 
               {/* Метка "Reels / Story" */}
-              <div className="absolute top-4 right-4 z-30 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white border border-white/20">
+              <div className="absolute top-4 right-4 z-10 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white border border-white/20">
                 {media.label}
               </div>
             </div>
