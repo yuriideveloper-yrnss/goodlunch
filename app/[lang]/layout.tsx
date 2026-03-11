@@ -8,6 +8,7 @@ import LoadingScreen from "@/components/ui/LoadingScreen";
 import FloatingBackgrounds from "@/components/ui/FloatingBackgrounds";
 import { OrderProvider } from "@/components/providers/OrderProvider";
 import TrackingScripts from "@/components/scripts/TrackingScripts";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -57,6 +58,7 @@ export default async function RootLayout({
           <Header lang={lang} />
           {children}
           <Footer lang={lang} />
+          <SpeedInsights />
         </OrderProvider>
       </body>
     </html>
