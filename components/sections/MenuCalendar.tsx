@@ -114,20 +114,12 @@ export default function MenuCalendar({ dict, lang }: { dict: any, lang: string }
                         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
                     >
                         {menu.dishes.map((dish, i) => {
-                            // If package is 3 meals and this dish is a main, add " (na wybór)" visually
-                            const isMain = dish.type === 'main1' || dish.type === 'main2'
-                            const choiceText = (mealPackage === 'meals3' && isMain)
-                                ? (lang === 'pl' ? ' (do wyboru)' : lang === 'ua' ? ' (на вибір)' : lang === 'ru' ? ' (на выбор)' : ' (choice)')
-                                : '';
-
                             return (
                                 <motion.div
                                     key={dish.id}
                                     className="relative bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-50 flex flex-col h-full group pb-6"
                                     whileHover={{ y: -5 }}
                                 >
-
-
                                     {/* Content */}
                                     <div className="p-6 flex-1 flex flex-col items-center text-center">
                                         <span className="text-[10px] font-extrabold tracking-widest text-brand-orange uppercase bg-brand-orange/10 px-3 py-1.5 rounded-full mb-4">
@@ -136,7 +128,6 @@ export default function MenuCalendar({ dict, lang }: { dict: any, lang: string }
 
                                         <h3 className="text-lg font-bold text-brand-dark flex-1">
                                             {getTranslatedTitle(dish.title, lang)}
-                                            <span className="text-brand-green whitespace-nowrap">{choiceText}</span>
                                         </h3>
                                     </div>
                                 </motion.div>

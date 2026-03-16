@@ -29,8 +29,8 @@ export default function Hero({ lang, dict }: { lang: string, dict: any }) {
 
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-brand-dark leading-[1.1] mb-6 tracking-tight">
             {dict.hero.title} <br className="hidden lg:block" />
-            <del className="text-3xl lg:text-5xl text-gray-500 mr-3 decoration-brand-orange/50">40 zł</del>
-            <span className="text-brand-orange whitespace-nowrap">32 zł</span>
+            <del className="text-3xl lg:text-5xl text-gray-500 mr-3 decoration-brand-orange/50">45 zł</del>
+            <span className="text-brand-orange whitespace-nowrap">36 zł</span>
           </h1>
 
           <p className="text-lg text-gray-500 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
@@ -69,7 +69,7 @@ export default function Hero({ lang, dict }: { lang: string, dict: any }) {
               className="absolute top-10 left-0 lg:top-20 lg:-left-10 bg-white/90 backdrop-blur-xl p-4 lg:p-6 rounded-3xl shadow-2xl z-20 border border-white/60"
             >
               <p className="text-xs lg:text-sm text-gray-500 font-medium uppercase tracking-wider mb-1">{dict.hero.trial_price_label}</p>
-              <p className="text-3xl lg:text-5xl font-extrabold text-brand-orange tracking-tight">32 zł</p>
+              <p className="text-3xl lg:text-5xl font-extrabold text-brand-orange tracking-tight">36 zł</p>
             </motion.div>
 
             <Image

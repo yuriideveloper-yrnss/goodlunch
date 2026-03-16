@@ -4,13 +4,15 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { PRICING } from '@/lib/constants'
 import { useOrder } from '@/components/providers/OrderProvider'
 import { OrderModal } from '@/components/ui/OrderModal'
+import { CalorieAdvisor } from '@/components/ui/CalorieAdvisor'
 
-export default function PriceCalculator({ dict }: { dict: any }) {
+export default function PriceCalculator({ dict, lang }: { dict: any; lang?: string }) {
   const { mealPackage, setMealPackage } = useOrder()
 
   const currentOptions = PRICING[mealPackage];
   const [calories, setCalories] = useState(currentOptions[0].value)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isAdvisorOpen, setIsAdvisorOpen] = useState(false)
 
   // Since mealPackage can change from outside (or on mount), ensure calories is valid
   useEffect(() => {
@@ -26,6 +28,11 @@ export default function PriceCalculator({ dict }: { dict: any }) {
   const currentTier = currentOptions.find(c => c.value === calories) || currentOptions[0]
   const fullPrice = currentTier.price.toFixed(2)
   const trialPrice = (currentTier.price * (1 - PRICING.trialDiscount)).toFixed(2)
+
+  const handleAdvisorSelectPackageAndCalories = (pkg: 'meals3' | 'meals4', selectedCalories: number) => {
+    setMealPackage(pkg)
+    setCalories(selectedCalories)
+  }
 
   return (
     <section id="cennik" className="py-20 bg-white relative z-10">
@@ -66,7 +73,7 @@ export default function PriceCalculator({ dict }: { dict: any }) {
             </button>
           </div>
 
-          {/* Слайдер / Выбор ккал */}
+          {/* Вибір ккал */}
           <div className="mb-10">
             <div className="flex justify-between mb-4">
               <label className="font-semibold text-gray-700">{dict.calc.choose_kcal}</label>
@@ -95,9 +102,20 @@ export default function PriceCalculator({ dict }: { dict: any }) {
                 )
               })}
             </div>
+
+            {/* "Не впевнений" button */}
+            <motion.button
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setIsAdvisorOpen(true)}
+              className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 border-dashed border-brand-orange/40 text-brand-orange text-sm font-semibold hover:bg-orange-50 transition-colors"
+            >
+              <span>🤔</span>
+              {dict.calc.unknown_btn}
+            </motion.button>
           </div>
 
-          {/* Итоговая цена с анимацией */}
+          {/* Підсумкова ціна з анімацією */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-white p-6 rounded-2xl border border-brand-orange/20">
             <div className="text-center sm:text-left">
               <p className="text-gray-500 text-sm mb-1">{dict.calc.price_label}</p>
@@ -120,6 +138,7 @@ export default function PriceCalculator({ dict }: { dict: any }) {
 
         </div>
       </div>
+
       <OrderModal
         isOpen={isModalOpen}
         onCloseAction={() => setIsModalOpen(false)}
@@ -127,6 +146,14 @@ export default function PriceCalculator({ dict }: { dict: any }) {
         selectedPackage={mealPackage}
         selectedCalories={calories}
         price={trialPrice}
+        lang={lang}
+      />
+
+      <CalorieAdvisor
+        isOpen={isAdvisorOpen}
+        onCloseAction={() => setIsAdvisorOpen(false)}
+        onSelectPackageAndCaloriesAction={handleAdvisorSelectPackageAndCalories}
+        dict={dict}
       />
     </section>
   )

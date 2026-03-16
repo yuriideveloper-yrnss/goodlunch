@@ -1,9 +1,10 @@
 export const menuTranslations: Record<string, Record<string, string>> = {
-    'Szakszuka w sosie pomidorowym': {
-        pl: 'Szakszuka w sosie pomidorowym',
-        ua: 'Шакшука в томатному соусі',
-        ru: 'Шакшука в томатном соусе',
-        en: 'Shakshuka in tomato sauce'
+    // === WEEK 1 ===
+    'Szakszuka': {
+        pl: 'Szakszuka',
+        ua: 'Шакшука',
+        ru: 'Шакшука',
+        en: 'Shakshuka'
     },
     'Barszcz czerwony': {
         pl: 'Barszcz czerwony',
@@ -11,29 +12,29 @@ export const menuTranslations: Record<string, Record<string, string>> = {
         ru: 'Красный борщ',
         en: 'Red borscht'
     },
-    'Pierogi ruskie': {
-        pl: 'Pierogi ruskie',
-        ua: 'Вареники з картоплею та сиром',
-        ru: 'Вареники с картошкой и сыром',
-        en: 'Pierogi with potatoes and cheese'
+    'Bulgur z zapiekanka z kurczaka i pesto': {
+        pl: 'Bulgur z zapiekanką z kurczaka i pesto',
+        ua: 'Булгур із запіканкою з курки та песто',
+        ru: 'Булгур с куриной запеканкой и песто',
+        en: 'Bulgur with chicken casserole and pesto'
     },
-    'Schabowy + ziemniaki + surówka': {
-        pl: 'Schabowy + ziemniaki + surówka',
-        ua: 'Відбивна + картопля + салат',
-        ru: 'Отбивная + картошка + салат',
-        en: 'Pork chop + potatoes + salad'
+    'Pierogi z cebulą i śmietaną': {
+        pl: 'Pierogi z cebulą i śmietaną',
+        ua: 'Вареники з цибулею та сметаною',
+        ru: 'Вареники с луком и сметаной',
+        en: 'Dumplings with onion and sour cream'
     },
-    'Pudding chia z jogurtem i owocami': {
-        pl: 'Pudding chia z jogurtem i owocami',
-        ua: 'Чіа-пудинг з йогуртом та фруктами',
-        ru: 'Чиа-пудинг с йогуртом и фруктами',
-        en: 'Chia pudding with yogurt and fruits'
+    'Naleśniki z serem, szynką i śmietaną': {
+        pl: 'Naleśniki z serem, szynką i śmietaną',
+        ua: 'Млинці з сиром, шинкою та сметаною',
+        ru: 'Блинчики с сыром, ветчиной и сметаной',
+        en: 'Crepes with cheese, ham and sour cream'
     },
-    'Rosół': {
-        pl: 'Rosół',
-        ua: 'Бульйон',
-        ru: 'Бульон',
-        en: 'Chicken soup'
+    'Zupa z pulpetami': {
+        pl: 'Zupa z pulpetami',
+        ua: 'Суп з фрикадельками',
+        ru: 'Суп с фрикадельками',
+        en: 'Meatball soup'
     },
     'Ryż z kurczakiem teriyaki': {
         pl: 'Ryż z kurczakiem teriyaki',
@@ -41,11 +42,11 @@ export const menuTranslations: Record<string, Record<string, string>> = {
         ru: 'Рис с курицей терияки',
         en: 'Rice with teriyaki chicken'
     },
-    'Kasza gryczana + gulasz po węgiersku': {
-        pl: 'Kasza gryczana + gulasz po węgiersku',
-        ua: 'Гречка + гуляш по-угорськи',
-        ru: 'Гречка + гуляш по-венгерски',
-        en: 'Buckwheat + Hungarian goulash'
+    'Draniki z mięsem i śmietaną': {
+        pl: 'Draniki z mięsem i śmietaną',
+        ua: 'Деруни з м\'ясом та сметаною',
+        ru: 'Драники с мясом и сметаной',
+        en: 'Potato pancakes with meat and sour cream'
     },
     'Bajgiel z jajkiem i bekonem': {
         pl: 'Bajgiel z jajkiem i bekonem',
@@ -59,17 +60,17 @@ export const menuTranslations: Record<string, Record<string, string>> = {
         ru: 'Чечевичный суп',
         en: 'Lentil soup'
     },
-    'Makaron z pesto i pieczonym kurczakiem': {
-        pl: 'Makaron z pesto i pieczonym kurczakiem',
-        ua: 'Макарони з песто та запеченою куркою',
-        ru: 'Макароны с песто и запеченной курицей',
-        en: 'Pasta with pesto and roasted chicken'
+    'Makaron z sosem pesto i pieczonym kurczakiem': {
+        pl: 'Makaron z sosem pesto i pieczonym kurczakiem',
+        ua: 'Макарони зі соусом песто та запеченою куркою',
+        ru: 'Макароны с соусом песто и запечённой курицей',
+        en: 'Pasta with pesto sauce and roasted chicken'
     },
-    'Ragu z mięsem wieprzowym': {
-        pl: 'Ragu z mięsem wieprzowym',
-        ua: 'Рагу зі свининою',
-        ru: 'Рагу со свининой',
-        en: 'Pork ragout'
+    'Kopytka w sosie szpinakowym z rybą': {
+        pl: 'Kopytka w sosie szpinakowym z rybą',
+        ua: 'Ньоки у шпинатному соусі з рибою',
+        ru: 'Ньоки в шпинатном соусе с рыбой',
+        en: 'Gnocchi in spinach sauce with fish'
     },
     'Naleśniki z waniliowym twarogiem i dżemem': {
         pl: 'Naleśniki z waniliowym twarogiem i dżemem',
@@ -83,47 +84,47 @@ export const menuTranslations: Record<string, Record<string, string>> = {
         ru: 'Овощной суп с курицей',
         en: 'Vegetable soup with chicken'
     },
-    'Kasza gryczana + kotlety drobiowe + sos warzywny': {
-        pl: 'Kasza gryczana + kotlety drobiowe + sos warzywny',
-        ua: 'Гречка + курячі котлети + овочевий соус',
-        ru: 'Гречка + куриные котлеты + овощной соус',
-        en: 'Buckwheat + chicken cutlets + vegetable sauce'
+    'Kasza gryczana z gulaszem i sałatka z buraka': {
+        pl: 'Kasza gryczana z gulaszem i sałatka z buraka',
+        ua: 'Гречка з гуляшом і салат з буряком',
+        ru: 'Гречка с гуляшом и салат из свёклы',
+        en: 'Buckwheat with goulash and beet salad'
     },
-    'Placki ziemniaczane z sosem szpinakowym': {
-        pl: 'Placki ziemniaczane z sosem szpinakowym',
-        ua: 'Деруни зі шпинатним соусом',
-        ru: 'Драники со шпинатным соусом',
-        en: 'Potato pancakes with spinach sauce'
+    'Makaron szklany (Funchoza)': {
+        pl: 'Makaron szklany (Funchoza)',
+        ua: 'Фунчоза',
+        ru: 'Фунчоза',
+        en: 'Glass noodles (Funchoza)'
     },
-    'Sałatka z kurczakiem i sosem jogurtowym': {
-        pl: 'Sałatka z kurczakiem i sosem jogurtowym',
-        ua: 'Салат з куркою та йогуртовим соусом',
-        ru: 'Салат с курицей и йогуртовым соусом',
-        en: 'Chicken salad with yogurt dressing'
+    'Sałatka z kurczakiem i sosem Caesar': {
+        pl: 'Sałatka z kurczakiem i sosem Caesar',
+        ua: 'Салат з куркою та соусом Цезар',
+        ru: 'Салат с курицей и соусом Цезарь',
+        en: 'Chicken salad with Caesar dressing'
     },
     'Barszcz zielony': {
         pl: 'Barszcz zielony',
         ua: 'Зелений борщ',
-        ru: 'Зеленый борщ',
+        ru: 'Зелёный борщ',
         en: 'Green borscht'
     },
-    'Bulgur w sosie śmietanowo-grzybowym z pulpetami z kurczaka': {
-        pl: 'Bulgur w sosie śmietanowo-grzybowym z pulpetami z kurczaka',
-        ua: 'Булгур у вершково-грибному соусі з курячими тефтелями',
-        ru: 'Булгур в сливочно-грибном соусе с куриными тефтелями',
-        en: 'Bulgur in creamy mushroom sauce with chicken meatballs'
+    'Purée z kotletem schabowym i sałatka z kapusty': {
+        pl: 'Purée z kotletem schabowym i sałatka z kapusty',
+        ua: 'Пюре з відбивною та салат з капусти',
+        ru: 'Пюре с отбивной и салат из капусты',
+        en: 'Mashed potatoes with pork chop and cabbage salad'
     },
-    'Makaron 4 sery': {
-        pl: 'Makaron 4 sery',
-        ua: 'Макарони 4 сири',
-        ru: 'Макароны 4 сыра',
-        en: '4-cheese pasta'
+    'Naleśniki z mięsem i śmietaną': {
+        pl: 'Naleśniki z mięsem i śmietaną',
+        ua: 'Млинці з м\'ясом та сметаною',
+        ru: 'Блинчики с мясом и сметаной',
+        en: 'Crepes with meat and sour cream'
     },
-    'Granola z jogurtem naturalnym i dżemem': {
-        pl: 'Granola z jogurtem naturalnym i dżemem',
-        ua: 'Гранола з натуральним йогуртом та джемом',
-        ru: 'Гранола с натуральным йогуртом и джемом',
-        en: 'Granola with natural yogurt and jam'
+    'Granola z jogurtem i dżemem (croissant z bananem)': {
+        pl: 'Granola z jogurtem i dżemem (croissant z bananem)',
+        ua: 'Гранола з йогуртом та джемом (круасан з бананом)',
+        ru: 'Гранола с йогуртом и джемом (круассан с бананом)',
+        en: 'Granola with yogurt and jam (banana croissant)'
     },
     'Zupa gryczana': {
         pl: 'Zupa gryczana',
@@ -133,15 +134,15 @@ export const menuTranslations: Record<string, Record<string, string>> = {
     },
     'Makaron à la bolognese': {
         pl: 'Makaron à la bolognese',
-        ua: 'Макарони а-ля болоньєзе',
-        ru: 'Макароны а-ля болоньезе',
-        en: 'Pasta à la bolognese'
+        ua: 'Паста болоньєзе',
+        ru: 'Паста болоньезе',
+        en: 'Pasta bolognese'
     },
-    'Krokiety z mięsem': {
-        pl: 'Krokiety z mięsem',
-        ua: 'Крокети з м\'ясом',
-        ru: 'Крокеты с мясом',
-        en: 'Meat croquettes'
+    'Kuskus pęczakowy z kurczakiem w sosie śmietanowym': {
+        pl: 'Kuskus pęczakowy z kurczakiem w sosie śmietanowym',
+        ua: 'Кус-кус перловий з куркою у вершковому соусі',
+        ru: 'Кускус перловый с курицей в сливочном соусе',
+        en: 'Pearl barley couscous with chicken in cream sauce'
     },
     'Frittata z warzywami': {
         pl: 'Frittata z warzywami',
@@ -149,71 +150,79 @@ export const menuTranslations: Record<string, Record<string, string>> = {
         ru: 'Фриттата с овощами',
         en: 'Frittata with vegetables'
     },
-    'Zupa z pulpetami': {
-        pl: 'Zupa z pulpetami',
-        ua: 'Суп з тефтелями',
-        ru: 'Суп с тефтелями',
-        en: 'Meatball soup'
+    'Rosół z kurczaka': {
+        pl: 'Rosół z kurczaka',
+        ua: 'Бульйон з куркою',
+        ru: 'Куриный бульон',
+        en: 'Chicken broth'
     },
-    'Żulien z kurczakiem i grzybami + purée ziemniaczane': {
-        pl: 'Żulien z kurczakiem i grzybami + purée ziemniaczane',
-        ua: 'Жульєн з куркою та грибами + картопляне пюре',
-        ru: 'Жульен с курицей и грибами + картофельное пюре',
-        en: 'Chicken and mushroom julienne + mashed potatoes'
+    'Żulien z kurczakiem i grzybami': {
+        pl: 'Żulien z kurczakiem i grzybami',
+        ua: 'Жульєн з куркою та грибами',
+        ru: 'Жульен с курицей и грибами',
+        en: 'Chicken and mushroom julienne'
     },
-    'Kasza jaglana z pulpetami': {
-        pl: 'Kasza jaglana z pulpetami',
-        ua: 'Пшоняна каша з тефтелями',
-        ru: 'Пшенная каша с тефтелями',
-        en: 'Millet porridge with meatballs'
+    'Czachochbili z ryżem': {
+        pl: 'Czachochbili z ryżem',
+        ua: 'Чахохбілі з рисом',
+        ru: 'Чахохбили с рисом',
+        en: 'Chakhokhbili with rice'
     },
-    'Omlet z parówkami': {
-        pl: 'Omlet z parówkami',
-        ua: 'Омлет із сосисками',
-        ru: 'Омлет с сосисками',
-        en: 'Omelette with sausages'
+
+    // === WEEK 2 ===
+    'Szarlotka z jabłkami i kremem serowym': {
+        pl: 'Szarlotka z jabłkami i kremem serowym',
+        ua: 'Шарлотка з яблуками та крем-чизом',
+        ru: 'Шарлотка с яблоками и крем-чизом',
+        en: 'Apple pie with cream cheese'
     },
-    'Pomidorowa': {
-        pl: 'Pomidorowa',
+    'Zupa pomidorowa': {
+        pl: 'Zupa pomidorowa',
         ua: 'Томатний суп',
         ru: 'Томатный суп',
         en: 'Tomato soup'
     },
-    'Purée + kotlet mielony': {
-        pl: 'Purée + kotlet mielony',
-        ua: 'Пюре + м\'ясна котлета',
-        ru: 'Пюре + мясная котлета',
-        en: 'Mashed potatoes + minced meat cutlet'
+    'Ryż z warzywami i pieczonym kurczakiem w sosie śmietanowym': {
+        pl: 'Ryż z warzywami i pieczonym kurczakiem w sosie śmietanowym',
+        ua: 'Рис з овочами та запеченою куркою у вершковому соусі',
+        ru: 'Рис с овощами и запечённой курицей в сливочном соусе',
+        en: 'Rice with vegetables and roasted chicken in cream sauce'
     },
-    'Makaron z pesto i mozzarellą': {
-        pl: 'Makaron z pesto i mozzarellą',
-        ua: 'Макарони з песто та моцарелою',
-        ru: 'Макароны с песто и моцареллой',
-        en: 'Pasta with pesto and mozzarella'
+    'Carbonara': {
+        pl: 'Carbonara',
+        ua: 'Карбонара',
+        ru: 'Карбонара',
+        en: 'Carbonara'
     },
-    'Chia z jogurtem i mango': {
-        pl: 'Chia z jogurtem i mango',
-        ua: 'Чіа з йогуртом та манго',
-        ru: 'Чиа с йогуртом и манго',
-        en: 'Chia with yogurt and mango'
+    'Jajka po turecku': {
+        pl: 'Jajka po turecku',
+        ua: 'Яйця по-турецьки',
+        ru: 'Яйца по-турецки',
+        en: 'Turkish eggs'
     },
-    'Ogórkowa': {
-        pl: 'Ogórkowa',
-        ua: 'Огірковий суп',
-        ru: 'Огуречный суп',
-        en: 'Cucumber soup'
+    'Zupa z grzybami i fasolą': {
+        pl: 'Zupa z grzybami i fasolą',
+        ua: 'Суп з грибами та квасолею',
+        ru: 'Суп с грибами и фасолью',
+        en: 'Mushroom and bean soup'
     },
-    'Naleśniki z kurczakiem i grzybami': {
-        pl: 'Naleśniki z kurczakiem i grzybami',
-        ua: 'Млинці з куркою та грибами',
-        ru: 'Блинчики с курицей и грибами',
-        en: 'Crepes with chicken and mushrooms'
+    'Bulgur z wieprzowiną i sałatka': {
+        pl: 'Bulgur z wieprzowiną i sałatka',
+        ua: 'Булгур зі свининою та салат',
+        ru: 'Булгур со свининой и салат',
+        en: 'Bulgur with pork and salad'
     },
-    'Pancakes z dipami': {
-        pl: 'Pancakes z dipami',
-        ua: 'Панкейки з соусами',
-        ru: 'Панкейки с соусами',
-        en: 'Pancakes with dips'
+    'Rizoni bowl z kurczakiem, warzywami i sosem jogurtowo-musztardowym': {
+        pl: 'Rizoni bowl z kurczakiem, warzywami i sosem jogurtowo-musztardowym',
+        ua: 'Рісоні-боул з куркою, овочами та йогуртово-гірчичним соусом',
+        ru: 'Ризони-боул с курицей, овощами и йогуртово-горчичным соусом',
+        en: 'Risoni bowl with chicken, vegetables and yogurt-mustard sauce'
+    },
+    'Pancakes z jogurtem i dżemem': {
+        pl: 'Pancakes z jogurtem i dżemem',
+        ua: 'Панкейки з йогуртом та джемом',
+        ru: 'Панкейки с йогуртом и джемом',
+        en: 'Pancakes with yogurt and jam'
     },
     'Kapuśniak': {
         pl: 'Kapuśniak',
@@ -221,14 +230,20 @@ export const menuTranslations: Record<string, Record<string, string>> = {
         ru: 'Капустняк',
         en: 'Cabbage soup'
     },
-    'Pasta z warzywami i parmezanem': {
-        pl: 'Pasta z warzywami i parmezanem',
-        ua: 'Паста з овочами та пармезаном',
-        ru: 'Паста с овощами и пармезаном',
-        en: 'Pasta with vegetables and parmesan'
+    'Purée z kotletem wieprzowym z serem, pomidorem i szpinakiem': {
+        pl: 'Purée z kotletem wieprzowym z serem, pomidorem i szpinakiem',
+        ua: 'Пюре зі свинячою котлетою з сиром, помідором і шпинатом',
+        ru: 'Пюре со свиной котлетой с сыром, помидором и шпинатом',
+        en: 'Mashed potatoes with pork cutlet with cheese, tomato and spinach'
     },
-    'Angielskie śniadania': {
-        pl: 'Angielskie śniadania',
+    'Bowl z kurczakiem i sosem szpinakowym': {
+        pl: 'Bowl z kurczakiem i sosem szpinakowym',
+        ua: 'Боул з куркою та шпинатним соусом',
+        ru: 'Боул с курицей и шпинатным соусом',
+        en: 'Bowl with chicken and spinach sauce'
+    },
+    'Angielskie śniadanie': {
+        pl: 'Angielskie śniadanie',
         ua: 'Англійський сніданок',
         ru: 'Английский завтрак',
         en: 'English breakfast'
@@ -239,17 +254,23 @@ export const menuTranslations: Record<string, Record<string, string>> = {
         ru: 'Сырный суп',
         en: 'Cheese soup'
     },
-    'Krokiety z mozzarellą i grzybami': {
-        pl: 'Krokiety z mozzarellą i grzybami',
-        ua: 'Крокети з моцарелою та грибами',
-        ru: 'Крокеты с моцареллой и грибами',
-        en: 'Croquettes with mozzarella and mushrooms'
+    'Ryż z zieloną fasolką i kurczakiem po azjatycku': {
+        pl: 'Ryż z zieloną fasolką i kurczakiem po azjatycku',
+        ua: 'Рис із зеленою квасолею та куркою по-азіатськи',
+        ru: 'Рис с зелёной фасолью и курицей по-азиатски',
+        en: 'Rice with green beans and Asian-style chicken'
+    },
+    'Ragu z wieprzowiną': {
+        pl: 'Ragu z wieprzowiną',
+        ua: 'Рагу зі свининою',
+        ru: 'Рагу со свининой',
+        en: 'Pork ragout'
     },
     'Kanapka z szynką, jajkiem i serem': {
         pl: 'Kanapka z szynką, jajkiem i serem',
-        ua: 'Сендвіч з шинкою, яйцем та сиром',
-        ru: 'Сэндвич с ветчиной, яйцом и сыром',
-        en: 'Sandwich with ham, egg, and cheese'
+        ua: 'Бутерброд з шинкою, яйцем та сиром',
+        ru: 'Бутерброд с ветчиной, яйцом и сыром',
+        en: 'Sandwich with ham, egg and cheese'
     },
     'Grzybowa': {
         pl: 'Grzybowa',
@@ -257,35 +278,41 @@ export const menuTranslations: Record<string, Record<string, string>> = {
         ru: 'Грибной суп',
         en: 'Mushroom soup'
     },
-    'Bowl z warzywami i jajkiem sadzonym': {
-        pl: 'Bowl z warzywami i jajkiem sadzonym',
-        ua: 'Боул з овочами та яєчнею',
-        ru: 'Боул с овощами и глазуньей',
-        en: 'Bowl with vegetables and fried egg'
+    'Kasza gryczana z gulaszem węgierskim i marchewką po koreańsku': {
+        pl: 'Kasza gryczana z gulaszem węgierskim i marchewką po koreańsku',
+        ua: 'Гречка з угорським гуляшом та морквою по-корейськи',
+        ru: 'Гречка с венгерским гуляшом и морковью по-корейски',
+        en: 'Buckwheat with Hungarian goulash and Korean carrot'
     },
-    'jajka po turecku': {
-        pl: 'jajka po turecku',
-        ua: 'Яйця по-турецьки',
-        ru: 'Яйца по-турецки',
-        en: 'Turkish eggs'
+    'Makaron z pesto i kotletem z kurczaka': {
+        pl: 'Makaron z pesto i kotletem z kurczaka',
+        ua: 'Макарони з песто та курячою відбивною',
+        ru: 'Макароны с песто и куриной отбивной',
+        en: 'Pasta with pesto and chicken cutlet'
     },
-    'Solianka': {
-        pl: 'Solianka',
-        ua: 'Солянка',
-        ru: 'Солянка',
-        en: 'Solyanka'
+    'Omlet z szynką': {
+        pl: 'Omlet z szynką',
+        ua: 'Омлет з шинкою',
+        ru: 'Омлет с ветчиной',
+        en: 'Omelette with ham'
     },
-    'Naleśniki z mięsem': {
-        pl: 'Naleśniki z mięsem',
-        ua: 'Млинці з м\'ясом',
-        ru: 'Блинчики с мясом',
-        en: 'Crepes with meat'
+    'Kuskus w sosie śmietanowo-grzybowym': {
+        pl: 'Kuskus w sosie śmietanowo-grzybowym',
+        ua: 'Кус-кус у вершково-грибному соусі',
+        ru: 'Кускус в сливочно-грибном соусе',
+        en: 'Couscous in creamy mushroom sauce'
     },
-    'Serniczki': {
-        pl: 'Serniczki',
-        ua: 'Сирники',
-        ru: 'Сырники',
-        en: 'Syrniki (Cottage cheese pancakes)'
+    'Placki ziemniaczane ze śmietaną': {
+        pl: 'Placki ziemniaczane ze śmietaną',
+        ua: 'Деруни зі сметаною',
+        ru: 'Деруны со сметаной',
+        en: 'Potato pancakes with sour cream'
+    },
+    'Sernik z brzoskwinią i jogurtem': {
+        pl: 'Sernik z brzoskwinią i jogurtem',
+        ua: 'Сирник з консервованим персиком та йогуртом',
+        ru: 'Сырник с консервированным персиком и йогуртом',
+        en: 'Cheesecake with canned peach and yogurt'
     },
     'Charczo': {
         pl: 'Charczo',
@@ -293,12 +320,18 @@ export const menuTranslations: Record<string, Record<string, string>> = {
         ru: 'Харчо',
         en: 'Kharcho'
     },
-    'Hamburger classic': {
-        pl: 'Hamburger classic',
-        ua: 'Класичний гамбургер',
-        ru: 'Классический гамбургер',
-        en: 'Classic hamburger'
-    }
+    'Purée z siekanym kotletem z kurczaka': {
+        pl: 'Purée z siekanym kotletem z kurczaka',
+        ua: 'Пюре з рубаною курячою котлетою',
+        ru: 'Пюре с рублёной куриной котлетой',
+        en: 'Mashed potatoes with chopped chicken cutlet'
+    },
+    'Makaron szklany z kurczakiem': {
+        pl: 'Makaron szklany z kurczakiem',
+        ua: 'Фунчоза з куркою',
+        ru: 'Фунчоза с курицей',
+        en: 'Glass noodles with chicken'
+    },
 };
 
 export function getTranslatedTitle(title: string, lang: string): string {

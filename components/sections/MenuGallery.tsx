@@ -11,7 +11,6 @@ export default function MenuGallery({ dict }: { dict: any }) {
     { id: 1, type: dict.menu.breakfast, img: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=600&q=80", kcal: 450, title: dict.menu.items.owsianka },
     { id: 2, type: dict.menu.lunch, img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80", kcal: 600, title: dict.menu.items.kurczak },
     { id: 3, type: dict.menu.dinner, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80", kcal: 400, title: dict.menu.items.pasta },
-    // Дублируем для длины скролла
     { id: 4, type: dict.menu.breakfast, img: "https://images.unsplash.com/photo-1484723091791-c0e7e14c4456?auto=format&fit=crop&w=600&q=80", kcal: 450, title: dict.menu.items.nalesniki },
   ]
 

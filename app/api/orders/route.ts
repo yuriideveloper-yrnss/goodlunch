@@ -39,6 +39,7 @@ export async function POST(request: Request) {
             package: body.package || '',
             calories: parseInt(body.calories) || 0,
             price: body.price || '',
+            lang: body.lang || 'unknown',
             status: body.step === 1 ? 'Unfinished' : 'New',
         };
 

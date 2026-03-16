@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export function TwoStepForm({ dict, defaultData = {}, onSuccessAction }: { dict: any, defaultData?: any, onSuccessAction?: () => void }) {
+export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSuccessAction }: { dict: any, defaultData?: any, lang?: string, onSuccessAction?: () => void }) {
     const [step, setStep] = useState(1)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [orderId, setOrderId] = useState<string | null>(null)
@@ -23,17 +23,15 @@ export function TwoStepForm({ dict, defaultData = {}, onSuccessAction }: { dict:
         e.preventDefault()
         setIsSubmitting(true)
         try {
-            // Simulate API or send real data
             const res = await fetch('/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...formData, ...defaultData, step: 1 })
+                body: JSON.stringify({ ...formData, ...defaultData, lang, step: 1 })
             })
             const data = await res.json()
             if (data.orderId) {
                 setOrderId(data.orderId)
             }
-            // Proceed to Step 2 regardless for demo purposes if API fails, but strictly after wait
             setStep(2)
         } catch (err) {
             setStep(2)
@@ -49,7 +47,7 @@ export function TwoStepForm({ dict, defaultData = {}, onSuccessAction }: { dict:
             await fetch('/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...formData, ...defaultData, id: orderId, step: 2 })
+                body: JSON.stringify({ ...formData, ...defaultData, lang, id: orderId, step: 2 })
             })
             if (typeof window !== 'undefined' && (window as any).fbq) {
                 (window as any).fbq('track', 'Lead')
@@ -61,6 +59,7 @@ export function TwoStepForm({ dict, defaultData = {}, onSuccessAction }: { dict:
             setIsSubmitting(false)
         }
     }
+
 
     return (
         <div className="w-full relative min-h-[400px]">

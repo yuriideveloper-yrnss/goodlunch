@@ -9,7 +9,8 @@ export function OrderModal({
     dict,
     selectedPackage,
     selectedCalories,
-    price
+    price,
+    lang
 }: {
     isOpen: boolean,
     onCloseAction: () => void,
@@ -17,7 +18,8 @@ export function OrderModal({
     dict: any,
     selectedPackage: string,
     selectedCalories: number,
-    price: string
+    price: string,
+    lang?: string
 }) {
     const [isSuccess, setIsSuccess] = useState(false)
     // Submission now handled by TwoStepForm
@@ -76,6 +78,7 @@ export function OrderModal({
                                 <TwoStepForm
                                     dict={dict}
                                     defaultData={{ package: selectedPackage, calories: selectedCalories, price }}
+                                    lang={lang}
                                     onSuccessAction={() => setIsSuccess(true)}
                                 />
                             </>
