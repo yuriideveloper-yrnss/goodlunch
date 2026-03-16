@@ -38,11 +38,12 @@ export async function PUT(request: Request) {
     }
 
     try {
-        const { id, status } = await request.json();
+        const body = await request.json();
+        const { id, ...updates } = body;
 
         const { error } = await supabase
             .from('orders')
-            .update({ status })
+            .update(updates)
             .eq('id', id);
 
         if (error) throw error;

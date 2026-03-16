@@ -383,10 +383,19 @@ const STATUS_CONFIG: Record<string, { label: string; dot: string; badge: string;
 }
 
 // ─── Orders Section ───
-function OrdersSection({ orders, onDelete, onUpdateStatus, lastRefresh, isRefreshing, onRefresh, autoRefresh, setAutoRefresh }: {
-  orders: any[]; onDelete: (id: string) => void; onUpdateStatus: (id: string, status: string) => void
+function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefreshing, onRefresh, autoRefresh, setAutoRefresh }: {
+  orders: any[]; onDelete: (id: string) => void; onUpdateOrder: (id: string, updates: any) => void
   lastRefresh: Date | null; isRefreshing: boolean; onRefresh: () => void; autoRefresh: boolean; setAutoRefresh: (v: boolean) => void
 }) {
+  const getDeliveryDate = (order: any) => {
+    if (order.deliveryDate) return order.deliveryDate
+    const created = new Date(order.createdAt)
+    const daysToAdd = order.deliveryDay === 'after_tomorrow' ? 2 : 1
+    created.setDate(created.getDate() + daysToAdd)
+    const d = created.getDate().toString().padStart(2, '0')
+    const m = (created.getMonth() + 1).toString().padStart(2, '0')
+    return `${d}.${m}`
+  }
   const stats = [
     { label: 'Всього',    value: orders.length,                                        gradient: 'from-slate-400 to-slate-600',   icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> },
     { label: 'Нові',      value: orders.filter(o => o.status === 'New').length,        gradient: 'from-sky-400 to-blue-600',      icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg> },
@@ -494,9 +503,30 @@ function OrdersSection({ orders, onDelete, onUpdateStatus, lastRefresh, isRefres
                           вул. {order.street || '–'}, {order.house || '–'}
                         </div>
                         <div className="text-white/35 text-[11px] mt-0.5">кв. {order.apt || '–'} · пов. {order.floor || '–'}</div>
-                        <span className="mt-1.5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-400/15 text-indigo-200 border border-indigo-400/30 text-[10px] font-black uppercase tracking-wider">
-                          {order.deliveryDay === 'tomorrow' ? '📦 Завтра' : '📦 Після завтра'}
-                        </span>
+                        <div className="mt-2.5 flex items-center gap-2">
+                          <div className="relative group/date">
+                            <input
+                              type="text"
+                              defaultValue={getDeliveryDate(order)}
+                              onBlur={(e) => {
+                                if (e.target.value !== getDeliveryDate(order)) {
+                                  onUpdateOrder(order.id, { deliveryDate: e.target.value })
+                                }
+                              }}
+                              className="w-[60px] bg-white/10 border border-white/10 rounded-lg px-2 py-1 text-[11px] font-black text-white focus:outline-none focus:border-violet-500/50 transition-all font-mono"
+                            />
+                            <div className="absolute -top-6 left-0 bg-zinc-800 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover/date:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                              Змінити дату
+                            </div>
+                          </div>
+                          <span className={`px-2 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider border transition-all ${
+                            order.deliveryDay === 'tomorrow'
+                              ? 'bg-indigo-400/15 text-indigo-200 border-indigo-400/30'
+                              : 'bg-indigo-400/10 text-indigo-300/60 border-indigo-400/20'
+                          }`}>
+                            📦 {order.deliveryDay === 'tomorrow' ? 'Завтра' : 'Після'}
+                          </span>
+                        </div>
                       </td>
 
                       {/* Order */}
@@ -523,7 +553,7 @@ function OrdersSection({ orders, onDelete, onUpdateStatus, lastRefresh, isRefres
                         <div className="relative">
                           <select
                             value={order.status}
-                            onChange={e => onUpdateStatus(order.id, e.target.value)}
+                            onChange={e => onUpdateOrder(order.id, { status: e.target.value })}
                             className={`appearance-none cursor-pointer pl-3.5 pr-8 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider border outline-none transition-all ${sc.select}`}
                           >
                             {Object.entries(STATUS_CONFIG).map(([val, cfg]) => (
@@ -647,6 +677,16 @@ export default function AdminPage() {
         setOrders(prev => prev.filter((o: any) => o.id !== id))
         prevOrderIdsRef.current.delete(id)
       }
+    } catch (e) { console.error(e) }
+  }
+
+  const updateOrder = async (id: string, updates: any) => {
+    try {
+      await fetch('/api/admin/orders', {
+        method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': authHeader },
+        body: JSON.stringify({ id, ...updates })
+      })
+      setOrders(orders.map((o: any) => o.id === id ? { ...o, ...updates } : o))
     } catch (e) { console.error(e) }
   }
 
@@ -892,7 +932,7 @@ export default function AdminPage() {
                 <OrdersSection
                   orders={orders}
                   onDelete={deleteOrder}
-                  onUpdateStatus={updateStatus}
+                  onUpdateOrder={updateOrder}
                   lastRefresh={lastRefresh}
                   isRefreshing={isRefreshing}
                   onRefresh={() => fetchOrders()}
