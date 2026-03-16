@@ -520,11 +520,11 @@ function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefresh
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="appearance-none bg-white/[0.06] border border-white/10 rounded-2xl pl-10 pr-10 py-3.5 text-white/70 text-sm font-bold focus:outline-none focus:border-violet-500/50 transition-all cursor-pointer"
+              className="appearance-none bg-white/[0.06] border border-white/10 rounded-2xl pl-10 pr-10 py-3.5 text-white text-sm font-bold focus:outline-none focus:border-violet-500/50 transition-all cursor-pointer"
             >
-              <option value="all">Всі статуси</option>
+              <option value="all" className="bg-[#12121f] text-white">Всі статуси</option>
               {Object.entries(STATUS_CONFIG).map(([val, cfg]) => (
-                <option key={val} value={val}>{cfg.label}</option>
+                <option key={val} value={val} className="bg-[#12121f] text-white">{cfg.label}</option>
               ))}
             </select>
             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30"><IconFilter /></div>
@@ -534,11 +534,11 @@ function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefresh
             <select
               value={filterPackage}
               onChange={(e) => setFilterPackage(e.target.value)}
-              className="appearance-none bg-white/[0.06] border border-white/10 rounded-2xl pl-4 pr-10 py-3.5 text-white/70 text-sm font-bold focus:outline-none focus:border-violet-500/50 transition-all cursor-pointer"
+              className="appearance-none bg-white/[0.06] border border-white/10 rounded-2xl pl-4 pr-10 py-3.5 text-white text-sm font-bold focus:outline-none focus:border-violet-500/50 transition-all cursor-pointer"
             >
-              <option value="all">Всі пакети</option>
-              <option value="meals3">3 Страви</option>
-              <option value="meals4">4 Страви</option>
+              <option value="all" className="bg-[#12121f] text-white">Всі пакети</option>
+              <option value="meals3" className="bg-[#12121f] text-white">3 Страви</option>
+              <option value="meals4" className="bg-[#12121f] text-white">4 Страви</option>
             </select>
             <div className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none"><IconChevronDown /></div>
           </div>
