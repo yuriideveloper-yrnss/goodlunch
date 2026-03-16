@@ -383,14 +383,15 @@ const STATUS_CONFIG: Record<string, { label: string; dot: string; badge: string;
 }
 
 // ─── Orders Section ───
-function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefreshing, onRefresh, autoRefresh, setAutoRefresh }: {
+function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefreshing, onRefresh, autoRefresh, setAutoRefresh, onSearchChange }: {
   orders: any[]; onDelete: (id: string) => void; onUpdateOrder: (id: string, updates: any) => void
   lastRefresh: Date | null; isRefreshing: boolean; onRefresh: () => void; autoRefresh: boolean; setAutoRefresh: (v: boolean) => void
+  onSearchChange: (val: string) => void
 }) {
   const getDeliveryDate = (order: any) => {
     if (order.deliveryDate) return order.deliveryDate
     const created = new Date(order.createdAt)
-    const daysToAdd = order.deliveryDay === 'after_tomorrow' ? 2 : 1
+    const daysToAdd = order.deliveryDay === 'day_after' ? 2 : 1
     created.setDate(created.getDate() + daysToAdd)
     const d = created.getDate().toString().padStart(2, '0')
     const m = (created.getMonth() + 1).toString().padStart(2, '0')
@@ -414,6 +415,21 @@ function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefresh
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {stats.map((s, i) => <StatCard key={s.label} {...s} delay={i * 0.07} />)}
+      </div>
+
+      {/* CRM Search & Filters */}
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="flex-1 relative group">
+          <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-white/30 group-focus-within:text-violet-400 transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <input
+            type="text"
+            placeholder="Пошук за ім'ям, телефоном або адресою..."
+            className="w-full bg-white/[0.06] border border-white/10 rounded-2xl pl-12 pr-4 py-3.5 text-white font-medium focus:outline-none focus:border-violet-500/50 focus:bg-white/[0.08] transition-all"
+            onChange={(e) => onSearchChange(e.target.value)}
+          />
+        </div>
       </div>
 
       {/* Controls bar */}
@@ -504,7 +520,7 @@ function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefresh
                         </div>
                         <div className="text-white/35 text-[11px] mt-0.5">кв. {order.apt || '–'} · пов. {order.floor || '–'}</div>
                         <div className="mt-2.5 flex items-center gap-2">
-                          <div className="relative group/date">
+                          <div className="flex items-center bg-white/[0.07] border border-white/10 rounded-xl p-1 gap-1">
                             <input
                               type="text"
                               defaultValue={getDeliveryDate(order)}
@@ -513,19 +529,17 @@ function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefresh
                                   onUpdateOrder(order.id, { deliveryDate: e.target.value })
                                 }
                               }}
-                              className="w-[60px] bg-white/10 border border-white/10 rounded-lg px-2 py-1 text-[11px] font-black text-white focus:outline-none focus:border-violet-500/50 transition-all font-mono"
+                              className="w-[50px] bg-transparent text-[11px] font-black text-white text-center focus:outline-none focus:text-violet-300 transition-all font-mono"
                             />
-                            <div className="absolute -top-6 left-0 bg-zinc-800 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover/date:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                              Змінити дату
-                            </div>
+                            <div className="w-[1px] h-3 bg-white/10 mx-0.5" />
+                            <span className={`px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all ${
+                              order.deliveryDay === 'tomorrow'
+                                ? 'bg-indigo-500/20 text-indigo-300'
+                                : 'bg-purple-500/20 text-purple-300'
+                            }`}>
+                              {order.deliveryDay === 'tomorrow' ? 'Завтра' : 'Після'}
+                            </span>
                           </div>
-                          <span className={`px-2 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider border transition-all ${
-                            order.deliveryDay === 'tomorrow'
-                              ? 'bg-indigo-400/15 text-indigo-200 border-indigo-400/30'
-                              : 'bg-indigo-400/10 text-indigo-300/60 border-indigo-400/20'
-                          }`}>
-                            📦 {order.deliveryDay === 'tomorrow' ? 'Завтра' : 'Після'}
-                          </span>
                         </div>
                       </td>
 
@@ -603,6 +617,7 @@ export default function AdminPage() {
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null)
   const [autoRefresh, setAutoRefresh] = useState(true)
   const [toast, setToast] = useState<string | null>(null)
+  const [searchTerm, setSearchTerm] = useState('')
   const prevOrderIdsRef = useRef<Set<string>>(new Set())
   const authRef = useRef('')
 
@@ -778,6 +793,16 @@ export default function AdminPage() {
   // ─── Dashboard ───
   const SIDEBAR_W = isCollapsed ? 80 : 260
 
+  const filteredOrders = orders.filter(o => {
+    const s = searchTerm.toLowerCase()
+    return (
+      (o.name || '').toLowerCase().includes(s) ||
+      (o.phone || '').toLowerCase().includes(s) ||
+      (o.street || '').toLowerCase().includes(s) ||
+      (o.house || '').toLowerCase().includes(s)
+    )
+  })
+
   return (
     <div className="min-h-screen flex" style={{ background: '#0c0c15' }}>
       {/* Ambient glows */}
@@ -930,7 +955,7 @@ export default function AdminPage() {
             >
               {activeSection === 'orders' ? (
                 <OrdersSection
-                  orders={orders}
+                  orders={filteredOrders}
                   onDelete={deleteOrder}
                   onUpdateOrder={updateOrder}
                   lastRefresh={lastRefresh}
@@ -938,6 +963,7 @@ export default function AdminPage() {
                   onRefresh={() => fetchOrders()}
                   autoRefresh={autoRefresh}
                   setAutoRefresh={setAutoRefresh}
+                  onSearchChange={setSearchTerm}
                 />
               ) : (
                 <MenuEditorSection />
