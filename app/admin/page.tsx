@@ -467,10 +467,15 @@ function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefresh
 }) {
   const [filterStatus, setFilterStatus] = useState('all')
   const [filterPackage, setFilterPackage] = useState('all')
+  const [filterDate, setFilterDate] = useState('all')
 
   const filtered = orders.filter(o => {
     if (filterStatus !== 'all' && o.status !== filterStatus) return false
     if (filterPackage !== 'all' && o.package !== filterPackage) return false
+    if (filterDate !== 'all') {
+      const d = new Date(o.createdAt).toLocaleDateString('uk-UA')
+      if (d !== filterDate) return false
+    }
     return true
   })
   const getDeliveryDate = (order: any) => {
@@ -539,6 +544,26 @@ function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefresh
               <option value="all" className="bg-[#12121f] text-white">Всі пакети</option>
               <option value="meals3" className="bg-[#12121f] text-white">3 Страви</option>
               <option value="meals4" className="bg-[#12121f] text-white">4 Страви</option>
+            </select>
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none"><IconChevronDown /></div>
+          </div>
+          <div className="relative group">
+            <select
+              value={filterDate}
+              onChange={(e) => setFilterDate(e.target.value)}
+              className="appearance-none bg-white/[0.06] border border-white/10 rounded-2xl pl-4 pr-10 py-3.5 text-white text-sm font-bold focus:outline-none focus:border-violet-500/50 transition-all cursor-pointer"
+            >
+              <option value="all" className="bg-[#12121f] text-white">Всі дати</option>
+              {[...new Set(orders.map(o => new Date(o.createdAt).toLocaleDateString('uk-UA')))]
+                .sort((a,b) => {
+                  const [da, ma, ya] = a.split('.').map(Number)
+                  const [db, mb, yb] = b.split('.').map(Number)
+                  return new Date(yb, mb-1, db).getTime() - new Date(ya, ma-1, da).getTime()
+                })
+                .map(d => (
+                  <option key={d} value={d} className="bg-[#12121f] text-white">{d}</option>
+                ))
+              }
             </select>
             <div className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none"><IconChevronDown /></div>
           </div>
@@ -784,6 +809,13 @@ export default function AdminPage() {
           if (prevIds.size > 0 && newOnes.length > 0) {
             const msg = `${newOnes[0].name || 'Анонім'} · ${newOnes[0].package === 'meals3' ? '3 страви' : '4 страви'}`
             setToast(msg)
+            
+            // Audio notification
+            try {
+              const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3')
+              audio.play().catch(e => console.error('Audio play failed:', e))
+            } catch (e) { console.error('Audio init failed:', e) }
+
             if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
               new Notification('🔔 GoodLunch: Нове замовлення!', { body: msg, icon: '/favicon.ico' })
             }
