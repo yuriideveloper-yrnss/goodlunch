@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { week1Menu, week2Menu } from '@/lib/menuData'
 import { menuTranslations } from '@/lib/menuTranslations'
 
-type SidebarSection = 'orders' | 'menu'
+type SidebarSection = 'orders' | 'menu' | 'analytics'
 type Language = 'pl' | 'ua' | 'ru' | 'en'
 
 const STORAGE_KEY_W1 = 'admin_menu_week1_multilang'
@@ -161,6 +161,16 @@ const IconChevronDown = () => (
 const IconSave = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+  </svg>
+)
+const IconChart = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 20V10M18 20V4M6 20v-4"/>
+  </svg>
+)
+const IconFilter = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
   </svg>
 )
 
@@ -373,6 +383,73 @@ function MenuEditorSection() {
   )
 }
 
+// ─── Analytics Section ───
+function AnalyticsSection({ orders }: { orders: any[] }) {
+  const paidOrders = orders.filter(o => o.status === 'Paid')
+  const totalRevenue = paidOrders.reduce((acc, o) => acc + (parseFloat(o.price) || 0), 0)
+  const avgValue = paidOrders.length ? (totalRevenue / paidOrders.length).toFixed(2) : '0'
+
+  const categories = {
+    meals3: orders.filter(o => o.package === 'meals3').length,
+    meals4: orders.filter(o => o.package === 'meals4').length
+  }
+
+  const calorieStats = orders.reduce((acc: any, o) => {
+    acc[o.calories] = (acc[o.calories] || 0) + 1
+    return acc
+  }, {})
+
+  return (
+    <div className="max-w-6xl mx-auto space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <StatCard label="Виручка (оплачено)" value={totalRevenue} gradient="from-emerald-400 to-green-600" icon={<IconChart />} delay={0.1} />
+        <StatCard label="Середній чек" value={parseFloat(avgValue)} gradient="from-violet-400 to-indigo-600" icon={<IconChart />} delay={0.2} />
+        <StatCard label="Всього замовлень" value={orders.length} gradient="from-slate-400 to-slate-600" icon={<IconOrders />} delay={0.3} />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="rounded-2xl border border-white/10 p-6 bg-white/[0.04]">
+          <h3 className="text-white font-bold mb-6 flex items-center gap-2">
+            <span className="w-1 h-4 bg-violet-500 rounded-full" />
+            Розподіл за раціонами
+          </h3>
+          <div className="space-y-4">
+            {Object.entries(categories).map(([key, count]) => {
+              const perc = orders.length ? (count / orders.length * 100) : 0
+              return (
+                <div key={key}>
+                  <div className="flex justify-between text-xs font-bold text-white/60 uppercase tracking-widest mb-2">
+                    <span>{key === 'meals3' ? '3 Страви' : '4 Страви'}</span>
+                    <span>{count} ({perc.toFixed(0)}%)</span>
+                  </div>
+                  <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                    <motion.div initial={{ width: 0 }} animate={{ width: `${perc}%` }} className="h-full bg-violet-500" />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 p-6 bg-white/[0.04]">
+          <h3 className="text-white font-bold mb-6 flex items-center gap-2">
+            <span className="w-1 h-4 bg-indigo-500 rounded-full" />
+            Популярні калорії
+          </h3>
+          <div className="flex flex-wrap gap-3">
+            {Object.entries(calorieStats).map(([cal, count]: [any, any]) => (
+              <div key={cal} className="px-4 py-3 rounded-xl border border-white/10 bg-white/5">
+                <div className="text-white font-black text-lg">{cal} <span className="text-[10px] text-white/40 font-bold tracking-tight">KCAL</span></div>
+                <div className="text-indigo-300/60 text-[11px] font-bold uppercase mt-1">{count} замовлень</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // Status config
 const STATUS_CONFIG: Record<string, { label: string; dot: string; badge: string; select: string }> = {
   'New':         { label: 'Новий',         dot: 'bg-sky-400',     badge: 'bg-sky-400/20 text-sky-200 border-sky-400/40',     select: 'bg-[#0d2035] text-sky-200 border-sky-400/50' },
@@ -388,6 +465,14 @@ function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefresh
   lastRefresh: Date | null; isRefreshing: boolean; onRefresh: () => void; autoRefresh: boolean; setAutoRefresh: (v: boolean) => void
   onSearchChange: (val: string) => void
 }) {
+  const [filterStatus, setFilterStatus] = useState('all')
+  const [filterPackage, setFilterPackage] = useState('all')
+
+  const filtered = orders.filter(o => {
+    if (filterStatus !== 'all' && o.status !== filterStatus) return false
+    if (filterPackage !== 'all' && o.package !== filterPackage) return false
+    return true
+  })
   const getDeliveryDate = (order: any) => {
     if (order.deliveryDate) return order.deliveryDate
     const created = new Date(order.createdAt)
@@ -429,6 +514,34 @@ function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefresh
             className="w-full bg-white/[0.06] border border-white/10 rounded-2xl pl-12 pr-4 py-3.5 text-white font-medium focus:outline-none focus:border-violet-500/50 focus:bg-white/[0.08] transition-all"
             onChange={(e) => onSearchChange(e.target.value)}
           />
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="relative group">
+            <select
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+              className="appearance-none bg-white/[0.06] border border-white/10 rounded-2xl pl-10 pr-10 py-3.5 text-white/70 text-sm font-bold focus:outline-none focus:border-violet-500/50 transition-all cursor-pointer"
+            >
+              <option value="all">Всі статуси</option>
+              {Object.entries(STATUS_CONFIG).map(([val, cfg]) => (
+                <option key={val} value={val}>{cfg.label}</option>
+              ))}
+            </select>
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30"><IconFilter /></div>
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none"><IconChevronDown /></div>
+          </div>
+          <div className="relative group">
+            <select
+              value={filterPackage}
+              onChange={(e) => setFilterPackage(e.target.value)}
+              className="appearance-none bg-white/[0.06] border border-white/10 rounded-2xl pl-4 pr-10 py-3.5 text-white/70 text-sm font-bold focus:outline-none focus:border-violet-500/50 transition-all cursor-pointer"
+            >
+              <option value="all">Всі пакети</option>
+              <option value="meals3">3 Страви</option>
+              <option value="meals4">4 Страви</option>
+            </select>
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none"><IconChevronDown /></div>
+          </div>
         </div>
       </div>
 
@@ -480,13 +593,13 @@ function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefresh
             <table className="min-w-full">
               <thead>
                 <tr className="border-b border-white/10">
-                  {['Дата', 'Клієнт', 'Адреса', 'Замовлення', 'Мова', 'Статус', ''].map(h => (
+                  {['Дата', 'Клієнт', 'Адреса', 'Замовлення', 'Коментар', 'Мова', 'Статус', ''].map(h => (
                     <th key={h} className="px-5 py-4 text-left text-[10px] font-black text-white/35 uppercase tracking-[0.18em]">{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {orders.map((order: any, idx) => {
+                {filtered.map((order: any, idx) => {
                   const sc = STATUS_CONFIG[order.status] || STATUS_CONFIG['New']
                   return (
                     <motion.tr
@@ -552,6 +665,20 @@ function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefresh
                         <span className="inline-flex px-2.5 py-1.5 rounded-lg border border-white/15 text-white/70 text-[11px] font-bold" style={{ background: 'rgba(255,255,255,0.07)' }}>
                           {order.calories} kcal · <span className="text-emerald-300 ml-1">{order.price} zł</span>
                         </span>
+                      </td>
+
+                      {/* Comment */}
+                      <td className="px-5 py-5 min-w-[200px]">
+                        <textarea
+                          defaultValue={order.comment || ''}
+                          placeholder="Додати коментар..."
+                          onBlur={(e) => {
+                            if (e.target.value !== (order.comment || '')) {
+                              onUpdateOrder(order.id, { comment: e.target.value })
+                            }
+                          }}
+                          className="w-full min-h-[60px] bg-white/[0.04] border border-white/5 rounded-xl p-2 text-xs text-white/70 focus:outline-none focus:border-violet-500/30 transition-all resize-none placeholder-white/20"
+                        />
                       </td>
 
                       {/* Language */}
@@ -854,6 +981,7 @@ export default function AdminPage() {
           <nav className="flex-1 px-3 space-y-1.5">
             {[
               { id: 'orders' as SidebarSection, label: 'Замовлення',  Icon: IconOrders, badge: newCount },
+              { id: 'analytics' as SidebarSection, label: 'Аналітика', Icon: IconChart, badge: 0 },
               { id: 'menu'   as SidebarSection, label: 'Меню',         Icon: IconMenu,   badge: 0 },
             ].map(item => {
               const isActive = activeSection === item.id
@@ -924,7 +1052,7 @@ export default function AdminPage() {
 
           <div className="flex-1 flex items-center gap-3">
             <h1 className="text-base font-bold text-white">
-              {activeSection === 'orders' ? 'Замовлення' : 'Редактор меню'}
+              {activeSection === 'orders' ? 'Замовлення' : activeSection === 'analytics' ? 'Аналітика' : 'Редактор меню'}
             </h1>
             {activeSection === 'orders' && orders.length > 0 && (
               <span className="px-2.5 py-1 rounded-lg text-white/50 text-xs font-bold border border-white/10" style={{ background: 'rgba(255,255,255,0.06)' }}>
@@ -965,6 +1093,8 @@ export default function AdminPage() {
                   setAutoRefresh={setAutoRefresh}
                   onSearchChange={setSearchTerm}
                 />
+              ) : activeSection === 'analytics' ? (
+                <AnalyticsSection orders={orders} />
               ) : (
                 <MenuEditorSection />
               )}
