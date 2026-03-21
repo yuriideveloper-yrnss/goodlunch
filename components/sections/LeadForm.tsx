@@ -43,7 +43,7 @@ export default function LeadForm({ dict, lang }: { dict: any, lang: string }) {
 
         {/* Форма справа */}
         <div className="md:w-1/2 bg-white text-brand-dark p-8 rounded-3xl border border-white/10 w-full shadow-2xl relative z-20">
-          <TwoStepForm dict={dict} defaultData={{ lang }} onSuccessAction={() => setSuccess(true)} />
+          <TwoStepForm dict={dict} defaultData={{}} lang={lang} onSuccessAction={() => setSuccess(true)} />
         </div>
       </div>
     </section>

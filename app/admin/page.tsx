@@ -656,7 +656,7 @@ function OrdersSection({ orders, onDelete, onUpdateOrder, lastRefresh, isRefresh
                         <div className="text-white/80 text-sm font-semibold max-w-[180px]">
                           вул. {order.street || '–'}, {order.house || '–'}
                         </div>
-                        <div className="text-white/35 text-[11px] mt-0.5">кв. {order.apt || '–'} · пов. {order.floor || '–'}</div>
+                        <div className="text-white/35 text-[11px] mt-0.5">кв. {order.apt || '–'} · пов. {order.floor || '–'} · дом. {order.intercom || '–'}</div>
                         <div className="mt-2.5 flex items-center gap-2">
                           <div className="flex items-center bg-white/[0.07] border border-white/10 rounded-xl p-1 gap-1">
                             <input
@@ -989,7 +989,7 @@ export default function AdminPage() {
         initial={false}
         animate={{ width: SIDEBAR_W }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="fixed top-0 left-0 h-full z-[70] flex flex-col border-r shrink-0"
+        className={`fixed top-0 left-0 h-full z-[70] flex flex-col border-r shrink-0 transition-transform duration-300 lg:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
         style={{ background: 'rgba(12,10,24,0.97)', borderColor: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(24px)' }}
       >
         <div className="flex flex-col h-full py-6 overflow-hidden">
@@ -1067,10 +1067,8 @@ export default function AdminPage() {
       </motion.aside>
 
       {/* Main */}
-      <motion.div
-        animate={{ marginLeft: SIDEBAR_W }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="flex-1 flex flex-col min-w-0 relative z-10"
+      <div
+        className={`flex-1 flex flex-col min-w-0 relative z-10 transition-all duration-300 lg:ml-[260px] ${isCollapsed ? 'lg:!ml-[80px]' : ''}`}
       >
         {/* Topbar */}
         <header className="sticky top-0 z-50 px-6 py-4 flex items-center gap-4 border-b"
@@ -1133,7 +1131,7 @@ export default function AdminPage() {
             </motion.div>
           </AnimatePresence>
         </main>
-      </motion.div>
+      </div>
     </div>
   )
 }
