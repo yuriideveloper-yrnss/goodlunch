@@ -244,10 +244,11 @@ function MenuEditorSection() {
 
   const autoTranslate = (i: number) => {
     const sourceTitle = currentDay.dishes[i].titles[activeLang]
-    let found = null
+    if (!sourceTitle) return
+    let found: Record<string, string> | null = null
     for (const key in menuTranslations) {
       const e = menuTranslations[key]
-      if (Object.values(e).some((v: any) => v.toLowerCase() === sourceTitle.toLowerCase())) { found = e; break }
+      if (Object.values(e).some((v) => v.toLowerCase() === sourceTitle.toLowerCase())) { found = e; break }
     }
     if (found) {
       setCurrentMenu(currentMenu.map((day: any, dIdx: number) => {
