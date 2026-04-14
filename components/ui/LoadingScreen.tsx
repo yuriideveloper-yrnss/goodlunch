@@ -6,15 +6,12 @@ export default function LoadingScreen({ text = 'Gotujemy...' }: { text?: string 
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        // Hide immediately if already loaded
-        if (document.readyState === 'complete') {
+        // Hide as soon as the component is mounted (hydration complete)
+        // A tiny timeout ensures the animation starts smoothly
+        const timer = setTimeout(() => {
             setIsLoading(false)
-        } else {
-            // Otherwise wait for the load event
-            const handleLoad = () => setIsLoading(false)
-            window.addEventListener('load', handleLoad)
-            return () => window.removeEventListener('load', handleLoad)
-        }
+        }, 100)
+        return () => clearTimeout(timer)
     }, [])
 
     const loopTransition = {
@@ -82,7 +79,7 @@ export default function LoadingScreen({ text = 'Gotujemy...' }: { text?: string 
             {isLoading && (
                 <motion.div
                     initial={{ opacity: 1 }}
-                    exit={{ opacity: 0, transition: { delay: 0.4, duration: 0.4 } }}
+                    exit={{ opacity: 0, transition: { duration: 0.4 } }}
                     className="fixed inset-0 z-[100] bg-brand-bg flex flex-col items-center justify-center overflow-hidden"
                 >
                     <div className="relative w-56 h-56 flex items-center justify-center">
