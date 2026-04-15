@@ -34,7 +34,7 @@ export const dictionary = {
     },
     menu: {
       title: "Co jest w pudełku?",
-      subtitle: "Przykładowe menu z tego tygodnia",
+      subtitle: "Menu na najbliższe dni (od jutra)",
       breakfast: "Śniadanie",
       soup: "Zupa",
       main1: "Danie główne 1",
@@ -161,7 +161,7 @@ export const dictionary = {
     },
     menu: {
       title: "Що всередині?",
-      subtitle: "Приклад меню цього тижня",
+      subtitle: "Меню на найближчі дні (починаючи з завтра)",
       breakfast: "Сніданок",
       soup: "Суп",
       main1: "Основна страва 1",
@@ -288,7 +288,7 @@ export const dictionary = {
     },
     menu: {
       title: "Что внутри?",
-      subtitle: "Пример меню этой недели",
+      subtitle: "Меню на ближайшие дни (начиная с завтра)",
       breakfast: "Завтрак",
       soup: "Суп",
       main1: "Основное блюдо 1",
@@ -415,7 +415,7 @@ export const dictionary = {
     },
     menu: {
       title: "What's in the box?",
-      subtitle: "Example menu for this week",
+      subtitle: "Menu for the upcoming days (starting tomorrow)",
       breakfast: "Breakfast",
       soup: "Soup",
       main1: "Main Dish 1",

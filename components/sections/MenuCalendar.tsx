@@ -14,8 +14,9 @@ export default function MenuCalendar({ dict, lang }: { dict: any, lang: string }
 
     useEffect(() => {
         // Generate dates on client to avoid hydration mismatch
-        const today = new Date()
-        const upcoming = generateUpcomingDays(today, 14) // Two weeks
+        const tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        const upcoming = generateUpcomingDays(tomorrow, 14) // Two weeks starting from tomorrow
         setDates(upcoming)
         setSelectedDate(upcoming[0])
     }, [])
