@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { getMenuForDate, generateUpcomingDays } from '@/lib/menuData'
 import { getTranslatedTitle } from '@/lib/menuTranslations'
 import { useOrder } from '@/components/providers/OrderProvider'
+import { trackEvent } from '@/lib/tracking'
 
 export default function MenuCalendar({ dict, lang }: { dict: any, lang: string }) {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
@@ -69,7 +70,10 @@ export default function MenuCalendar({ dict, lang }: { dict: any, lang: string }
                             return (
                                 <button
                                     key={idx}
-                                    onClick={() => setSelectedDate(date)}
+                                    onClick={() => {
+                                        setSelectedDate(date);
+                                        trackEvent('menu_date_select', { date: date.toDateString() });
+                                    }}
                                     className={`flex-shrink-0 snap-start px-6 py-4 rounded-2xl flex flex-col items-center justify-center min-w-[100px] border shadow-sm transition-all duration-300 ${isSelected
                                         ? 'bg-brand-orange border-brand-orange text-white scale-105 shadow-md shadow-brand-orange/40'
                                         : 'bg-white border-gray-100 text-gray-500 hover:border-brand-orange/30 hover:bg-orange-50/50'

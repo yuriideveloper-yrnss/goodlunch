@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { trackEvent, trackLead } from '@/lib/tracking'
 
 export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSuccessAction }: { dict: any, defaultData?: any, lang?: string, onSuccessAction?: () => void }) {
     const [step, setStep] = useState(1)
@@ -32,6 +33,7 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
             if (data.orderId) {
                 setOrderId(data.orderId)
             }
+            trackEvent('begin_checkout', { items: [{ item_name: 'Meal Plan' }] })
             setStep(2)
         } catch (err) {
             setStep(2)
@@ -49,9 +51,10 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, ...defaultData, lang, id: orderId, step: 2 })
             })
-            if (typeof window !== 'undefined' && (window as any).fbq) {
-                (window as any).fbq('track', 'Lead')
-            }
+            trackLead({
+                event_category: 'form',
+                event_label: 'TwoStepForm'
+            })
             if (onSuccessAction) onSuccessAction()
         } catch (err) {
             if (onSuccessAction) onSuccessAction()

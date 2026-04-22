@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import Image from 'next/image'
+import { trackEvent } from '@/lib/tracking'
 
 export default function Hero({ lang, dict }: { lang: string, dict: any }) {
   return (
@@ -38,12 +39,12 @@ export default function Hero({ lang, dict }: { lang: string, dict: any }) {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start w-full">
-            <a href="#cennik" className="w-full sm:w-auto">
+            <a href="#cennik" className="w-full sm:w-auto" onClick={() => trackEvent('hero_cta_click', { target: 'cennik' })}>
               <Button size="lg" variant="primary" className="w-full shadow-brand-orange/40 shadow-xl">
                 {dict.hero.cta_main}
               </Button>
             </a>
-            <a href="#menu" className="w-full sm:w-auto">
+            <a href="#menu" className="w-full sm:w-auto" onClick={() => trackEvent('hero_cta_click', { target: 'menu' })}>
               <Button size="lg" variant="outline" className="w-full bg-white/50 backdrop-blur-sm">
                 {dict.hero.cta_menu}
               </Button>

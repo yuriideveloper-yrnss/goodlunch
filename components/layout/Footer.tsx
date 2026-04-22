@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { trackEvent } from '@/lib/tracking'
 
 export default function Footer({ lang }: { lang: string }) {
     const currentYear = new Date().getFullYear();
@@ -44,6 +45,7 @@ export default function Footer({ lang }: { lang: string }) {
                         href="https://www.instagram.com/goodlunch1/"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackEvent('click_footer_instagram')}
                         className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-brand-orange hover:text-white transition-all duration-300"
                         aria-label="Instagram"
                     >

@@ -5,6 +5,7 @@ import { PRICING } from '@/lib/constants'
 import { useOrder } from '@/components/providers/OrderProvider'
 import { OrderModal } from '@/components/ui/OrderModal'
 import { CalorieAdvisor } from '@/components/ui/CalorieAdvisor'
+import { trackEvent } from '@/lib/tracking'
 
 export default function PriceCalculator({ dict, lang }: { dict: any; lang?: string }) {
   const { mealPackage, setMealPackage } = useOrder()
@@ -23,6 +24,7 @@ export default function PriceCalculator({ dict, lang }: { dict: any; lang?: stri
 
   const handlePackageChange = (pkg: 'meals3' | 'meals4') => {
     setMealPackage(pkg);
+    trackEvent('calculator_package_change', { package: pkg });
   }
 
   const currentTier = currentOptions.find(c => c.value === calories) || currentOptions[0]
@@ -129,7 +131,10 @@ export default function PriceCalculator({ dict, lang }: { dict: any; lang?: stri
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => {
+                setIsModalOpen(true);
+                trackEvent('calculator_order_click', { package: mealPackage, calories: calories, price: trialPrice });
+              }}
               className="w-full sm:w-auto bg-brand-orange text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-brand-orange/30"
             >
               {dict.calc.order_btn}

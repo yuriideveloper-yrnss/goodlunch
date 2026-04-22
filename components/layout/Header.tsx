@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useParams, usePathname } from 'next/navigation'
+import { trackEvent } from '@/lib/tracking'
 
 export default function Header({ lang }: { lang: string }) {
   const [scrolled, setScrolled] = useState(false)
@@ -40,7 +41,13 @@ export default function Header({ lang }: { lang: string }) {
       <div className="container mx-auto px-4 flex justify-between items-center gap-4">
 
         {/* ЛОГОТИП -> Инстаграм */}
-        <a href="https://www.instagram.com/goodlunch1/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 flex-shrink-0 cursor-pointer">
+        <a 
+          href="https://www.instagram.com/goodlunch1/" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="flex items-center gap-2 flex-shrink-0 cursor-pointer"
+          onClick={() => trackEvent('click_instagram_logo')}
+        >
           <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-brand-orange hover:scale-105 transition-transform">
             <Image
               src="/logo.png"
@@ -58,10 +65,10 @@ export default function Header({ lang }: { lang: string }) {
 
         {/* НАВИГАЦИЯ (Только на больших экранах, можно сделать меню-бургер для мобильных потом) */}
         <nav className="hidden md:flex gap-6 lg:gap-8 font-medium text-sm text-gray-600">
-          <a href="#menu" className="hover:text-brand-orange transition-colors">{txt.menu}</a>
-          <a href="#cennik" className="hover:text-brand-orange transition-colors">{txt.price}</a>
-          <a href="#opinie" className="hover:text-brand-orange transition-colors">{txt.reviews}</a>
-          <a href="#faq" className="hover:text-brand-orange transition-colors">{txt.faq}</a>
+          <a href="#menu" className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'menu' })}>{txt.menu}</a>
+          <a href="#cennik" className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'cennik' })}>{txt.price}</a>
+          <a href="#opinie" className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'opinie' })}>{txt.reviews}</a>
+          <a href="#faq" className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'faq' })}>{txt.faq}</a>
         </nav>
 
         {/* Переключатель языка (Флаги) */}

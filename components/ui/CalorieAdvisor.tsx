@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PRICING } from '@/lib/constants'
+import { trackEvent } from '@/lib/tracking'
 
 type Gender = 'male' | 'female'
 type ActivityLevel = 1 | 2 | 3 | 4 | 5
@@ -79,11 +80,13 @@ export function CalorieAdvisor({
     const best = findBestOption(tdee)
     setResult(tdee)
     setSuggestion(best)
+    trackEvent('calorie_calculation', { gender, activity, result: tdee })
   }
 
   const handleSelect = () => {
     if (suggestion) {
       onSelectPackageAndCaloriesAction(suggestion.pkg, suggestion.calories)
+      trackEvent('calorie_advisor_select_plan', { package: suggestion.pkg, calories: suggestion.calories })
       onCloseAction()
     }
   }
