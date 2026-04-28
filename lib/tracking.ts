@@ -14,6 +14,11 @@ export const trackEvent = (eventName: string, params?: any) => {
   if ((window as any).fbq) {
     (window as any).fbq('track', eventName, params);
   }
+
+  // TikTok Pixel
+  if ((window as any).ttq) {
+    (window as any).ttq.track(eventName, params);
+  }
 };
 
 export const trackLead = (params?: any) => {
@@ -29,6 +34,11 @@ export const trackLead = (params?: any) => {
   // Meta Pixel
   if ((window as any).fbq) {
     (window as any).fbq('track', 'Lead', params);
+  }
+
+  // TikTok Pixel
+  if ((window as any).ttq) {
+    (window as any).ttq.track('SubmitForm', params);
   }
 };
 
@@ -49,5 +59,10 @@ export const trackPurchase = (value: number, currency: string = 'PLN', params?: 
   // Meta Pixel
   if ((window as any).fbq) {
     (window as any).fbq('track', 'Purchase', purchaseParams);
+  }
+
+  // TikTok Pixel
+  if ((window as any).ttq) {
+    (window as any).ttq.track('CompletePayment', purchaseParams);
   }
 };
