@@ -5,6 +5,13 @@
 export const trackEvent = (eventName: string, params?: any) => {
   if (typeof window === 'undefined') return;
 
+  // Push to Google Tag Manager
+  (window as any).dataLayer = (window as any).dataLayer || [];
+  (window as any).dataLayer.push({
+    event: eventName,
+    ...params
+  });
+
   // Google Analytics / Google Ads
   if ((window as any).gtag) {
     (window as any).gtag('event', eventName, params);
@@ -23,6 +30,13 @@ export const trackEvent = (eventName: string, params?: any) => {
 
 export const trackLead = (params?: any) => {
   if (typeof window === 'undefined') return;
+
+  // Push to Google Tag Manager
+  (window as any).dataLayer = (window as any).dataLayer || [];
+  (window as any).dataLayer.push({
+    event: 'generate_lead',
+    ...params
+  });
 
   // Google Analytics / Ads
   if ((window as any).gtag) {
@@ -50,6 +64,13 @@ export const trackPurchase = (value: number, currency: string = 'PLN', params?: 
     currency,
     ...params
   };
+
+  // Push to Google Tag Manager
+  (window as any).dataLayer = (window as any).dataLayer || [];
+  (window as any).dataLayer.push({
+    event: 'purchase',
+    ...purchaseParams
+  });
 
   // Google Analytics / Ads
   if ((window as any).gtag) {
