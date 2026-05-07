@@ -30,13 +30,6 @@ export default function TrackingScripts() {
                 }}
             />
 
-            {/* CookieYes Banner */}
-            <Script
-                id="cookieyes"
-                src="https://cdn-cookieyes.com/client_data/7ed25ba798869ae1aa7822418c259317/script.js"
-                strategy="beforeInteractive"
-            />
-
             {/* Google Tag Manager */}
             <Script id="gtm" strategy="afterInteractive">
                 {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
