@@ -1,9 +1,42 @@
 'use client'
 import Script from 'next/script'
 
+declare global {
+    interface Window {
+        dataLayer: any[];
+    }
+}
+
 export default function TrackingScripts() {
     return (
         <>
+            {/* Default Consent Mode v2 */}
+            <Script
+                id="consent-mode-default"
+                strategy="beforeInteractive"
+                dangerouslySetInnerHTML={{
+                    __html: `
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){window.dataLayer.push(arguments);}
+                        
+                        gtag('consent', 'default', {
+                            'ad_storage': 'denied',
+                            'analytics_storage': 'denied',
+                            'ad_user_data': 'denied',
+                            'ad_personalization': 'denied',
+                            'wait_for_update': 500
+                        });
+                    `,
+                }}
+            />
+
+            {/* CookieYes Banner */}
+            <Script
+                id="cookieyes"
+                src="https://cdn-cookieyes.com/client_data/7ed25ba798869ae1aa7822418c259317/script.js"
+                strategy="beforeInteractive"
+            />
+
             {/* Google Tag Manager */}
             <Script id="gtm" strategy="afterInteractive">
                 {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -27,14 +60,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 src="https://www.googletagmanager.com/gtag/js?id=AW-18066459268"
                 strategy="afterInteractive"
             />
-            <Script id="google-tag" strategy="afterInteractive">
-                {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'AW-18066459268');
-        `}
-            </Script>
+            <Script
+                id="google-tag"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                    __html: `
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){window.dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', 'AW-18066459268');
+                    `,
+                }}
+            />
 
             {/* Facebook Meta Pixel */}
             <Script id="meta-pixel" strategy="afterInteractive">
