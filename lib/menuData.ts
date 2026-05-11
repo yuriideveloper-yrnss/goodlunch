@@ -21,7 +21,7 @@ export const week1Menu: WeekMenu = [
       { id: 'w1-d1-b', type: 'breakfast', title: 'Szakszuka' },
       { id: 'w1-d1-s', type: 'soup', title: 'Barszcz czerwony' },
       { id: 'w1-d1-m1', type: 'main1', title: 'Bulgur z zapiekanka z kurczaka i pesto' },
-      { id: 'w1-d1-m2', type: 'main2', title: 'Pierogi z cebulą i śmietaną' },
+      { id: 'w1-d1-m2', type: 'main2', title: 'Kluski z mięsem po francusku' },
     ]
   },
   {

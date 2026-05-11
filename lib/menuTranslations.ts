@@ -24,6 +24,12 @@ export const menuTranslations: Record<string, Record<string, string>> = {
         ru: 'Вареники с луком и сметаной',
         en: 'Dumplings with onion and sour cream'
     },
+    'Kluski z mięsem po francusku': {
+        pl: 'Kluski z mięsem po francusku',
+        ua: 'Клецьки з м\'ясом по-французьки',
+        ru: 'Клецки с мясом по-французски',
+        en: 'French-style meat dumplings'
+    },
     'Naleśniki z serem, szynką i śmietaną': {
         pl: 'Naleśniki z serem, szynką i śmietaną',
         ua: 'Млинці з сиром, шинкою та сметаною',
