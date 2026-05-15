@@ -73,7 +73,7 @@ export const week1Menu: WeekMenu = [
     dayIndex: 7, // Niedziela
     dishes: [
       { id: 'w1-d7-b', type: 'breakfast', title: 'Frittata z warzywami' },
-      { id: 'w1-d7-s', type: 'soup', title: 'Rosół z kurczaka' },
+      { id: 'w1-d7-s', type: 'soup', title: 'Tortilla z kurczakiem, warzywami i sosem' },
       { id: 'w1-d7-m1', type: 'main1', title: 'Żulien z kurczakiem i grzybami' },
       { id: 'w1-d7-m2', type: 'main2', title: 'Czachochbili z ryżem' },
     ]
@@ -140,18 +140,40 @@ export const week2Menu: WeekMenu = [
     dayIndex: 7, // Niedziela
     dishes: [
       { id: 'w2-d7-b', type: 'breakfast', title: 'Sernik z brzoskwinią i jogurtem' },
-      { id: 'w2-d7-s', type: 'soup', title: 'Charczo' },
+      { id: 'w2-d7-s', type: 'soup', title: 'Tortilla z kurczakiem, warzywami i sosem' },
       { id: 'w2-d7-m1', type: 'main1', title: 'Purée z siekanym kotletem z kurczaka' },
       { id: 'w2-d7-m2', type: 'main2', title: 'Makaron szklany z kurczakiem' },
     ]
   },
 ];
 
+
 /**
- * Calculates which week applies to the given date and returns the day's menu.
- * We know that Mar 16, 2026 is Monday of Week 1.
+ * Maps flat DB menu items back to the WeekMenu structure.
  */
-export function getMenuForDate(date: Date): { weekNumber: number; menu: DayMenu } {
+export function mapDbMenuToAppStructure(dbItems: any[]): { week1: WeekMenu, week2: WeekMenu } {
+  const mapWeek = (weekNum: number) => {
+    return Array.from({ length: 7 }, (_, i) => {
+      const dayIndex = i + 1;
+      const dayDishes = dbItems
+        .filter(item => item.week_number === weekNum && item.day_index === dayIndex)
+        .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0))
+        .map(item => ({
+          id: `db-${item.id}`,
+          type: item.dish_type as any,
+          title: item.title_pl // Use PL as base, we'll translate later
+        }));
+      return { dayIndex, dishes: dayDishes };
+    });
+  };
+
+  return {
+    week1: mapWeek(1),
+    week2: mapWeek(2)
+  };
+}
+
+export function getMenuForDate(date: Date, customMenu?: { week1: WeekMenu, week2: WeekMenu }): { weekNumber: number; menu: DayMenu } {
   // Use UTC to avoid timezone issues when calculating days difference
   const targetDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
   
@@ -172,7 +194,10 @@ export function getMenuForDate(date: Date): { weekNumber: number; menu: DayMenu 
   // In JS, 0 is Sunday. Convert to 1-7 where 1 is Monday.
   dayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
   
-  const selectedWeek = isWeek1 ? week1Menu : week2Menu;
+  const selectedWeek = customMenu 
+    ? (isWeek1 ? customMenu.week1 : customMenu.week2)
+    : (isWeek1 ? week1Menu : week2Menu);
+    
   const menu = selectedWeek.find(d => d.dayIndex === dayOfWeek)!;
   
   return {

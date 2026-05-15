@@ -8,7 +8,7 @@ import LoadingScreen from "@/components/ui/LoadingScreen";
 import FloatingBackgrounds from "@/components/ui/FloatingBackgrounds";
 import { OrderProvider } from "@/components/providers/OrderProvider";
 import TrackingScripts from "@/components/scripts/TrackingScripts";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 
 export const viewport: Viewport = {
   width: "device-width",

@@ -338,6 +338,12 @@ export const menuTranslations: Record<string, Record<string, string>> = {
         ru: 'Фунчоза с курицей',
         en: 'Glass noodles with chicken'
     },
+    'Tortilla z kurczakiem, warzywami i sosem1': {
+        pl: 'Tortilla z kurczakiem, warzywami i sosem',
+        ua: 'Тортилья з куркою, овочами та соусом',
+        ru: 'Тортилья с курицей, овощами и соусом',
+        en: 'Tortilla with chicken, vegetables and sauce'
+    },
 };
 
 export function getTranslatedTitle(title: string, lang: string): string {

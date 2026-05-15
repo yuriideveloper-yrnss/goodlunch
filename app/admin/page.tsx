@@ -222,132 +222,192 @@ function StatCard({ label, value, gradient, icon, delay }: { label: string; valu
 
 // ─── Menu Editor ───
 function MenuEditorSection() {
-  const [weekNum, setWeekNum] = useState<1 | 2>(1)
-  const [selectedDay, setSelectedDay] = useState(0)
+  const [week1, setWeek1] = useState<any[]>([])
+  const [week2, setWeek2] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [activeWeek, setActiveWeek] = useState(1)
+  const [activeDay, setActiveDay] = useState(0)
   const [activeLang, setActiveLang] = useState<Language>('ua')
-  const [w1, setW1] = useState(() => loadMenuFromStorage(STORAGE_KEY_W1, week1Menu))
-  const [w2, setW2] = useState(() => loadMenuFromStorage(STORAGE_KEY_W2, week2Menu))
-  const [saved, setSaved] = useState(false)
+  const [message, setMessage] = useState('')
 
-  const currentMenu = weekNum === 1 ? w1 : w2
-  const setCurrentMenu = weekNum === 1 ? setW1 : setW2
-  const currentDay = currentMenu[selectedDay]
+  // Initial fetch from database
+  useEffect(() => {
+    fetchMenu()
+  }, [])
 
-  const handleDishChange = (i: number, lang: Language, val: string) => {
-    setCurrentMenu(currentMenu.map((day: any, dIdx: number) => {
-      if (dIdx !== selectedDay) return day
-      const dishes = [...day.dishes]
-      dishes[i] = { ...dishes[i], titles: { ...dishes[i].titles, [lang]: val } }
-      return { ...day, dishes }
-    }))
+  const fetchMenu = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch('/api/menu')
+      const data = await res.json()
+      
+      if (data.week1 && data.week1.length > 0) {
+        setWeek1(data.week1)
+        setWeek2(data.week2)
+      } else {
+        // Fallback to local if DB is empty
+        setWeek1(initMultilangMenu(week1Menu))
+        setWeek2(initMultilangMenu(week2Menu))
+      }
+    } catch (err) {
+      console.error('Failed to fetch menu:', err)
+      // Fallback
+      setWeek1(initMultilangMenu(week1Menu))
+      setWeek2(initMultilangMenu(week2Menu))
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const autoTranslate = (i: number) => {
-    const sourceTitle = currentDay.dishes[i].titles[activeLang]
-    if (!sourceTitle) return
-    let found: Record<string, string> | null = null
-    for (const key in menuTranslations) {
-      const e = menuTranslations[key]
-      if (Object.values(e).some((v) => v.toLowerCase() === sourceTitle.toLowerCase())) { found = e; break }
+  const handleSave = async () => {
+    setSaving(true)
+    setMessage('')
+    try {
+      const res = await fetch('/api/admin/menu', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ week1, week2 })
+      })
+      if (res.ok) {
+        setMessage('Меню збережено успішно! ✨')
+        setTimeout(() => setMessage(''), 3000)
+      } else {
+        throw new Error('Failed to save')
+      }
+    } catch (err) {
+      setMessage('Помилка при збереженні ❌')
+    } finally {
+      setSaving(false)
     }
-    if (found) {
-      setCurrentMenu(currentMenu.map((day: any, dIdx: number) => {
-        if (dIdx !== selectedDay) return day
-        const dishes = [...day.dishes]
-        dishes[i] = { ...dishes[i], titles: found }
-        return { ...day, dishes }
-      }))
+  }
+
+  const syncFromCode = async () => {
+    if (!confirm('Це перезапише меню в базі даними з коду. Продовжити?')) return
+    setWeek1(initMultilangMenu(week1Menu))
+    setWeek2(initMultilangMenu(week2Menu))
+    setMessage('Дані з коду завантажено. Натисніть "Зберегти", щоб відправити в базу.')
+  }
+
+  const handleDishChange = (dishIdx: number, lang: Language, value: string) => {
+    const setter = activeWeek === 1 ? setWeek1 : setWeek2
+    const currentWeek = activeWeek === 1 ? week1 : week2
+    
+    const newWeek = JSON.parse(JSON.stringify(currentWeek))
+    newWeek[activeDay].dishes[dishIdx].titles[lang] = value
+    setter(newWeek)
+  }
+
+  const autoTranslate = async (dishIdx: number) => {
+    const currentWeek = activeWeek === 1 ? week1 : week2
+    const dish = currentWeek[activeDay].dishes[dishIdx]
+    const sourceText = dish.titles[activeLang]
+    
+    if (!sourceText) return
+    
+    setMessage('Перекладаю...')
+    const e = menuTranslations[sourceText]
+    if (e) {
+      const setter = activeWeek === 1 ? setWeek1 : setWeek2
+      const newWeek = JSON.parse(JSON.stringify(currentWeek))
+      newWeek[activeDay].dishes[dishIdx].titles = {
+        pl: e.pl, ua: e.ua, ru: e.ru, en: e.en
+      }
+      setter(newWeek)
+      setMessage('Готово! ✨')
     } else {
-      alert('Переклад не знайдено.')
+      setMessage('Переклад не знайдено в базі 🤷‍♂️')
     }
+    setTimeout(() => setMessage(''), 2000)
   }
 
-  const handleSave = () => {
-    localStorage.setItem(weekNum === 1 ? STORAGE_KEY_W1 : STORAGE_KEY_W2, JSON.stringify(currentMenu))
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2500)
-  }
+  if (loading) return (
+    <div className="flex flex-col items-center justify-center py-20 gap-4">
+      <div className="w-10 h-10 border-4 border-violet-500/20 border-t-violet-500 rounded-full animate-spin" />
+      <p className="text-white/40 font-bold text-sm uppercase tracking-widest">Завантаження меню...</p>
+    </div>
+  )
+
+  const currentWeekData = activeWeek === 1 ? week1 : week2
+  const currentDay = currentWeekData[activeDay]
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-        <div>
-          <h1 className="text-2xl font-black text-white tracking-tight">Редактор меню</h1>
-          <p className="text-white/50 text-sm mt-1">Мультимовне керування стравами на тиждень</p>
-        </div>
-        <motion.button
-          whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-          onClick={handleSave}
-          className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-bold shadow-lg transition-all duration-300 ${
-            saved ? 'bg-emerald-500 text-white shadow-emerald-500/30'
-              : 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-indigo-500/30 hover:shadow-indigo-500/50'
-          }`}
-        >
-          <IconSave />
-          {saved ? '✓ Збережено!' : 'Зберегти зміни'}
-        </motion.button>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-6">
-        {/* Left sidebar */}
-        <div className="space-y-3">
-          {/* Week selector */}
-          <div className="border border-white/10 rounded-xl p-1.5 flex gap-1" style={{ background: 'rgba(255,255,255,0.05)' }}>
-            {([1, 2] as const).map(w => (
-              <button key={w} onClick={() => setWeekNum(w)}
-                className={`flex-1 py-2.5 rounded-lg text-sm font-bold transition-all ${
-                  weekNum === w ? 'bg-white/15 text-white shadow-sm' : 'text-white/40 hover:text-white/70'
+    <div className="max-w-5xl mx-auto space-y-6 pb-20">
+      {/* Header with Actions */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/[0.03] border border-white/10 p-4 rounded-2xl">
+        <div className="flex items-center gap-4">
+          <div className="flex bg-black/40 p-1 rounded-xl border border-white/10">
+            {[1, 2].map(w => (
+              <button key={w} onClick={() => setActiveWeek(w)}
+                className={`px-6 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${
+                  activeWeek === w ? 'bg-violet-600 text-white shadow-lg' : 'text-white/40 hover:text-white/70'
                 }`}
               >
                 Тиждень {w}
               </button>
             ))}
           </div>
+          <button onClick={syncFromCode} className="text-[10px] font-bold text-white/30 hover:text-violet-400 transition-colors uppercase tracking-widest border border-white/5 px-3 py-2 rounded-lg">
+            Синхронізувати з коду
+          </button>
+        </div>
 
-          {/* Day list */}
-          <div className="border border-white/10 rounded-xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.04)' }}>
-            {DAY_NAMES_FULL.map((name, idx) => (
-              <button key={idx} onClick={() => setSelectedDay(idx)}
-                className={`w-full px-4 py-3.5 text-left text-sm transition-all flex items-center gap-3 border-b border-white/[0.06] last:border-0 ${
-                  selectedDay === idx ? 'bg-gradient-to-r from-violet-600/40 to-indigo-600/20 text-white font-bold'
-                    : 'text-white/60 hover:bg-white/[0.06] hover:text-white font-medium'
+        <div className="flex items-center gap-3">
+          {message && <span className="text-xs font-bold text-violet-300 animate-pulse">{message}</span>}
+          <button onClick={handleSave} disabled={saving}
+            className="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 disabled:opacity-50 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow-xl shadow-emerald-900/20 transition-all active:scale-95"
+          >
+            {saving ? <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" /> : <IconSave />}
+            Зберегти зміни
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6">
+        {/* Left: Day Selector */}
+        <div className="space-y-3">
+          <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] ml-2">Виберіть день</label>
+          <div className="grid grid-cols-1 gap-2">
+            {DAY_NAMES_FULL.map((name, i) => (
+              <button key={i} onClick={() => setActiveDay(i)}
+                className={`flex items-center justify-between px-5 py-4 rounded-2xl border transition-all ${
+                  activeDay === i 
+                    ? 'bg-violet-600/20 border-violet-500/50 text-white' 
+                    : 'bg-white/[0.03] border-white/5 text-white/40 hover:border-white/20 hover:text-white/70'
                 }`}
               >
-                <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-black transition-all shrink-0 ${
-                  selectedDay === idx ? 'bg-violet-500 text-white' : 'bg-white/10 text-white/40'
-                }`}>{DAY_SHORT[idx]}</span>
-                {name}
+                <div className="flex items-center gap-3">
+                  <span className={`text-xs font-black ${activeDay === i ? 'text-violet-400' : 'text-white/20'}`}>0{i+1}</span>
+                  <span className="font-bold text-sm">{name}</span>
+                </div>
+                {activeDay === i && <div className="w-1.5 h-1.5 rounded-full bg-violet-400 shadow-[0_0_12px_rgba(167,139,250,0.8)]" />}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Editor */}
-        <div className="border border-white/10 rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.04)' }}>
-          {/* Lang tabs */}
-          <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between flex-wrap gap-3" style={{ background: 'rgba(255,255,255,0.03)' }}>
-            <div className="flex gap-2">
+        {/* Right: Dish Editor */}
+        <div className="bg-white/[0.04] border border-white/10 rounded-3xl p-6 md:p-8 space-y-8">
+          <div className="flex items-center justify-between border-b border-white/10 pb-6">
+            <div>
+              <h2 className="text-2xl font-black text-white">{DAY_NAMES_FULL[activeDay]}</h2>
+              <p className="text-white/40 text-xs font-bold uppercase tracking-widest mt-1">Редагування страв тижня {activeWeek}</p>
+            </div>
+            
+            <div className="flex bg-black/40 p-1 rounded-xl border border-white/10">
               {LANGUAGES.map(lang => (
                 <button key={lang.id} onClick={() => setActiveLang(lang.id)}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-semibold border transition-all ${
-                    activeLang === lang.id
-                      ? 'bg-white/15 border-white/25 text-white shadow-sm'
-                      : 'border-transparent text-white/40 hover:text-white/70 hover:bg-white/[0.06]'
-                  }`}
+                  className={`p-2 rounded-lg transition-all ${activeLang === lang.id ? 'bg-white/10 shadow-inner' : 'opacity-40 hover:opacity-100'}`}
+                  title={lang.label}
                 >
-                  <CountryFlag lang={lang.id} size={18} />
-                  <span>{lang.label}</span>
+                  <CountryFlag lang={lang.id} size={20} />
                 </button>
               ))}
             </div>
-            <span className="text-white/30 text-[11px] font-bold uppercase tracking-widest">
-              {DAY_NAMES_FULL[selectedDay]} · Тиждень {weekNum}
-            </span>
           </div>
 
-          {/* Dishes */}
-          <div className="p-6 space-y-5">
-            {currentDay.dishes.map((dish: any, i: number) => (
+          <div className="space-y-6">
+            {currentDay?.dishes?.map((dish: any, i: number) => (
               <div key={i} className="group relative">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">

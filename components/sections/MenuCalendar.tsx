@@ -1,7 +1,7 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { getMenuForDate, generateUpcomingDays } from '@/lib/menuData'
+import { getMenuForDate, generateUpcomingDays, WeekMenu, mapDbMenuToAppStructure } from '@/lib/menuData'
 import { getTranslatedTitle } from '@/lib/menuTranslations'
 import { useOrder } from '@/components/providers/OrderProvider'
 import { trackEvent } from '@/lib/tracking'
@@ -9,6 +9,7 @@ import { trackEvent } from '@/lib/tracking'
 export default function MenuCalendar({ dict, lang }: { dict: any, lang: string }) {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
     const [dates, setDates] = useState<Date[]>([])
+    const [dbMenu, setDbMenu] = useState<{ week1: WeekMenu, week2: WeekMenu } | null>(null)
 
     // Global State for Meal Package
     const { mealPackage } = useOrder()
@@ -20,11 +21,27 @@ export default function MenuCalendar({ dict, lang }: { dict: any, lang: string }
         const upcoming = generateUpcomingDays(tomorrow, 14) // Two weeks starting from tomorrow
         setDates(upcoming)
         setSelectedDate(upcoming[0])
+
+        // Fetch menu from Supabase
+        const fetchMenu = async () => {
+            try {
+                const res = await fetch('/api/menu')
+                if (res.ok) {
+                    const { menu } = await res.json()
+                    if (menu) {
+                        setDbMenu(mapDbMenuToAppStructure(menu))
+                    }
+                }
+            } catch (e) {
+                console.error('Failed to fetch dynamic menu:', e)
+            }
+        }
+        fetchMenu()
     }, [])
 
     if (!selectedDate || dates.length === 0) return null;
 
-    const { weekNumber, menu } = getMenuForDate(selectedDate);
+    const { weekNumber, menu } = getMenuForDate(selectedDate, dbMenu || undefined);
     const getLocale = (l: string) => {
         if (l === 'pl') return 'pl-PL';
         if (l === 'ua') return 'uk-UA';
