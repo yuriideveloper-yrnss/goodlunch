@@ -4,6 +4,12 @@ export type Dish = {
   id: string;
   type: 'breakfast' | 'soup' | 'main1' | 'main2';
   title: string;
+  titles?: {
+    pl: string;
+    ua: string;
+    ru: string;
+    en: string;
+  };
 }
 
 export type DayMenu = {
