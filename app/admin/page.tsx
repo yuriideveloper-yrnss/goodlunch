@@ -264,29 +264,59 @@ function MenuEditorSection() {
     setSaving(true)
     setMessage('')
     try {
+      // Flatten week1 and week2 for the database
+      const menuItems: any[] = []
+      
+      const processWeek = (weekData: any[], weekNum: number) => {
+        weekData.forEach((day: any) => {
+          day.dishes.forEach((dish: any, dishIdx: number) => {
+            menuItems.push({
+              week_number: weekNum,
+              day_index: day.dayIndex,
+              dish_type: dish.type,
+              title_pl: dish.titles.pl,
+              title_ua: dish.titles.ua,
+              title_ru: dish.titles.ru,
+              title_en: dish.titles.en,
+              sort_order: dishIdx
+            })
+          })
+        })
+      }
+
+      processWeek(week1, 1)
+      processWeek(week2, 2)
+
       const res = await fetch('/api/admin/menu', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ week1, week2 })
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${btoa(`${process.env.NEXT_PUBLIC_ADMIN_LOGIN || 'admin'}:${process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin'}`)}`
+        },
+        body: JSON.stringify({ menuItems })
       })
+
       if (res.ok) {
-        setMessage('Меню збережено успішно! ✨')
+        setMessage('Меню збережено в базу! ✨')
         setTimeout(() => setMessage(''), 3000)
       } else {
-        throw new Error('Failed to save')
+        const errData = await res.json()
+        throw new Error(errData.error || 'Failed to save')
       }
-    } catch (err) {
-      setMessage('Помилка при збереженні ❌')
+    } catch (err: any) {
+      console.error('Save error:', err)
+      setMessage(`Помилка: ${err.message} ❌`)
     } finally {
       setSaving(false)
     }
   }
 
   const syncFromCode = async () => {
-    if (!confirm('Це перезапише меню в базі даними з коду. Продовжити?')) return
+    if (!confirm('Це завантажить актуальне меню з коду (включаючи Тортилью) в редактор. Потім потрібно буде натиснути "Зберегти". Продовжити?')) return
     setWeek1(initMultilangMenu(week1Menu))
     setWeek2(initMultilangMenu(week2Menu))
-    setMessage('Дані з коду завантажено. Натисніть "Зберегти", щоб відправити в базу.')
+    setMessage('Дані з коду завантажено в редактор! 📥')
+    setTimeout(() => setMessage(''), 3000)
   }
 
   const handleDishChange = (dishIdx: number, lang: Language, value: string) => {
@@ -347,8 +377,11 @@ function MenuEditorSection() {
               </button>
             ))}
           </div>
-          <button onClick={syncFromCode} className="text-[10px] font-bold text-white/30 hover:text-violet-400 transition-colors uppercase tracking-widest border border-white/5 px-3 py-2 rounded-lg">
-            Синхронізувати з коду
+          <button 
+            onClick={syncFromCode} 
+            className="text-[10px] font-black text-violet-300 hover:text-white hover:bg-violet-600/30 transition-all uppercase tracking-widest border border-violet-500/30 px-4 py-2 rounded-xl bg-violet-500/10"
+          >
+            🔄 Синхронізувати з коду
           </button>
         </div>
 
@@ -358,7 +391,7 @@ function MenuEditorSection() {
             className="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 disabled:opacity-50 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow-xl shadow-emerald-900/20 transition-all active:scale-95"
           >
             {saving ? <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" /> : <IconSave />}
-            Зберегти зміни
+            Зберегти зміни в базу
           </button>
         </div>
       </div>
