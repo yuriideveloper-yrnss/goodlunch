@@ -1,22 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabaseClient';
 
-const checkAuth = (request: Request) => {
-    const authHeader = request.headers.get('Authorization');
-    if (!authHeader || !authHeader.startsWith('Basic ')) return false;
-    
-    const base64Credentials = authHeader.split(' ')[1];
-    const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
-    const [login, password] = credentials.split(':');
-    
-    return login === process.env.ADMIN_LOGIN && password === process.env.ADMIN_PASSWORD;
-};
-
 export async function GET(request: Request) {
-    if (!checkAuth(request)) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     try {
         const { data, error } = await supabase
             .from('menu_items')
@@ -35,10 +20,6 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-    if (!checkAuth(request)) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     try {
         const body = await request.json();
         const { menuItems } = body; // Array of menu items

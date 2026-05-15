@@ -290,8 +290,7 @@ function MenuEditorSection() {
       const res = await fetch('/api/admin/menu', {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Basic ${btoa(`${process.env.NEXT_PUBLIC_ADMIN_LOGIN || 'admin'}:${process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin'}`)}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ menuItems })
       })

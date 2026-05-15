@@ -161,7 +161,13 @@ export function mapDbMenuToAppStructure(dbItems: any[]): { week1: WeekMenu, week
         .map(item => ({
           id: `db-${item.id}`,
           type: item.dish_type as any,
-          title: item.title_pl // Use PL as base, we'll translate later
+          title: item.title_pl,
+          titles: {
+            pl: item.title_pl,
+            ua: item.title_ua,
+            ru: item.title_ru,
+            en: item.title_en
+          }
         }));
       return { dayIndex, dishes: dayDishes };
     });

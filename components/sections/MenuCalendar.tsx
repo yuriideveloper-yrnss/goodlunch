@@ -149,7 +149,7 @@ export default function MenuCalendar({ dict, lang }: { dict: any, lang: string }
                                         </span>
 
                                         <h3 className="text-lg font-bold text-brand-dark flex-1">
-                                            {getTranslatedTitle(dish.title, lang)}
+                                            {dish.titles ? (dish.titles[lang as keyof typeof dish.titles] || dish.title) : getTranslatedTitle(dish.title, lang)}
                                         </h3>
                                     </div>
                                 </motion.div>
