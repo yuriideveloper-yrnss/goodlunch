@@ -338,7 +338,7 @@ export const menuTranslations: Record<string, Record<string, string>> = {
         ru: 'Фунчоза с курицей',
         en: 'Glass noodles with chicken'
     },
-    'Tortilla z kurczakiem, warzywami i sosem1': {
+    'Tortilla z kurczakiem, warzywami i sosem': {
         pl: 'Tortilla z kurczakiem, warzywami i sosem',
         ua: 'Тортилья з куркою, овочами та соусом',
         ru: 'Тортилья с курицей, овощами и соусом',

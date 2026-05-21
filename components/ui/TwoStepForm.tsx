@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { trackEvent, trackLead } from '@/lib/tracking'
 
@@ -20,18 +20,51 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
         deliveryDay: 'tomorrow'
     })
 
+    // Load existing order from localStorage if it exists, to support single-order persistence & seamless correction
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedId = localStorage.getItem('goodlunch_order_id')
+            if (storedId) {
+                setOrderId(storedId)
+                fetch(`/api/orders?id=${storedId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success && data.order) {
+                            setFormData({
+                                name: data.order.name || '',
+                                phone: data.order.phone || '',
+                                messenger: data.order.messenger || 'telegram',
+                                street: data.order.street || '',
+                                house: data.order.house || '',
+                                floor: data.order.floor || '',
+                                apt: data.order.apt || '',
+                                intercom: data.order.intercom || '',
+                                deliveryDay: data.order.deliveryDay || 'tomorrow'
+                            })
+                        }
+                    })
+                    .catch(err => console.error('Failed to load existing order:', err))
+            }
+        }
+    }, [])
+
     const handleStep1 = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsSubmitting(true)
         try {
+            const bodyPayload: any = { ...formData, ...defaultData, lang, step: 1 }
+            if (orderId) {
+                bodyPayload.id = orderId
+            }
             const res = await fetch('/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...formData, ...defaultData, lang, step: 1 })
+                body: JSON.stringify(bodyPayload)
             })
             const data = await res.json()
             if (data.orderId) {
                 setOrderId(data.orderId)
+                localStorage.setItem('goodlunch_order_id', data.orderId)
             }
             trackEvent('begin_checkout', { items: [{ item_name: 'Meal Plan' }] })
             setStep(2)
@@ -46,10 +79,14 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
         e.preventDefault()
         setIsSubmitting(true)
         try {
+            const bodyPayload: any = { ...formData, ...defaultData, lang, step: 2 }
+            if (orderId) {
+                bodyPayload.id = orderId
+            }
             await fetch('/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...formData, ...defaultData, lang, id: orderId, step: 2 })
+                body: JSON.stringify(bodyPayload)
             })
             trackLead({
                 event_category: 'form',
@@ -62,7 +99,6 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
             setIsSubmitting(false)
         }
     }
-
 
     return (
         <div className="w-full relative min-h-[400px]">
@@ -209,17 +245,26 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
                             {dict.form.delivery_note}
                         </p>
 
-                        <button
-                            disabled={isSubmitting}
-                            type="submit"
-                            className="w-full bg-brand-orange text-white font-bold py-4 rounded-xl shadow-lg hover:bg-orange-600 active:scale-[0.98] transition-all flex justify-center items-center mt-6 disabled:opacity-75"
-                        >
-                            {isSubmitting ? (
-                                <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            ) : (
-                                dict.form.submit_btn
-                            )}
-                        </button>
+                        <div className="flex gap-3 mt-6">
+                            <button
+                                type="button"
+                                onClick={() => setStep(1)}
+                                className="flex-1 bg-white border border-gray-200 text-gray-700 font-bold py-4 rounded-xl hover:bg-gray-50 active:scale-[0.98] transition-all flex justify-center items-center"
+                            >
+                                {dict.advisor.back_btn || 'Back'}
+                            </button>
+                            <button
+                                disabled={isSubmitting}
+                                type="submit"
+                                className="flex-[2] bg-brand-orange text-white font-bold py-4 rounded-xl shadow-lg hover:bg-orange-600 active:scale-[0.98] transition-all flex justify-center items-center disabled:opacity-75"
+                            >
+                                {isSubmitting ? (
+                                    <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                ) : (
+                                    dict.form.submit_btn
+                                )}
+                            </button>
+                        </div>
                     </motion.form>
                 )}
             </AnimatePresence>

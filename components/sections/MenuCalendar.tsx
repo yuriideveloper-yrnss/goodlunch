@@ -39,9 +39,52 @@ export default function MenuCalendar({ dict, lang }: { dict: any, lang: string }
         fetchMenu()
     }, [])
 
-    if (!selectedDate || dates.length === 0) return null;
+    // While loading, show a premium skeleton loader matching the design system
+    if (!selectedDate || dates.length === 0 || !dbMenu) {
+        return (
+            <section id="menu" className="py-24 bg-brand-bg overflow-hidden relative">
+                <div className="container mx-auto px-4 mb-4">
+                    {/* Header Skeletons */}
+                    <div className="h-10 bg-gray-200/80 rounded-2xl w-64 mx-auto md:mx-0 animate-pulse mb-3" />
+                    <div className="h-5 bg-gray-200/60 rounded-xl w-80 mx-auto md:mx-0 animate-pulse mb-6" />
+                </div>
 
-    const { weekNumber, menu } = getMenuForDate(selectedDate, dbMenu || undefined);
+                {/* Calendar Days Skeleton */}
+                <div className="container mx-auto px-4 mb-12 relative">
+                    <div className="flex gap-3 overflow-x-auto pb-4 pt-2 px-2 scrollbar-hide snap-x w-full">
+                        {Array.from({ length: 10 }).map((_, idx) => (
+                            <div
+                                key={idx}
+                                className="flex-shrink-0 snap-start px-6 py-4 rounded-2xl flex flex-col items-center justify-center min-w-[100px] border border-gray-100 bg-white shadow-sm animate-pulse"
+                            >
+                                <div className="h-3 bg-gray-200 rounded-lg w-8 mb-2" />
+                                <div className="h-6 bg-gray-200 rounded-lg w-10 mb-2" />
+                                <div className="h-3 bg-gray-200 rounded-lg w-12" />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Dishes Cards Skeleton */}
+                <div className="container mx-auto px-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {Array.from({ length: 4 }).map((_, idx) => (
+                            <div
+                                key={idx}
+                                className="relative bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-50 p-6 flex flex-col h-full items-center text-center animate-pulse min-h-[160px] justify-center"
+                            >
+                                <div className="h-6 bg-brand-orange/10 rounded-full w-24 mb-6" />
+                                <div className="h-5 bg-gray-200 rounded-xl w-3/4 mb-3" />
+                                <div className="h-5 bg-gray-200 rounded-xl w-1/2" />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+    }
+
+    const { weekNumber, menu } = getMenuForDate(selectedDate, dbMenu);
     const getLocale = (l: string) => {
         if (l === 'pl') return 'pl-PL';
         if (l === 'ua') return 'uk-UA';

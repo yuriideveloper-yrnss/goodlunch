@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import * as fs from 'fs'
 import * as path from 'path'
-import { week1Menu, week2Menu } from '../lib/menuData'
+import { seedWeek1, seedWeek2 } from '../lib/menuData'
 import { menuTranslations } from '../lib/menuTranslations'
 
 // 1. Load env variables manually from .env.local
@@ -48,8 +48,8 @@ async function migrate() {
         })
     }
 
-    processWeek(week1Menu, 1)
-    processWeek(week2Menu, 2)
+    processWeek(seedWeek1, 1)
+    processWeek(seedWeek2, 2)
 
     console.log(`📦 Prepared ${menuItems.length} items. Syncing with Supabase...`)
 

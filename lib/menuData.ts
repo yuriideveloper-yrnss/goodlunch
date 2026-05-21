@@ -20,7 +20,7 @@ export type DayMenu = {
 export type WeekMenu = DayMenu[];
 
 // Ця неділя (тиждень 1)
-export const week1Menu: WeekMenu = [
+export const seedWeek1: WeekMenu = [
   {
     dayIndex: 1, // Понеділок
     dishes: [
@@ -87,7 +87,7 @@ export const week1Menu: WeekMenu = [
 ];
 
 // Наступний тиждень (тиждень 2)
-export const week2Menu: WeekMenu = [
+export const seedWeek2: WeekMenu = [
   {
     dayIndex: 1, // Poniedziałek
     dishes: [
@@ -185,7 +185,7 @@ export function mapDbMenuToAppStructure(dbItems: any[]): { week1: WeekMenu, week
   };
 }
 
-export function getMenuForDate(date: Date, customMenu?: { week1: WeekMenu, week2: WeekMenu }): { weekNumber: number; menu: DayMenu } {
+export function getMenuForDate(date: Date, customMenu: { week1: WeekMenu, week2: WeekMenu }): { weekNumber: number; menu: DayMenu } {
   // Use UTC to avoid timezone issues when calculating days difference
   const targetDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
   
@@ -206,9 +206,7 @@ export function getMenuForDate(date: Date, customMenu?: { week1: WeekMenu, week2
   // In JS, 0 is Sunday. Convert to 1-7 where 1 is Monday.
   dayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
   
-  const selectedWeek = customMenu 
-    ? (isWeek1 ? customMenu.week1 : customMenu.week2)
-    : (isWeek1 ? week1Menu : week2Menu);
+  const selectedWeek = isWeek1 ? customMenu.week1 : customMenu.week2;
     
   const menu = selectedWeek.find(d => d.dayIndex === dayOfWeek)!;
   

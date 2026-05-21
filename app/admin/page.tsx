@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { week1Menu, week2Menu } from '@/lib/menuData'
+import { seedWeek1, seedWeek2, mapDbMenuToAppStructure } from '@/lib/menuData'
 import { menuTranslations } from '@/lib/menuTranslations'
 
 type SidebarSection = 'orders' | 'menu' | 'analytics'
@@ -242,19 +242,20 @@ function MenuEditorSection() {
       const res = await fetch('/api/menu')
       const data = await res.json()
       
-      if (data.week1 && data.week1.length > 0) {
-        setWeek1(data.week1)
-        setWeek2(data.week2)
+      if (data.menu && data.menu.length > 0) {
+        const mapped = mapDbMenuToAppStructure(data.menu)
+        setWeek1(mapped.week1)
+        setWeek2(mapped.week2)
       } else {
         // Fallback to local if DB is empty
-        setWeek1(initMultilangMenu(week1Menu))
-        setWeek2(initMultilangMenu(week2Menu))
+        setWeek1(initMultilangMenu(seedWeek1))
+        setWeek2(initMultilangMenu(seedWeek2))
       }
     } catch (err) {
       console.error('Failed to fetch menu:', err)
       // Fallback
-      setWeek1(initMultilangMenu(week1Menu))
-      setWeek2(initMultilangMenu(week2Menu))
+      setWeek1(initMultilangMenu(seedWeek1))
+      setWeek2(initMultilangMenu(seedWeek2))
     } finally {
       setLoading(false)
     }
@@ -312,8 +313,8 @@ function MenuEditorSection() {
 
   const syncFromCode = async () => {
     if (!confirm('Це завантажить актуальне меню з коду (включаючи Тортилью) в редактор. Потім потрібно буде натиснути "Зберегти". Продовжити?')) return
-    setWeek1(initMultilangMenu(week1Menu))
-    setWeek2(initMultilangMenu(week2Menu))
+    setWeek1(initMultilangMenu(seedWeek1))
+    setWeek2(initMultilangMenu(seedWeek2))
     setMessage('Дані з коду завантажено в редактор! 📥')
     setTimeout(() => setMessage(''), 3000)
   }
