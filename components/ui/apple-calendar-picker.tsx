@@ -1,12 +1,10 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // --- ICONS (Zero external packages needed, pure inline SVGs) ---
 const ChevronLeftIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>;
 const ChevronRightIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>;
 const DropdownArrowIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>;
-const SunIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>;
-const MoonIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>;
 
 // --- MONTH NAMES ---
 const MONTH_NAMES = [
@@ -29,23 +27,6 @@ export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initial
     
     // Dropdown toggle state
     const [showDropdown, setShowDropdown] = useState(false);
-
-    // Theme state
-    const [isDark, setIsDark] = useState(false);
-
-    useEffect(() => {
-        setIsDark(document.documentElement.classList.contains('dark'));
-    }, [isOpen]);
-
-    const toggleTheme = () => {
-        const nextDark = !isDark;
-        setIsDark(nextDark);
-        if (nextDark) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    };
 
     if (!isOpen) return null;
 
@@ -92,12 +73,13 @@ export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initial
             const isSelected = day === selectedDay;
             days.push(
                 <button
+                    type="button"
                     key={`day-${day}`}
                     onClick={() => handleSelectDay(day)}
                     className={`w-9 h-9 text-[15px] font-medium rounded-full flex items-center justify-center transition-all focus:outline-none relative ${
                         isSelected 
                             ? 'bg-[#FF3B30] text-white font-semibold shadow-md scale-105 z-10' 
-                            : 'text-[#FF3B30] hover:bg-black/5 dark:hover:bg-white/10'
+                            : 'text-[#FF3B30] hover:bg-black/5'
                     }`}
                 >
                     {day}
@@ -109,15 +91,17 @@ export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initial
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-            <div className="absolute inset-0 pointer-events-auto bg-black/20 dark:bg-black/40 backdrop-blur-[2px]" onClick={onClose} />
+            {/* Backdrop */}
+            <div className="absolute inset-0 pointer-events-auto bg-black/20 backdrop-blur-[2px]" onClick={onClose} />
             
             {/* Modal Card wrapper */}
-            <div className="pointer-events-auto relative w-[310px] bg-white dark:bg-[#1C1C1E] border border-black/5 dark:border-white/10 rounded-[24px] shadow-2xl overflow-hidden p-[18px] transition-colors duration-300 animate-in fade-in zoom-in duration-200">
+            <div className="pointer-events-auto relative w-[310px] bg-white border border-black/5 rounded-[24px] shadow-2xl overflow-hidden p-[18px] animate-in fade-in zoom-in duration-200">
                 
                 {/* Header */}
                 <div className="flex items-center justify-between mb-4">
                     {/* Month/Year selector dropdown button */}
                     <button 
+                        type="button"
                         onClick={() => setShowDropdown(!showDropdown)}
                         className="flex items-center gap-1 text-[17px] font-semibold text-[#FF3B30] hover:opacity-75 transition-opacity focus:outline-none"
                     >
@@ -127,18 +111,13 @@ export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initial
                         </div>
                     </button>
 
-                    {/* Month Navigations & Theme Toggle */}
+                    {/* Month Navigations */}
                     <div className="flex items-center gap-2">
-                        {/* Theme Toggle */}
-                        <button onClick={toggleTheme} className="p-1.5 rounded-full text-[#FF3B30] hover:bg-black/5 dark:hover:bg-white/10 transition-colors focus:outline-none mr-2">
-                            {isDark ? <SunIcon /> : <MoonIcon />}
-                        </button>
-                        
                         {/* Navigation Chevron buttons */}
-                        <button onClick={prevMonth} className="p-1.5 text-[#FF3B30] hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors focus:outline-none">
+                        <button type="button" onClick={prevMonth} className="p-1.5 text-[#FF3B30] hover:bg-black/5 rounded-full transition-colors focus:outline-none">
                             <ChevronLeftIcon />
                         </button>
-                        <button onClick={nextMonth} className="p-1.5 text-[#FF3B30] hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors focus:outline-none">
+                        <button type="button" onClick={nextMonth} className="p-1.5 text-[#FF3B30] hover:bg-black/5 rounded-full transition-colors focus:outline-none">
                             <ChevronRightIcon />
                         </button>
                     </div>
@@ -147,7 +126,7 @@ export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initial
                 {/* Weekdays indicator headers */}
                 <div className="grid grid-cols-7 gap-y-1 mb-2 text-center">
                     {WEEKDAYS.map((day) => (
-                        <div key={day} className="text-[10px] font-bold text-gray-400 dark:text-gray-500 tracking-wider">
+                        <div key={day} className="text-[10px] font-bold text-gray-400 tracking-wider">
                             {day}
                         </div>
                     ))}
@@ -162,14 +141,14 @@ export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initial
 
                     {/* Month/Year Selection Dropdown Overlay */}
                     {showDropdown && (
-                        <div className="absolute inset-0 z-30 flex flex-col p-3 rounded-[18px] bg-white/95 dark:bg-[#1C1C1E]/95 backdrop-blur-md transition-all duration-200">
+                        <div className="absolute inset-0 z-30 flex flex-col p-3 rounded-[18px] bg-white/95 backdrop-blur-md transition-all duration-200">
                             {/* Year Selector Header */}
-                            <div className="flex items-center justify-between mb-3 border-b pb-2 border-black/5 dark:border-white/5">
-                                <button onClick={() => setCurrentYear(y => y - 1)} className="p-1.5 text-[#FF3B30] hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors">
+                            <div className="flex items-center justify-between mb-3 border-b pb-2 border-black/5">
+                                <button type="button" onClick={() => setCurrentYear(y => y - 1)} className="p-1.5 text-[#FF3B30] hover:bg-black/5 rounded-full transition-colors">
                                     <ChevronLeftIcon />
                                 </button>
-                                <span className="font-bold text-[16px] text-black dark:text-white">{currentYear}</span>
-                                <button onClick={() => setCurrentYear(y => y + 1)} className="p-1.5 text-[#FF3B30] hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors">
+                                <span className="font-bold text-[16px] text-black">{currentYear}</span>
+                                <button type="button" onClick={() => setCurrentYear(y => y + 1)} className="p-1.5 text-[#FF3B30] hover:bg-black/5 rounded-full transition-colors">
                                     <ChevronRightIcon />
                                 </button>
                             </div>
@@ -180,6 +159,7 @@ export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initial
                                     const isSelected = idx === currentMonth;
                                     return (
                                         <button
+                                            type="button"
                                             key={m}
                                             onClick={() => {
                                                 setCurrentMonth(idx);
@@ -188,7 +168,7 @@ export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initial
                                             className={`py-1.5 rounded-lg text-xs font-bold transition-all ${
                                                 isSelected
                                                     ? 'bg-[#FF3B30] text-white shadow-sm'
-                                                    : 'text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                                                    : 'text-black hover:bg-black/5'
                                             }`}
                                         >
                                             {m.slice(0, 3)}

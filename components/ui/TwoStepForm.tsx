@@ -319,16 +319,6 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
                                     />
                                 </svg>
                             </button>
-
-                            <AppleCalendarPicker
-                                isOpen={isCalendarOpen}
-                                onClose={() => setIsCalendarOpen(false)}
-                                initialDate={parseDate(formData.deliveryDay)}
-                                onDateTimeSelect={(data: { date: Date }) => {
-                                    setFormData({ ...formData, deliveryDay: formatDateValue(data.date) });
-                                    setIsCalendarOpen(false);
-                                }}
-                            />
                         </div>
 
                         <p className="text-xs text-gray-500 text-center px-4 mt-4">
@@ -358,6 +348,16 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
                     </motion.form>
                 )}
             </AnimatePresence>
+
+            <AppleCalendarPicker
+                isOpen={isCalendarOpen}
+                onClose={() => setIsCalendarOpen(false)}
+                initialDate={parseDate(formData.deliveryDay)}
+                onDateTimeSelect={(data: { date: Date }) => {
+                    setFormData({ ...formData, deliveryDay: formatDateValue(data.date) });
+                    setIsCalendarOpen(false);
+                }}
+            />
         </div>
     )
 }
