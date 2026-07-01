@@ -1,5 +1,6 @@
 'use client'
 import Image from 'next/image'
+import Link from 'next/link'
 import { trackEvent } from '@/lib/tracking'
 
 export default function Footer({ lang }: { lang: string }) {
@@ -36,8 +37,14 @@ export default function Footer({ lang }: { lang: string }) {
                 </div>
 
                 {/* COPYRIGHT */}
-                <div className="text-sm text-gray-400 font-medium text-center">
-                    &copy; {currentYear} GoodLunch. {copyText}
+                <div className="text-sm text-gray-400 font-medium text-center flex flex-col items-center gap-1.5">
+                    <span>&copy; {currentYear} GoodLunch. {copyText}</span>
+                    <Link
+                        href={`/${lang}/privacy-policy`}
+                        className="hover:text-brand-orange text-xs text-gray-500 transition-colors underline decoration-gray-500/20 hover:decoration-brand-orange/30 underline-offset-4"
+                    >
+                        Polityka Prywatności i Cookies
+                    </Link>
                 </div>
 
                 {/* SOCIALS */}

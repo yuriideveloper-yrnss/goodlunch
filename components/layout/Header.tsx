@@ -33,6 +33,11 @@ export default function Header({ lang }: { lang: string }) {
     return segments.join('/') || '/'
   }
 
+  const isHomePage = pathname === `/${lang}` || pathname === `/${lang}/`
+  const getNavHref = (target: string) => {
+    return isHomePage ? `#${target}` : `/${lang}#${target}`
+  }
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-5'
@@ -65,10 +70,10 @@ export default function Header({ lang }: { lang: string }) {
 
         {/* НАВИГАЦИЯ (Только на больших экранах, можно сделать меню-бургер для мобильных потом) */}
         <nav className="hidden md:flex gap-6 lg:gap-8 font-medium text-sm text-gray-600">
-          <a href="#menu" className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'menu' })}>{txt.menu}</a>
-          <a href="#cennik" className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'cennik' })}>{txt.price}</a>
-          <a href="#opinie" className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'opinie' })}>{txt.reviews}</a>
-          <a href="#faq" className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'faq' })}>{txt.faq}</a>
+          <a href={getNavHref('menu')} className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'menu' })}>{txt.menu}</a>
+          <a href={getNavHref('cennik')} className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'cennik' })}>{txt.price}</a>
+          <a href={getNavHref('opinie')} className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'opinie' })}>{txt.reviews}</a>
+          <a href={getNavHref('faq')} className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'faq' })}>{txt.faq}</a>
         </nav>
 
         {/* Переключатель языка (Флаги) */}
