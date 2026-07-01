@@ -6,20 +6,32 @@ const ChevronLeftIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="14"
 const ChevronRightIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>;
 const DropdownArrowIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>;
 
-// --- MONTH NAMES ---
-const MONTH_NAMES = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-];
-
-const WEEKDAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+// --- TRANSLATIONS MATRIX ---
+const TRANSLATIONS: Record<string, { months: string[]; weekdays: string[] }> = {
+    pl: {
+        months: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"],
+        weekdays: ["NIE", "PON", "WT", "ŚR", "CZW", "PT", "SOB"]
+    },
+    ua: {
+        months: ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"],
+        weekdays: ["НД", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"]
+    },
+    ru: {
+        months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+        weekdays: ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"]
+    },
+    en: {
+        months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        weekdays: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+    }
+};
 
 // --- HELPERS ---
 const getDaysInMonth = (year: number, month: number) => new Date(year, month + 1, 0).getDate();
 const getFirstDayOfMonth = (year: number, month: number) => new Date(year, month, 1).getDay();
 
 // --- MAIN EXPORTED CALENDAR COMPONENT ---
-export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initialDate }: any) => {
+export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initialDate, lang = 'pl' }: any) => {
     const today = initialDate ? new Date(initialDate) : new Date(); // Defaults to current date
     const [currentYear, setCurrentYear] = useState(today.getFullYear());
     const [currentMonth, setCurrentMonth] = useState(today.getMonth());
@@ -29,6 +41,11 @@ export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initial
     const [showDropdown, setShowDropdown] = useState(false);
 
     if (!isOpen) return null;
+
+    // Load active locale translations
+    const activeTranslation = TRANSLATIONS[lang] || TRANSLATIONS.pl || TRANSLATIONS.en;
+    const MONTH_NAMES = activeTranslation.months;
+    const WEEKDAYS = activeTranslation.weekdays;
 
     const daysInMonth = getDaysInMonth(currentYear, currentMonth);
     const firstDayIndex = getFirstDayOfMonth(currentYear, currentMonth);
@@ -61,6 +78,24 @@ export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initial
         }
     };
 
+    // Calculate selectable date limits
+    const isDayDisabled = (day: number) => {
+        const cellDate = new Date(currentYear, currentMonth, day);
+        cellDate.setHours(0, 0, 0, 0);
+
+        // Tomorrow is the min allowed date (no today / past delivery)
+        const minDate = new Date();
+        minDate.setDate(minDate.getDate() + 1);
+        minDate.setHours(0, 0, 0, 0);
+
+        // 14 days from today is the max allowed date (2 weeks ahead)
+        const maxDate = new Date();
+        maxDate.setDate(maxDate.getDate() + 14);
+        maxDate.setHours(23, 59, 59, 999);
+
+        return cellDate.getTime() < minDate.getTime() || cellDate.getTime() > maxDate.getTime();
+    };
+
     // Render calendar grid days
     const renderDays = () => {
         const days = [];
@@ -71,15 +106,19 @@ export const AppleCalendarPicker = ({ isOpen, onClose, onDateTimeSelect, initial
         // Month days
         for (let day = 1; day <= daysInMonth; day++) {
             const isSelected = day === selectedDay;
+            const disabled = isDayDisabled(day);
             days.push(
                 <button
                     type="button"
                     key={`day-${day}`}
+                    disabled={disabled}
                     onClick={() => handleSelectDay(day)}
                     className={`w-9 h-9 text-[15px] font-medium rounded-full flex items-center justify-center transition-all focus:outline-none relative ${
                         isSelected 
                             ? 'bg-[#FF3B30] text-white font-semibold shadow-md scale-105 z-10' 
-                            : 'text-[#FF3B30] hover:bg-black/5'
+                            : disabled
+                                ? 'text-gray-300 opacity-40 cursor-not-allowed'
+                                : 'text-[#FF3B30] hover:bg-black/5'
                     }`}
                 >
                     {day}

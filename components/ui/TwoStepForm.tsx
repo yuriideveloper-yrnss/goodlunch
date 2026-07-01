@@ -31,40 +31,27 @@ const parseDate = (dateStr: string) => {
     return isNaN(d.getTime()) ? new Date() : d;
 };
 
-const getReadableDate = (dateStr: string, dict: any) => {
+const getReadableDate = (dateStr: string, lang: string) => {
     if (!dateStr) return '';
     const date = new Date(dateStr);
     if (isNaN(date.getTime())) return dateStr;
     
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const localeMap: Record<string, string> = {
+        pl: 'pl-PL',
+        ua: 'uk-UA',
+        ru: 'ru-RU',
+        en: 'en-US'
+    };
+    const locale = localeMap[lang] || 'pl-PL';
     
-    const target = new Date(date);
-    target.setHours(0, 0, 0, 0);
+    const weekday = date.toLocaleDateString(locale, { weekday: 'long' });
+    const capitalizedWeekday = weekday.charAt(0).toUpperCase() + weekday.slice(1);
     
-    const diffTime = target.getTime() - today.getTime();
-    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-    
-    const weekdays = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-    const months = [
-        'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca',
-        'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'
-    ];
-    
-    const dayName = weekdays[date.getDay()];
-    const day = date.getDate();
-    const monthName = months[date.getMonth()];
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     
-    const dateFormatted = `${dayName}, ${day} ${monthName} ${year}`;
-    
-    if (diffDays === 1) {
-        return `${dict.form.tomorrow} (${dateFormatted})`;
-    } else if (diffDays === 2) {
-        return `${dict.form.day_after} (${dateFormatted})`;
-    }
-    
-    return dateFormatted;
+    return `${capitalizedWeekday}, ${day}.${month}.${year}`;
 };
 
 export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSuccessAction }: { dict: any, defaultData?: any, lang?: string, onSuccessAction?: () => void }) {
@@ -302,7 +289,7 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
                                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-left focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all font-medium text-gray-900 flex items-center justify-between group"
                             >
                                 <span className="text-gray-900 font-semibold">
-                                    {getReadableDate(formData.deliveryDay, dict)}
+                                    {getReadableDate(formData.deliveryDay, lang)}
                                 </span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -353,6 +340,7 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
                 isOpen={isCalendarOpen}
                 onClose={() => setIsCalendarOpen(false)}
                 initialDate={parseDate(formData.deliveryDay)}
+                lang={lang}
                 onDateTimeSelect={(data: { date: Date }) => {
                     setFormData({ ...formData, deliveryDay: formatDateValue(data.date) });
                     setIsCalendarOpen(false);
