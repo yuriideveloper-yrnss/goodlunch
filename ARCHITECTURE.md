@@ -44,7 +44,7 @@
   - `/menu`: Menu editing endpoints.
 
 ### Components & Libs
-- **`components/ui/`**: Interactive micro-animations, loading animations, dialogs.
+- **`components/ui/`**: Interactive micro-animations, loading animations, dialogs, and reusable custom primitives (e.g., `apple-calendar-picker.tsx` for calendar date selection).
 - **`components/sections/`**: Modular sections of the landing page (Hero, Reviews, Calculator).
 - **`lib/supabaseClient.ts`**: Supabase client connection (using Service Role Key for secure server-side execution).
 - **`lib/dictionary.ts`**: Translation dictionaries for `pl`, `ua`, `ru`, and `en`.
