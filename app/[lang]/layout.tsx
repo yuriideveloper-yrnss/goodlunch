@@ -47,7 +47,7 @@ export default async function RootLayout({
   const loadingText = loadingTextMap[lang] || loadingTextMap.en;
 
   return (
-    <html lang="pl">
+    <html lang={lang}>
       <head>
       </head>
       <body className={inter.className}>

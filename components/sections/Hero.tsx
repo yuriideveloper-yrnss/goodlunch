@@ -8,8 +8,7 @@ export default function Hero({ lang, dict }: { lang: string, dict: any }) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-bg">
 
-      {/* Фоновый шум (еле заметный) */}
-      <div className="absolute inset-0 bg-[url('/noise.png')] opacity-5 pointer-events-none"></div>
+
 
       {/* ГИГАНТСКОЕ Свечение справа сверху (Ambient Light) */}
       <div className="absolute -top-20 -right-20 w-[600px] h-[600px] bg-brand-orange/20 blur-[150px] rounded-full pointer-events-none"></div>

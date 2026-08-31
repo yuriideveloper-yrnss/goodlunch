@@ -22,7 +22,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <Features dict={dict} />
       <MenuCalendar dict={dict} lang={lang} />
       <PriceCalculator dict={dict} lang={lang} />
-      <Reviews dict={dict} />
+      <Reviews dict={dict} lang={lang} />
       <FAQ dict={dict} />
       <LeadForm dict={dict} lang={lang} />
     </main>
