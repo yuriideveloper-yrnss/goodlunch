@@ -45,8 +45,10 @@
 
 ### Components & Libs
 - **`components/ui/`**: Interactive micro-animations, loading animations, dialogs, and reusable custom primitives (e.g., `apple-calendar-picker.tsx` for calendar date selection).
-- **`components/sections/`**: Modular sections of the landing page (Hero, Reviews, Calculator).
+- **`components/sections/`**: Modular sections of the landing page (Hero, Reviews, Calculator):
+  - `Reviews.tsx`: Locale-aware multimedia reviews gallery (serves Polish/English reviews for `pl`/`en` and Ukrainian/Russian reviews for `ua`/`ru` directly from Supabase Storage `goodlunch content` bucket).
 - **`lib/supabaseClient.ts`**: Supabase client connection (using Service Role Key for secure server-side execution).
+- **Supabase Storage**: `goodlunch content` public bucket hosting all video (`.mp4`/`.webm`) and photo (`.png`/`.jpg`) testimonials.
 - **`lib/dictionary.ts`**: Translation dictionaries for `pl`, `ua`, `ru`, and `en`.
 - **`lib/constants.ts`**: Hardcoded menu sizes, calories, pricing formulas, and contact credentials.
 - **`lib/tracking.ts`**: Event tracking utilities.
