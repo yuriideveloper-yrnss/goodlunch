@@ -28,10 +28,11 @@
   - `Reviews`
   - `FAQ`
   - `LeadForm`
+- **`app/[lang]/external/smartcatering/page.tsx`**: Localized Smart Catering funnel copy. Captures lead contacts without requesting delivery address, fires tracking events (`smartcatering_lead`, `InitiateCheckout`, `trackLead`), logs to Supabase with status `SmartCatering`, notifies Telegram with dedicated alert, and redirects directly to Mobilny Catering store products (3 meals: `https://goodlunch-catering.mobilnycatering.pl/sklep/produkt/3-posiki/3574`, 4 meals: `https://goodlunch-catering.mobilnycatering.pl/sklep/produkt/4-posiki/3575`).
 - **`app/[lang]/privacy-policy/page.tsx`**: Localized Privacy Policy & Cookies page displaying the full legal policy document with a desktop-sticky table of contents and back-to-home navigation links.
 - **`app/admin/`**: Admin portal layout and client component containing the dashboard:
   - `layout.tsx`: Base wrapper.
-  - `page.tsx`: Full operational dashboard to view/manage orders, update menu, filter by date, search, and change statuses.
+  - `page.tsx`: Full operational dashboard to view/manage orders, update menu, filter by date, search, and change statuses (including `SmartCatering`).
 
 ### API Routes
 - **`app/api/orders/route.ts`**: 
@@ -47,6 +48,12 @@
 - **`components/ui/`**: Interactive micro-animations, loading animations, dialogs, and reusable custom primitives (e.g., `apple-calendar-picker.tsx` for calendar date selection).
 - **`components/sections/`**: Modular sections of the landing page (Hero, Reviews, Calculator):
   - `Reviews.tsx`: Locale-aware multimedia reviews gallery (serves Polish/English reviews for `pl`/`en` and Ukrainian/Russian reviews for `ua`/`ru` directly from Supabase Storage `goodlunch content` bucket).
+- **`components/smartcatering/`**: Smart Catering external order flow components:
+  - `SmartCateringCalculator.tsx`: Pricing calculator opening external checkout modal.
+  - `SmartCateringModal.tsx`: Single-step lead modal without address inputs.
+  - `SmartCateringLeadForm.tsx`: Bottom section lead capture with package selector.
+  - `SmartCateringForm.tsx`: Unified contact submission, tracking dispatcher, and direct redirector.
+- **`lib/smartcatering.ts`**: Mobilny Catering product URL mapping (3 meals vs 4 meals) and redirect resolver.
 - **`lib/supabaseClient.ts`**: Supabase client connection (using Service Role Key for secure server-side execution).
 - **Supabase Storage**: `goodlunch content` public bucket hosting all video (`.mp4`/`.webm`) and photo (`.png`/`.jpg`) testimonials.
 - **`lib/dictionary.ts`**: Translation dictionaries for `pl`, `ua`, `ru`, and `en`.

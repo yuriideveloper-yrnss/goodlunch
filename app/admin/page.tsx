@@ -546,11 +546,12 @@ function AnalyticsSection({ orders }: { orders: any[] }) {
 
 // Status config
 const STATUS_CONFIG: Record<string, { label: string; dot: string; badge: string; select: string }> = {
-  'New':         { label: 'Новий',         dot: 'bg-sky-400',     badge: 'bg-sky-400/20 text-sky-200 border-sky-400/40',     select: 'bg-[#0d2035] text-sky-200 border-sky-400/50' },
-  'In Progress': { label: 'В процесі',     dot: 'bg-amber-400',   badge: 'bg-amber-400/20 text-amber-200 border-amber-400/40',   select: 'bg-[#231a06] text-amber-200 border-amber-400/50' },
-  'Paid':        { label: 'Оплачено',      dot: 'bg-emerald-400', badge: 'bg-emerald-400/20 text-emerald-200 border-emerald-400/40', select: 'bg-[#082017] text-emerald-200 border-emerald-400/50' },
-  'No Answer':   { label: 'Без відповіді', dot: 'bg-red-400',     badge: 'bg-red-400/20 text-red-200 border-red-400/40',     select: 'bg-[#200d0d] text-red-200 border-red-400/50' },
-  'Cancelled':   { label: 'Скасовано',     dot: 'bg-white/30',    badge: 'bg-white/10 text-white/50 border-white/20',     select: 'bg-white/[0.07] text-white/50 border-white/20' },
+  'New':           { label: 'Новий',          dot: 'bg-sky-400',     badge: 'bg-sky-400/20 text-sky-200 border-sky-400/40',       select: 'bg-[#0d2035] text-sky-200 border-sky-400/50' },
+  'SmartCatering': { label: 'Smart Catering', dot: 'bg-fuchsia-400', badge: 'bg-fuchsia-400/20 text-fuchsia-200 border-fuchsia-400/40', select: 'bg-[#250d28] text-fuchsia-200 border-fuchsia-400/50' },
+  'In Progress':   { label: 'В процесі',      dot: 'bg-amber-400',   badge: 'bg-amber-400/20 text-amber-200 border-amber-400/40',     select: 'bg-[#231a06] text-amber-200 border-amber-400/50' },
+  'Paid':          { label: 'Оплачено',       dot: 'bg-emerald-400', badge: 'bg-emerald-400/20 text-emerald-200 border-emerald-400/40',   select: 'bg-[#082017] text-emerald-200 border-emerald-400/50' },
+  'No Answer':     { label: 'Без відповіді',  dot: 'bg-red-400',     badge: 'bg-red-400/20 text-red-200 border-red-400/40',       select: 'bg-[#200d0d] text-red-200 border-red-400/50' },
+  'Cancelled':     { label: 'Скасовано',      dot: 'bg-white/30',    badge: 'bg-white/10 text-white/50 border-white/20',       select: 'bg-white/[0.07] text-white/50 border-white/20' },
 }
 
 // ─── Orders Section ───

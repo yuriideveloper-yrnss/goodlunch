@@ -10,9 +10,33 @@ async function sendTelegramNotification(orderData: any, isFinished: boolean) {
         return null;
     }
 
-    const title = isFinished ? '🚨 <b>НОВАЯ ЗАЯВКА (Оформлена)</b> 🚨' : '⚠️ <b>Новая заявка (Шаг 1 - Контакты)</b> ⚠️';
-    
-    const message = `
+    const isSmartCatering = orderData.source === 'smartcatering' || orderData.status === 'SmartCatering' || orderData.street === 'Mobilny Catering Store';
+
+    let message = '';
+    if (isSmartCatering) {
+        const pkgText = orderData.package === 'meals4' ? '4 Posiłki (4 блюда)' : (orderData.package === 'meals3' ? '3 Posiłki (3 блюда)' : (orderData.package || 'Не указано'));
+        const targetUrl = orderData.package === 'meals4'
+            ? 'https://goodlunch-catering.mobilnycatering.pl/sklep/produkt/4-posiki/3575'
+            : (orderData.package === 'meals3'
+                ? 'https://goodlunch-catering.mobilnycatering.pl/sklep/produkt/3-posiki/3574'
+                : 'https://goodlunch-catering.mobilnycatering.pl/sklep');
+
+        message = `
+🛒 <b>ЗАЯВКА: SMART CATERING</b> 🛒
+<i>(Перенаправлен в магазин Mobilny Catering)</i>
+
+👤 <b>Имя:</b> ${orderData.name || 'Не указано'}
+📞 <b>Телефон:</b> ${orderData.phone || 'Не указано'}
+💬 <b>Мессенджер:</b> ${orderData.messenger || 'Не указано'}
+📦 <b>Выбранный пакет:</b> ${pkgText}
+🔥 <b>Калории:</b> ${orderData.calories ? `${orderData.calories} ккал` : 'Не указано'}
+💰 <b>Цена:</b> ${orderData.price ? `${orderData.price} zł` : 'Не указано'}
+🌐 <b>Язык сайта:</b> ${orderData.lang || 'unknown'}
+🔗 <b>Магазин:</b> ${targetUrl}
+        `.trim();
+    } else {
+        const title = isFinished ? '🚨 <b>НОВАЯ ЗАЯВКА (Оформлена)</b> 🚨' : '⚠️ <b>Новая заявка (Шаг 1 - Контакты)</b> ⚠️';
+        message = `
 ${title}
 
 👤 <b>Имя:</b> ${orderData.name || 'Не указано'}
@@ -22,7 +46,8 @@ ${title}
 💰 <b>Цена:</b> ${orderData.price || 'Не указано'}
 📅 <b>Дни доставки:</b> ${orderData.deliveryDay || 'Не указано'}
 🏠 <b>Адрес:</b> ул. ${orderData.street || ''}, д. ${orderData.house || ''}, кв. ${orderData.apt || ''}
-    `.trim();
+        `.trim();
+    }
 
     try {
         const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -52,9 +77,33 @@ async function editTelegramNotification(messageId: number | string, orderData: a
         return null;
     }
 
-    const title = isFinished ? '🚨 <b>НОВАЯ ЗАЯВКА (Оформлена)</b> 🚨' : '⚠️ <b>Новая заявка (Шаг 1 - Контакты)</b> ⚠️';
-    
-    const message = `
+    const isSmartCatering = orderData.source === 'smartcatering' || orderData.status === 'SmartCatering' || orderData.street === 'Mobilny Catering Store';
+
+    let message = '';
+    if (isSmartCatering) {
+        const pkgText = orderData.package === 'meals4' ? '4 Posiłki (4 блюда)' : (orderData.package === 'meals3' ? '3 Posiłki (3 блюда)' : (orderData.package || 'Не указано'));
+        const targetUrl = orderData.package === 'meals4'
+            ? 'https://goodlunch-catering.mobilnycatering.pl/sklep/produkt/4-posiki/3575'
+            : (orderData.package === 'meals3'
+                ? 'https://goodlunch-catering.mobilnycatering.pl/sklep/produkt/3-posiki/3574'
+                : 'https://goodlunch-catering.mobilnycatering.pl/sklep');
+
+        message = `
+🛒 <b>ЗАЯВКА: SMART CATERING</b> 🛒
+<i>(Перенаправлен в магазин Mobilny Catering)</i>
+
+👤 <b>Имя:</b> ${orderData.name || 'Не указано'}
+📞 <b>Телефон:</b> ${orderData.phone || 'Не указано'}
+💬 <b>Мессенджер:</b> ${orderData.messenger || 'Не указано'}
+📦 <b>Выбранный пакет:</b> ${pkgText}
+🔥 <b>Калории:</b> ${orderData.calories ? `${orderData.calories} ккал` : 'Не указано'}
+💰 <b>Цена:</b> ${orderData.price ? `${orderData.price} zł` : 'Не указано'}
+🌐 <b>Язык сайта:</b> ${orderData.lang || 'unknown'}
+🔗 <b>Магазин:</b> ${targetUrl}
+        `.trim();
+    } else {
+        const title = isFinished ? '🚨 <b>НОВАЯ ЗАЯВКА (Оформлена)</b> 🚨' : '⚠️ <b>Новая заявка (Шаг 1 - Контакты)</b> ⚠️';
+        message = `
 ${title}
 
 👤 <b>Имя:</b> ${orderData.name || 'Не указано'}
@@ -64,7 +113,8 @@ ${title}
 💰 <b>Цена:</b> ${orderData.price || 'Не указано'}
 📅 <b>Дни доставки:</b> ${orderData.deliveryDay || 'Не указано'}
 🏠 <b>Адрес:</b> ул. ${orderData.street || ''}, д. ${orderData.house || ''}, кв. ${orderData.apt || ''}
-    `.trim();
+        `.trim();
+    }
 
     try {
         await fetch(`https://api.telegram.org/bot${token}/editMessageText`, {
@@ -123,8 +173,13 @@ export async function POST(request: Request) {
                 .single();
 
             if (existingOrder) {
-                // Determine new status: if Step 2 is submitted or was already completed ('New'), it stays 'New'
-                const status = (body.step === 2 || existingOrder.status === 'New') ? 'New' : 'Unfinished';
+                const isSmart = body.source === 'smartcatering' || body.status === 'SmartCatering';
+                let status = 'Unfinished';
+                if (isSmart) {
+                    status = 'SmartCatering';
+                } else if (body.step === 2 || existingOrder.status === 'New') {
+                    status = 'New';
+                }
 
                 // Build a dynamic update payload based on provided fields
                 const updatePayload: any = {
@@ -134,11 +189,13 @@ export async function POST(request: Request) {
                 if (body.phone !== undefined) updatePayload.phone = body.phone;
                 if (body.messenger !== undefined) updatePayload.messenger = body.messenger;
                 if (body.street !== undefined) updatePayload.street = body.street;
+                else if (isSmart && !existingOrder.street) updatePayload.street = 'Mobilny Catering Store';
                 if (body.house !== undefined) updatePayload.house = body.house;
                 if (body.floor !== undefined) updatePayload.floor = body.floor;
                 if (body.apt !== undefined) updatePayload.apt = body.apt;
                 if (body.intercom !== undefined) updatePayload.intercom = body.intercom;
                 if (body.deliveryDay !== undefined) updatePayload.deliveryDay = body.deliveryDay;
+                else if (isSmart && !existingOrder.deliveryDay) updatePayload.deliveryDay = 'External Order';
                 if (body.package !== undefined) updatePayload.package = body.package;
                 if (body.calories !== undefined) updatePayload.calories = parseInt(body.calories) || 0;
                 if (body.price !== undefined) updatePayload.price = body.price;
@@ -156,9 +213,9 @@ export async function POST(request: Request) {
                 // Manage Telegram notification
                 if (updatedOrder) {
                     if (updatedOrder.telegram_message_id) {
-                        await editTelegramNotification(updatedOrder.telegram_message_id, updatedOrder, updatedOrder.status === 'New');
+                        await editTelegramNotification(updatedOrder.telegram_message_id, updatedOrder, updatedOrder.status === 'New' || updatedOrder.status === 'SmartCatering');
                     } else {
-                        const messageId = await sendTelegramNotification(updatedOrder, updatedOrder.status === 'New');
+                        const messageId = await sendTelegramNotification(updatedOrder, updatedOrder.status === 'New' || updatedOrder.status === 'SmartCatering');
                         if (messageId) {
                             await supabase
                                 .from('orders')
@@ -173,23 +230,24 @@ export async function POST(request: Request) {
         }
 
         // Generate a new UUID for the order if it's completely new or not found
+        const isSmart = body.source === 'smartcatering' || body.status === 'SmartCatering';
         const orderId = body.id || crypto.randomUUID();
         const newOrder = {
             id: orderId,
             name: body.name || '',
             phone: body.phone || '',
             messenger: body.messenger || '',
-            street: body.street || '',
-            house: body.house || '',
+            street: isSmart ? 'Mobilny Catering Store' : (body.street || ''),
+            house: isSmart ? (body.package === 'meals4' ? '4 Posiłki' : '3 Posiłki') : (body.house || ''),
             floor: body.floor || '',
             apt: body.apt || '',
             intercom: body.intercom || '',
-            deliveryDay: body.deliveryDay || '',
+            deliveryDay: isSmart ? 'External Order' : (body.deliveryDay || ''),
             package: body.package || '',
             calories: parseInt(body.calories) || 0,
             price: body.price || '',
             lang: body.lang || 'unknown',
-            status: body.step === 2 ? 'New' : 'Unfinished',
+            status: isSmart ? 'SmartCatering' : (body.step === 2 ? 'New' : 'Unfinished'),
         };
 
         const { error } = await supabase

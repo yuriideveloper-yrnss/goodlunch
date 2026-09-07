@@ -34,6 +34,7 @@ export function middleware(request: NextRequest) {
 
   // 4. Делаем редирект
   const url = new URL(`/${locale}${pathname}`, request.url)
+  url.search = request.nextUrl.search
   return NextResponse.redirect(url)
 }
 
