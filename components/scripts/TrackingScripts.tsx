@@ -125,6 +125,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           })(window, document, "clarity", "script", "vqefj7behg");
         `}
             </Script>
+
+            {/* Attribution / UTM Storage Script */}
+            <Script id="attribution-storage" strategy="beforeInteractive">
+                {`
+                (function() {
+                    try {
+                        var params = new URLSearchParams(window.location.search);
+                        var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'];
+                        keys.forEach(function(key) {
+                            var val = params.get(key);
+                            if (val) {
+                                localStorage.setItem('gl_' + key, val);
+                                document.cookie = 'gl_' + key + '=' + encodeURIComponent(val) + '; path=/; max-age=2592000; SameSite=Lax';
+                            }
+                        });
+                    } catch (e) {}
+                })();
+                `}
+            </Script>
         </>
     )
 }

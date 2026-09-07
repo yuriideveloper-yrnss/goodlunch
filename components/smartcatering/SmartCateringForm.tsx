@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { trackEvent, trackLead } from '@/lib/tracking'
+import { trackEvent, trackLead, getStoredAttribution } from '@/lib/tracking'
 import { getSmartCateringUrl } from '@/lib/smartcatering'
 import { useOrder } from '@/components/providers/OrderProvider'
 import { PRICING } from '@/lib/constants'
@@ -43,9 +43,16 @@ export function SmartCateringForm({
         const pricingTier = PRICING[currentPkg]?.[0]
         const calories = defaultData.calories || pricingTier?.value || (currentPkg === 'meals4' ? 1800 : 1500)
         const price = defaultData.price || (pricingTier ? (pricingTier.price * (1 - PRICING.trialDiscount)).toFixed(2) : (currentPkg === 'meals4' ? '44.00' : '36.00'))
-        const targetUrl = getSmartCateringUrl(currentPkg)
+        const baseTargetUrl = getSmartCateringUrl(currentPkg)
+        // Forward existing search parameters (UTM, fbclid, etc.) to the external shop
+        const search = typeof window !== 'undefined' ? window.location.search : ''
+        const cleanSearch = search && search.startsWith('?') ? search.slice(1) : search
+        const finalRedirectUrl = cleanSearch
+            ? (baseTargetUrl.includes('?') ? `${baseTargetUrl}&${cleanSearch}` : `${baseTargetUrl}?${cleanSearch}`)
+            : baseTargetUrl
 
         try {
+            const attribution = getStoredAttribution()
             const bodyPayload = {
                 name: formData.name,
                 phone: formData.phone,
@@ -56,7 +63,8 @@ export function SmartCateringForm({
                 lang,
                 source: 'smartcatering',
                 status: 'SmartCatering',
-                targetUrl
+                targetUrl: finalRedirectUrl,
+                attribution
             }
 
             // Save lead to Supabase & trigger Telegram notification
@@ -68,16 +76,11 @@ export function SmartCateringForm({
 
             // Track lead & analytics events
             trackLead({
+                content_name: currentPkg === 'meals4' ? '4 Posiłki' : '3 Posiłki',
+                currency: 'PLN',
+                value: parseFloat(price) || 0,
                 event_category: 'smartcatering',
                 event_label: currentPkg,
-                value: parseFloat(price) || 0
-            })
-
-            trackEvent('smartcatering_lead', {
-                package: currentPkg,
-                calories,
-                price,
-                target_url: targetUrl
             })
 
             trackEvent('InitiateCheckout', {
@@ -86,15 +89,25 @@ export function SmartCateringForm({
                 currency: 'PLN'
             })
 
+            trackEvent('smartcatering_lead', {
+                package: currentPkg,
+                calories,
+                price,
+                target_url: finalRedirectUrl
+            })
+
             if (onSuccessAction) {
                 onSuccessAction()
             }
 
-            // Immediate seamless redirect to Mobilny Catering store
-            window.location.href = targetUrl
+            // Brief 350ms pause so browser fires the Meta Pixel / analytics beacons before unloading
+            await new Promise(resolve => setTimeout(resolve, 350))
+
+            // Seamless redirect to Mobilny Catering store
+            window.location.href = finalRedirectUrl
         } catch (err) {
             console.error('Submission error, redirecting directly:', err)
-            window.location.href = targetUrl
+            window.location.href = finalRedirectUrl
         } finally {
             // keep submitting state while browser redirects
         }

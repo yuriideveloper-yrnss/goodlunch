@@ -25,6 +25,15 @@ async function sendTelegramNotification(orderData: any, isFinished: boolean) {
             ? `💬 <b>Мессенджер:</b> ${orderData.messenger}\n`
             : '';
 
+        const attr = orderData.attribution || {};
+        const utmDetails = [
+            attr.utm_source ? `📌 <b>Источник (UTM):</b> ${attr.utm_source}` : null,
+            attr.utm_campaign ? `🎯 <b>Кампания:</b> ${attr.utm_campaign}` : null,
+            attr.utm_medium ? `📍 <b>Medium:</b> ${attr.utm_medium}` : null,
+            attr.fbclid ? `🔵 <b>Meta Ad Click:</b> Да (fbclid сохранен)` : null
+        ].filter(Boolean).join('\n');
+        const utmSection = utmDetails ? `\n${utmDetails}` : '';
+
         message = `
 🛒 <b>ЗАЯВКА: SMART CATERING</b> 🛒
 <i>(Перенаправлен в магазин Mobilny Catering)</i>
@@ -35,7 +44,7 @@ ${messengerLine}📦 <b>Выбранный пакет:</b> ${pkgText}
 🔥 <b>Калории:</b> ${orderData.calories ? `${orderData.calories} ккал` : 'Не указано'}
 💰 <b>Цена:</b> ${orderData.price ? `${orderData.price} zł` : 'Не указано'}
 🌐 <b>Язык сайта:</b> ${orderData.lang || 'unknown'}
-🔗 <b>Магазин:</b> ${targetUrl}
+🔗 <b>Магазин:</b> ${targetUrl}${utmSection}
         `.trim();
     } else {
         const title = isFinished ? '🚨 <b>НОВАЯ ЗАЯВКА (Оформлена)</b> 🚨' : '⚠️ <b>Новая заявка (Шаг 1 - Контакты)</b> ⚠️';
@@ -95,6 +104,15 @@ async function editTelegramNotification(messageId: number | string, orderData: a
             ? `💬 <b>Мессенджер:</b> ${orderData.messenger}\n`
             : '';
 
+        const attr = orderData.attribution || {};
+        const utmDetails = [
+            attr.utm_source ? `📌 <b>Источник (UTM):</b> ${attr.utm_source}` : null,
+            attr.utm_campaign ? `🎯 <b>Кампания:</b> ${attr.utm_campaign}` : null,
+            attr.utm_medium ? `📍 <b>Medium:</b> ${attr.utm_medium}` : null,
+            attr.fbclid ? `🔵 <b>Meta Ad Click:</b> Да (fbclid сохранен)` : null
+        ].filter(Boolean).join('\n');
+        const utmSection = utmDetails ? `\n${utmDetails}` : '';
+
         message = `
 🛒 <b>ЗАЯВКА: SMART CATERING</b> 🛒
 <i>(Перенаправлен в магазин Mobilny Catering)</i>
@@ -105,7 +123,7 @@ ${messengerLine}📦 <b>Выбранный пакет:</b> ${pkgText}
 🔥 <b>Калории:</b> ${orderData.calories ? `${orderData.calories} ккал` : 'Не указано'}
 💰 <b>Цена:</b> ${orderData.price ? `${orderData.price} zł` : 'Не указано'}
 🌐 <b>Язык сайта:</b> ${orderData.lang || 'unknown'}
-🔗 <b>Магазин:</b> ${targetUrl}
+🔗 <b>Магазин:</b> ${targetUrl}${utmSection}
         `.trim();
     } else {
         const title = isFinished ? '🚨 <b>НОВАЯ ЗАЯВКА (Оформлена)</b> 🚨' : '⚠️ <b>Новая заявка (Шаг 1 - Контакты)</b> ⚠️';
@@ -218,10 +236,11 @@ export async function POST(request: Request) {
                 
                 // Manage Telegram notification
                 if (updatedOrder) {
+                    const notifyData = { ...updatedOrder, attribution: body.attribution, targetUrl: body.targetUrl };
                     if (updatedOrder.telegram_message_id) {
-                        await editTelegramNotification(updatedOrder.telegram_message_id, updatedOrder, updatedOrder.status === 'New' || updatedOrder.status === 'SmartCatering');
+                        await editTelegramNotification(updatedOrder.telegram_message_id, notifyData, updatedOrder.status === 'New' || updatedOrder.status === 'SmartCatering');
                     } else {
-                        const messageId = await sendTelegramNotification(updatedOrder, updatedOrder.status === 'New' || updatedOrder.status === 'SmartCatering');
+                        const messageId = await sendTelegramNotification(notifyData, updatedOrder.status === 'New' || updatedOrder.status === 'SmartCatering');
                         if (messageId) {
                             await supabase
                                 .from('orders')
@@ -266,7 +285,8 @@ export async function POST(request: Request) {
         }
 
         // Send Telegram notification
-        const messageId = await sendTelegramNotification(newOrder, newOrder.status === 'New');
+        const notifyData = { ...newOrder, attribution: body.attribution, targetUrl: body.targetUrl };
+        const messageId = await sendTelegramNotification(notifyData, newOrder.status === 'New' || newOrder.status === 'SmartCatering');
         if (messageId) {
             const { error: updateError } = await supabase
                 .from('orders')
