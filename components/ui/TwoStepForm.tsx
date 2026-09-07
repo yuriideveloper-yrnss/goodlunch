@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { trackEvent, trackLead } from '@/lib/tracking'
+import { trackEvent, trackLead, getStoredAttribution } from '@/lib/tracking'
 import { AppleCalendarPicker } from '@/components/ui/apple-calendar-picker'
 
 const getTomorrowDate = () => {
@@ -104,7 +104,8 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
         e.preventDefault()
         setIsSubmitting(true)
         try {
-            const bodyPayload: any = { ...formData, ...defaultData, lang, step: 1 }
+            const attribution = getStoredAttribution()
+            const bodyPayload: any = { ...formData, ...defaultData, lang, step: 1, attribution }
             if (orderId) {
                 bodyPayload.id = orderId
             }
@@ -118,6 +119,11 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
                 setOrderId(data.orderId)
                 localStorage.setItem('goodlunch_order_id', data.orderId)
             }
+            trackEvent('InitiateCheckout', {
+                content_name: defaultData?.package === 'meals4' ? '4 Posiłki' : '3 Posiłki',
+                value: parseFloat(defaultData?.price) || 0,
+                currency: 'PLN'
+            })
             trackEvent('begin_checkout', { items: [{ item_name: 'Meal Plan' }] })
             setStep(2)
         } catch (err) {
@@ -131,7 +137,8 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
         e.preventDefault()
         setIsSubmitting(true)
         try {
-            const bodyPayload: any = { ...formData, ...defaultData, lang, step: 2 }
+            const attribution = getStoredAttribution()
+            const bodyPayload: any = { ...formData, ...defaultData, lang, step: 2, attribution }
             if (orderId) {
                 bodyPayload.id = orderId
             }
@@ -141,6 +148,9 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
                 body: JSON.stringify(bodyPayload)
             })
             trackLead({
+                content_name: defaultData?.package === 'meals4' ? '4 Posiłki' : '3 Posiłki',
+                currency: 'PLN',
+                value: parseFloat(defaultData?.price) || 0,
                 event_category: 'form',
                 event_label: 'TwoStepForm'
             })

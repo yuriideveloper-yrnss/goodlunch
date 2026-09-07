@@ -12,6 +12,15 @@ async function sendTelegramNotification(orderData: any, isFinished: boolean) {
 
     const isSmartCatering = orderData.source === 'smartcatering' || orderData.status === 'SmartCatering' || orderData.street === 'Mobilny Catering Store';
 
+    const attr = orderData.attribution || {};
+    const utmDetails = [
+        attr.utm_source ? `📌 <b>Источник (UTM):</b> ${attr.utm_source}` : null,
+        attr.utm_campaign ? `🎯 <b>Кампания:</b> ${attr.utm_campaign}` : null,
+        attr.utm_medium ? `📍 <b>Medium:</b> ${attr.utm_medium}` : null,
+        attr.fbclid ? `🔵 <b>Meta Ad Click:</b> Да (fbclid сохранен)` : null
+    ].filter(Boolean).join('\n');
+    const utmSection = utmDetails ? `\n${utmDetails}` : '';
+
     let message = '';
     if (isSmartCatering) {
         const pkgText = orderData.package === 'meals4' ? '4 Posiłki (4 блюда)' : (orderData.package === 'meals3' ? '3 Posiłki (3 блюда)' : (orderData.package || 'Не указано'));
@@ -24,15 +33,6 @@ async function sendTelegramNotification(orderData: any, isFinished: boolean) {
         const messengerLine = orderData.messenger && orderData.messenger !== 'external_store'
             ? `💬 <b>Мессенджер:</b> ${orderData.messenger}\n`
             : '';
-
-        const attr = orderData.attribution || {};
-        const utmDetails = [
-            attr.utm_source ? `📌 <b>Источник (UTM):</b> ${attr.utm_source}` : null,
-            attr.utm_campaign ? `🎯 <b>Кампания:</b> ${attr.utm_campaign}` : null,
-            attr.utm_medium ? `📍 <b>Medium:</b> ${attr.utm_medium}` : null,
-            attr.fbclid ? `🔵 <b>Meta Ad Click:</b> Да (fbclid сохранен)` : null
-        ].filter(Boolean).join('\n');
-        const utmSection = utmDetails ? `\n${utmDetails}` : '';
 
         message = `
 🛒 <b>ЗАЯВКА: SMART CATERING</b> 🛒
@@ -57,7 +57,7 @@ ${title}
 📦 <b>Пакет:</b> ${orderData.package || 'Не указано'} (${orderData.calories || 0} ккал)
 💰 <b>Цена:</b> ${orderData.price || 'Не указано'}
 📅 <b>Дни доставки:</b> ${orderData.deliveryDay || 'Не указано'}
-🏠 <b>Адрес:</b> ул. ${orderData.street || ''}, д. ${orderData.house || ''}, кв. ${orderData.apt || ''}
+🏠 <b>Адрес:</b> ул. ${orderData.street || ''}, д. ${orderData.house || ''}, кв. ${orderData.apt || ''}${utmSection}
         `.trim();
     }
 
@@ -91,6 +91,15 @@ async function editTelegramNotification(messageId: number | string, orderData: a
 
     const isSmartCatering = orderData.source === 'smartcatering' || orderData.status === 'SmartCatering' || orderData.street === 'Mobilny Catering Store';
 
+    const attr = orderData.attribution || {};
+    const utmDetails = [
+        attr.utm_source ? `📌 <b>Источник (UTM):</b> ${attr.utm_source}` : null,
+        attr.utm_campaign ? `🎯 <b>Кампания:</b> ${attr.utm_campaign}` : null,
+        attr.utm_medium ? `📍 <b>Medium:</b> ${attr.utm_medium}` : null,
+        attr.fbclid ? `🔵 <b>Meta Ad Click:</b> Да (fbclid сохранен)` : null
+    ].filter(Boolean).join('\n');
+    const utmSection = utmDetails ? `\n${utmDetails}` : '';
+
     let message = '';
     if (isSmartCatering) {
         const pkgText = orderData.package === 'meals4' ? '4 Posiłki (4 блюда)' : (orderData.package === 'meals3' ? '3 Posiłki (3 блюда)' : (orderData.package || 'Не указано'));
@@ -103,15 +112,6 @@ async function editTelegramNotification(messageId: number | string, orderData: a
         const messengerLine = orderData.messenger && orderData.messenger !== 'external_store'
             ? `💬 <b>Мессенджер:</b> ${orderData.messenger}\n`
             : '';
-
-        const attr = orderData.attribution || {};
-        const utmDetails = [
-            attr.utm_source ? `📌 <b>Источник (UTM):</b> ${attr.utm_source}` : null,
-            attr.utm_campaign ? `🎯 <b>Кампания:</b> ${attr.utm_campaign}` : null,
-            attr.utm_medium ? `📍 <b>Medium:</b> ${attr.utm_medium}` : null,
-            attr.fbclid ? `🔵 <b>Meta Ad Click:</b> Да (fbclid сохранен)` : null
-        ].filter(Boolean).join('\n');
-        const utmSection = utmDetails ? `\n${utmDetails}` : '';
 
         message = `
 🛒 <b>ЗАЯВКА: SMART CATERING</b> 🛒
@@ -136,7 +136,7 @@ ${title}
 📦 <b>Пакет:</b> ${orderData.package || 'Не указано'} (${orderData.calories || 0} ккал)
 💰 <b>Цена:</b> ${orderData.price || 'Не указано'}
 📅 <b>Дни доставки:</b> ${orderData.deliveryDay || 'Не указано'}
-🏠 <b>Адрес:</b> ул. ${orderData.street || ''}, д. ${orderData.house || ''}, кв. ${orderData.apt || ''}
+🏠 <b>Адрес:</b> ул. ${orderData.street || ''}, д. ${orderData.house || ''}, кв. ${orderData.apt || ''}${utmSection}
         `.trim();
     }
 
