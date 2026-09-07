@@ -21,14 +21,17 @@ async function sendTelegramNotification(orderData: any, isFinished: boolean) {
                 ? 'https://goodlunch-catering.mobilnycatering.pl/sklep/produkt/3-posiki/3574'
                 : 'https://goodlunch-catering.mobilnycatering.pl/sklep');
 
+        const messengerLine = orderData.messenger && orderData.messenger !== 'external_store'
+            ? `💬 <b>Мессенджер:</b> ${orderData.messenger}\n`
+            : '';
+
         message = `
 🛒 <b>ЗАЯВКА: SMART CATERING</b> 🛒
 <i>(Перенаправлен в магазин Mobilny Catering)</i>
 
 👤 <b>Имя:</b> ${orderData.name || 'Не указано'}
 📞 <b>Телефон:</b> ${orderData.phone || 'Не указано'}
-💬 <b>Мессенджер:</b> ${orderData.messenger || 'Не указано'}
-📦 <b>Выбранный пакет:</b> ${pkgText}
+${messengerLine}📦 <b>Выбранный пакет:</b> ${pkgText}
 🔥 <b>Калории:</b> ${orderData.calories ? `${orderData.calories} ккал` : 'Не указано'}
 💰 <b>Цена:</b> ${orderData.price ? `${orderData.price} zł` : 'Не указано'}
 🌐 <b>Язык сайта:</b> ${orderData.lang || 'unknown'}
@@ -88,14 +91,17 @@ async function editTelegramNotification(messageId: number | string, orderData: a
                 ? 'https://goodlunch-catering.mobilnycatering.pl/sklep/produkt/3-posiki/3574'
                 : 'https://goodlunch-catering.mobilnycatering.pl/sklep');
 
+        const messengerLine = orderData.messenger && orderData.messenger !== 'external_store'
+            ? `💬 <b>Мессенджер:</b> ${orderData.messenger}\n`
+            : '';
+
         message = `
 🛒 <b>ЗАЯВКА: SMART CATERING</b> 🛒
 <i>(Перенаправлен в магазин Mobilny Catering)</i>
 
 👤 <b>Имя:</b> ${orderData.name || 'Не указано'}
 📞 <b>Телефон:</b> ${orderData.phone || 'Не указано'}
-💬 <b>Мессенджер:</b> ${orderData.messenger || 'Не указано'}
-📦 <b>Выбранный пакет:</b> ${pkgText}
+${messengerLine}📦 <b>Выбранный пакет:</b> ${pkgText}
 🔥 <b>Калории:</b> ${orderData.calories ? `${orderData.calories} ккал` : 'Не указано'}
 💰 <b>Цена:</b> ${orderData.price ? `${orderData.price} zł` : 'Не указано'}
 🌐 <b>Язык сайта:</b> ${orderData.lang || 'unknown'}

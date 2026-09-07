@@ -27,7 +27,6 @@ export function SmartCateringForm({
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
-        messenger: 'telegram',
     })
 
     const handlePackageSelect = (pkg: 'meals3' | 'meals4') => {
@@ -50,7 +49,7 @@ export function SmartCateringForm({
             const bodyPayload = {
                 name: formData.name,
                 phone: formData.phone,
-                messenger: formData.messenger,
+                messenger: 'external_store',
                 package: currentPkg,
                 calories,
                 price,
@@ -157,26 +156,6 @@ export function SmartCateringForm({
                     placeholder={dict.form.phone_placeholder}
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all font-medium text-gray-900"
                 />
-            </div>
-
-            <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">{dict.form.messenger_label}</label>
-                <div className="grid grid-cols-3 gap-2">
-                    {['telegram', 'whatsapp', 'viber'].map((method) => (
-                        <button
-                            key={method}
-                            type="button"
-                            onClick={() => setFormData({ ...formData, messenger: method })}
-                            className={`py-3 px-2 rounded-xl text-sm font-bold capitalize transition-colors border ${
-                                formData.messenger === method
-                                    ? 'bg-brand-orange border-brand-orange text-white shadow-md shadow-brand-orange/30'
-                                    : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
-                            }`}
-                        >
-                            {method}
-                        </button>
-                    ))}
-                </div>
             </div>
 
             <button
