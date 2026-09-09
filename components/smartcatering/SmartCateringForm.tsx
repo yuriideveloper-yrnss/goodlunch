@@ -154,7 +154,7 @@ export function SmartCateringForm({
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                     type="text"
-                    placeholder="Ivan Ivanov"
+                    placeholder={dict.form.name_placeholder || (lang === 'pl' || lang === 'en' ? 'Jan Kowalski' : 'Ivan Ivanov')}
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all font-medium text-gray-900"
                 />
             </div>
