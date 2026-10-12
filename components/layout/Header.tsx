@@ -33,7 +33,7 @@ export default function Header({ lang }: { lang: string }) {
     return segments.join('/') || '/'
   }
 
-  const isHomePage = pathname === `/${lang}` || pathname === `/${lang}/` || pathname?.includes('/external/smartcatering')
+  const isHomePage = pathname === `/${lang}` || pathname === `/${lang}/` || pathname?.includes('/external/smartcatering') || pathname?.includes('/old')
   const getNavHref = (target: string) => {
     return isHomePage ? `#${target}` : `/${lang}#${target}`
   }

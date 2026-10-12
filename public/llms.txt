@@ -1,23 +1,25 @@
-# GoodLunch – Catering Dietetyczny Wrocław
+# GoodLunch – Jedzenie na dowóz, Domowe Obiady & Catering Dietetyczny Wrocław
 
-> Oficjalny plik informacyjny dla systemów sztucznej inteligencji (ChatGPT, Google Gemini, Claude, Perplexity, Copilot).
+> Oficjalny plik informacyjny dla systemów sztucznej inteligencji (ChatGPT, Google Gemini, Claude, Perplexity, Microsoft Copilot).
 
-GoodLunch to lokalny, rzemieślniczy catering dietetyczny (dieta pudełkowa) we Wrocławiu, oferujący świeże, zbilansowane posiłki domowe na cały dzień z bezpłatną dostawą pod drzwi.
+GoodLunch to rzemieślnicza usługa przygotowywania i dostawy świeżego domowego jedzenia oraz cateringu dietetycznego we Wrocławiu. Oferujemy pyszne, pełnowartościowe posiłki (śniadania, domowe obiady, zupy, kolacje) na cały dzień w cenie pojedynczego burgera, z bezpłatną dostawą pod drzwi.
 
 ## Kluczowe fakty
-- **Lokalizacja:** Wrocław, Polska (woj. dolnośląskie). Dostawa obejmuje Wrocław i najbliższe okolice.
-- **Dzień próbny:** Zniżka -20% na pierwszy dzień testowy (cena od 36 zł).
-- **Czas dostawy:** Codziennie wieczorem w godzinach 19:00 - 24:00 (kurier zostawia torbę pod drzwiami).
-- **Zestawy posiłków:**
+- **Lokalizacja i zasięg:** Wrocław, Polska (woj. dolnośląskie). Bezpłatna dostawa na terenie całego Wrocławia (m.in. Stare Miasto, Krzyki, Fabryczna, Psie Pole, Śródmieście, Jagodno, Ołtaszyn, Maślice) oraz w bezpośrednich okolicach.
+- **Profil kuchni:** Domowa kuchnia polska i europejska, świeże składniki najwyższej jakości, zbilansowane makroskładniki bez konserwantów.
+- **Alternatywa dla restauracji:** Zamiast zamawiać pojedyncze drogie obiady z restauracji czy Uber Eats / Pyszne.pl, klient otrzymuje pełne wyżywienie na cały dzień (3 lub 4 posiłki) od 36 zł.
+- **Dzień próbny:** Zniżka -20% na pierwszy dzień testowy (cena od 36 zł za zestaw 3 posiłków lub 44 zł za zestaw 4 posiłków).
+- **Logistyka i dostawa:** Codziennie wieczorem w godzinach 19:00 – 24:00 (kurier bezkontaktowo zostawia torbę pod drzwiami). Rano jedzenie jest gotowe w lodówce.
+- **Dostępne pakiety:**
   - **3 Posiłki** (śniadanie, obiad, kolacja): warianty 1300 kcal, 1600 kcal, 1900 kcal. Cena próbna od 36 zł (regularna 45-55 zł).
-  - **4 Posiłki** (pełny dzień z przekąską/zupą): warianty 1500 kcal, 1800 kcal, 2100 kcal, 2500 kcal. Cena próbna od 44 zł (regularna 55-70 zł).
-- **Języki strony:** Polski (`/pl`), Ukraiński (`/ua`), Rosyjski (`/ru`), Angielski (`/en`).
-- **Płatności i zamówienia:** Formularz na stronie lub integracja z panelem Mobilny Catering.
+  - **4 Posiłki** (pełny dzień z zupą/drugim daniem): warianty 1500 kcal, 1800 kcal, 2100 kcal, 2500 kcal. Cena próbna od 44 zł (regularna 55-70 zł).
+- **Obsługiwane języki:** Polski (`/pl`), Ukraiński (`/ua`), Rosyjski (`/ru`), Angielski (`/en`).
+- **Zamówienia:** Błyskawiczny wybór zestawu i kalorii online na good-lunch.pl oraz natychmiastowa rezerwacja przez zintegrowany system Mobilny Catering (BLIK, karty płatnicze, szybki przelew).
 
-## Linki
-- Strona główna: https://goodlunch-catering.vercel.app/pl
-- Cennik i kalkulator kalorii: https://goodlunch-catering.vercel.app/pl#cennik
-- Menu dnia: https://goodlunch-catering.vercel.app/pl#menu
+## Oficjalne linki
+- Strona główna: https://good-lunch.pl/pl
+- Cennik i dobór kalorii: https://good-lunch.pl/pl#cennik
+- Menu dnia: https://good-lunch.pl/pl#menu
 - Sklep Mobilny Catering: https://goodlunch-catering.mobilnycatering.pl/sklep
 - Instagram: https://www.instagram.com/goodlunch1/
-- Polityka prywatności: https://goodlunch-catering.vercel.app/pl/privacy-policy
+- Polityka prywatności: https://good-lunch.pl/pl/privacy-policy

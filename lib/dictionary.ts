@@ -1,9 +1,9 @@
 export const dictionary = {
   pl: {
     meta: {
-      title: "GoodLunch | Catering dietetyczny Wrocław – Dieta pudełkowa od 36 zł",
-      desc: "Smaczne domowe jedzenie z bezpłatną dostawą pod drzwi we Wrocławiu. Pełnowartościowe posiłki na cały dzień. Zamów dzień próbny ze zniżką -20% za jedyne 36 zł!",
-      keywords: "catering dietetyczny Wrocław, dieta pudełkowa Wrocław, tani catering Wrocław, jedzenie z dostawą Wrocław, fit catering Wrocław, dzień próbny catering, posiłki do domu Wrocław, zdrowy catering Wrocław",
+      title: "GoodLunch | Jedzenie na dowóz Wrocław & Catering – Domowe obiady od 36 zł",
+      desc: "Pyszne domowe jedzenie na dowóz i catering dietetyczny we Wrocławiu. Świeże obiady, zupy i kolacje dostarczane bezpłatnie pod Twoje drzwi. Zamów zestaw na cały dzień od 36 zł!",
+      keywords: "jedzenie na dowóz Wrocław, dostawa jedzenia Wrocław, domowe obiady Wrocław dowóz, obiady z dowozem Wrocław, jedzenie do domu Wrocław, tani obiad Wrocław dostawa, polska kuchnia Wrocław dostawa, catering dietetyczny Wrocław, dieta pudełkowa Wrocław, tani catering Wrocław, zamów jedzenie online Wrocław, fit catering Wrocław, zupy na dowóz Wrocław, kolacja na dowóz Wrocław, dzień próbny catering Wrocław",
     },
     nav: {
       menu: "Menu",
@@ -79,7 +79,7 @@ export const dictionary = {
       weight_label: "Waga (kg)",
       weight_placeholder: "np. 70",
       activity_label: "Poziom aktywności",
-      activity_1: "Siedzący trybżycia",
+      activity_1: "Siedzący tryb życia",
       activity_2: "Lekka aktywność",
       activity_3: "Umiarkowana aktywność",
       activity_4: "Wysoka aktywność",
@@ -125,14 +125,18 @@ export const dictionary = {
       a2: "Powiedz o tym menedżerowi podczas potwierdzania zamówienia. Odnotujemy to!",
       q3: "Kiedy jest dostawa?",
       a3: "Dostarczamy od 19:00 do 24:00, kurier po prostu zostawia paczkę pod Twoimi drzwiami.",
+      q4: "Czy dowozicie jedzenie na terenie całego Wrocławia?",
+      a4: "Tak! Dowozimy jedzenie do każdej dzielnicy Wrocławia (m.in. Stare Miasto, Krzyki, Fabryczna, Psie Pole, Śródmieście, Jagodno, Ołtaszyn, Maślice) oraz w bezpośrednich okolicach. Bezpłatna dostawa wieczorna.",
+      q5: "Czym GoodLunch różni się od zamawiania z Pyszne.pl lub restauracji?",
+      a5: "W cenie pojedynczego dania z restauracji (od 36 zł za dzień próbny) otrzymujesz pełnowartościowe posiłki na cały dzień (śniadanie, obiad, kolacja). Zero gotowania, zmywania i czekania na kuriera w ciągu dnia.",
     },
   },
 
   ua: {
     meta: {
-      title: "GoodLunch | Доставка їжі та раціонів Вроцлав – від 36 зл",
-      desc: "Смачна домашня їжа та збалансоване харчування з доставкою під двері у Вроцлаві. Пробний день зі знижкою -20% всього за 36 zł!",
-      keywords: "доставка їжі Вроцлав, кейтеринг Вроцлав, раціони їжі Вроцлав, домашня їжа Вроцлав, доставка раціонів Польща",
+      title: "GoodLunch | Доставка їжі Вроцлав & Кейтеринг – Домашні обіди від 36 зл",
+      desc: "Смачна домашня їжа з доставкою під двері у Вроцлаві. Свіжі обіди, супи та вечері на весь день за ціною фастфуду. Пробний день зі знижкою -20% всього за 36 zł!",
+      keywords: "доставка їжі Вроцлав, домашні обіди Вроцлав, їжа з доставкою Вроцлав, кейтеринг Вроцлав, раціони їжі Вроцлав, домашня кухня Вроцлав, замовити їжу онлайн Вроцлав, дешевий кейтеринг Вроцлав",
     },
     nav: {
       menu: "Меню",
@@ -254,14 +258,18 @@ export const dictionary = {
       a2: "Скажи про це менеджеру при підтвердженні замовлення. Ми це врахуємо!",
       q3: "Коли доставка?",
       a3: "Доставляємо з 19:00 по 24:00, кур'єр просто залишає вам пакет під дверима.",
+      q4: "Чи доставляєте ви по всьому Вроцлаву?",
+      a4: "Так! Безкоштовна доставка здійснюється в усі райони Вроцлава (Stare Miasto, Krzyki, Fabryczna, Psie Pole, Śródmieście тощо). Кур'єр залишає пакет біля ваших дверей щовечора.",
+      q5: "Чим GoodLunch відрізняється від замовлення з ресторану або Uber Eats?",
+      a5: "За ціною однієї ресторанної страви або бургера (від 36 zł за пробний день) ви отримуєте повноцінне домашнє харчування на весь день — сніданок, обід та вечерю, збалансовані за калоріями.",
     },
   },
 
   ru: {
     meta: {
-      title: "GoodLunch | Доставка еды и рационов Вроцлав – от 36 зл",
-      desc: "Вкусная домашняя еда и готовые рационы с бесплатной доставкой до двери во Вроцлаве. Пробный день со скидкой -20% всего за 36 zł!",
-      keywords: "доставка еды Вроцлав, готовая еда Вроцлав, кейтеринг рационы Вроцлав, домашняя еда Вроцлав, пробный день питания",
+      title: "GoodLunch | Доставка еды Вроцлав & Кейтеринг – Домашние обеды от 36 zł",
+      desc: "Вкусная домашняя еда с бесплатной доставкой до двери во Вроцлаве. Свежие обеды, супы и ужины на весь день по цене фастфуда. Пробный день со скидкой -20% всего за 36 zł!",
+      keywords: "доставка еды Вроцлав, домашние обеды Вроцлав, доставка обедов Вроцлав, кейтеринг Вроцлав, рационы еды Вроцлав, заказать еду Вроцлав, польская кухня доставка Вроцлав, еда на дом Вроцлав, здоровое питание Вроцлав",
     },
     nav: {
       menu: "Меню",
@@ -383,14 +391,18 @@ export const dictionary = {
       a2: "Скажи об этом менеджеру при подтверждении заказа. Мы это учтём!",
       q3: "Когда доставка?",
       a3: "Доставляем с 19:00 по 24:00, курьер просто оставляет вам пакет под дверьми.",
+      q4: "Доставляете ли вы по всему Вроцлаву?",
+      a4: "Да! Бесплатная доставка осуществляется во все районы Вроцлава (Кшики, Фабрычна, Псе Поле, Старе Място, Сьрудместье и др.). Пакет доставляется прямо под дверь.",
+      q5: "Чем GoodLunch отличается от доставки из ресторанов или Uber Eats?",
+      a5: "По цене одного ресторанного блюда (от 36 zł за пробный день) вы получаете полноценное домашнее питание на целый день: завтрак, обед и ужин без необходимости готовить и мыть посуду.",
     },
   },
 
   en: {
     meta: {
-      title: "GoodLunch | Meal Prep & Diet Catering Wroclaw – From 36 zł",
-      desc: "Delicious homemade meal prep with free door-to-door delivery in Wroclaw. Full daily meals. Order a trial day with a 20% discount for only 36 zł!",
-      keywords: "diet catering Wroclaw, meal prep Wroclaw, healthy food delivery Wroclaw, box diet Wroclaw, trial day catering Wroclaw",
+      title: "GoodLunch | Food Delivery Wroclaw & Diet Catering – Daily Meals from 36 zł",
+      desc: "Delicious home-cooked food delivery and meal prep in Wroclaw. Fresh lunches, dinners, and breakfasts delivered to your door. Try your first day with a 20% discount from 36 zł!",
+      keywords: "food delivery Wroclaw, home meal delivery Wroclaw, order food online Wroclaw, diet catering Wroclaw, meal prep Wroclaw, cheap food delivery Wroclaw, box diet Wroclaw, daily meal delivery Wroclaw, healthy food delivery Wroclaw",
     },
     nav: {
       menu: "Menu",
@@ -512,6 +524,10 @@ export const dictionary = {
       a2: "Tell the manager when confirming the order. We will note it!",
       q3: "When is the delivery?",
       a3: "We deliver from 19:00 to 24:00, the courier simply leaves the package at your doors.",
+      q4: "Do you deliver across all of Wroclaw?",
+      a4: "Yes! We deliver to every district of Wroclaw (Stare Miasto, Krzyki, Fabryczna, Psie Pole, Śródmieście, etc.) with free door-to-door evening delivery.",
+      q5: "How is GoodLunch different from ordering from restaurants on Uber Eats or Pyszne.pl?",
+      a5: "For the price of a single restaurant takeout dish (from 36 zł on your trial day), you receive full balanced home-cooked meals for the entire day (breakfast, lunch, dinner) without extra delivery fees.",
     },
   },
 };

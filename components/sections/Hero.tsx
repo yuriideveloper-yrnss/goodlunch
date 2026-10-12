@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { trackEvent } from '@/lib/tracking'
 import { QuickOrderModal } from '@/components/ui/QuickOrderModal'
 
-export default function Hero({ lang, dict }: { lang: string, dict: any }) {
+export default function Hero({ lang, dict, isOld = false }: { lang: string, dict: any, isOld?: boolean }) {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false)
 
   return (
@@ -123,6 +123,7 @@ export default function Hero({ lang, dict }: { lang: string, dict: any }) {
         dict={dict}
         lang={lang}
         initialPackage="meals3"
+        isOld={isOld}
       />
     </section>
   )

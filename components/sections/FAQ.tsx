@@ -9,6 +9,8 @@ export default function FAQ({ dict }: { dict: any }) {
     { id: 1, q: dict.faq.q1, a: dict.faq.a1 },
     { id: 2, q: dict.faq.q2, a: dict.faq.a2 },
     { id: 3, q: dict.faq.q3, a: dict.faq.a3 },
+    ...(dict.faq.q4 ? [{ id: 4, q: dict.faq.q4, a: dict.faq.a4 }] : []),
+    ...(dict.faq.q5 ? [{ id: 5, q: dict.faq.q5, a: dict.faq.a5 }] : []),
   ]
 
   return (

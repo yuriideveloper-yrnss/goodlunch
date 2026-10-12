@@ -1,11 +1,11 @@
 import { dictionary } from '@/lib/dictionary'
 import Hero from '@/components/sections/Hero'
-import PriceCalculator from '@/components/sections/PriceCalculator'
 import Features from '@/components/sections/Features'
 import MenuCalendar from '@/components/sections/MenuCalendar'
+import SmartCateringCalculator from '@/components/smartcatering/SmartCateringCalculator'
 import Reviews from '@/components/sections/Reviews'
 import FAQ from '@/components/sections/FAQ'
-import LeadForm from '@/components/sections/LeadForm'
+import SmartCateringLeadForm from '@/components/smartcatering/SmartCateringLeadForm'
 
 // Обрати внимание: params теперь Promise
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
@@ -21,10 +21,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <Hero lang={lang} dict={dict} />
       <Features dict={dict} />
       <MenuCalendar dict={dict} lang={lang} />
-      <PriceCalculator dict={dict} lang={lang} />
+      <SmartCateringCalculator dict={dict} lang={lang} />
       <Reviews dict={dict} lang={lang} />
       <FAQ dict={dict} />
-      <LeadForm dict={dict} lang={lang} />
+      <SmartCateringLeadForm dict={dict} lang={lang} />
     </main>
   )
 }

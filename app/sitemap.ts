@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     '',
     '/privacy-policy',
-    '/external/smartcatering',
   ];
 
   const sitemapEntries: MetadataRoute.Sitemap = [];

@@ -14,25 +14,26 @@
 
 ### Routing Structure (Next.js App Router)
 - **`/middleware.ts`**: Handles automatic locale detection (detects `pl`, `ua`, `ru`, `en`, with default Polish fallback `pl` for Poland SEO priority) and redirects root routes to localized subpaths (e.g., `/` -> `/pl`).
-- **`app/robots.ts`**: SEO & AI crawler instructions allowing full indexation for search engines (Google, Bing, DuckDuckGo) and top AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, Google-Extended, PerplexityBot). Disallows `/admin` and `/api`.
-- **`app/sitemap.ts`**: Dynamic sitemap with localized hreflang alternates (`pl-PL`, `uk-UA`, `ru-RU`, `en-US`, `x-default`) and priority weighting.
-- **`public/llms.txt` & `public/llms-full.txt`**: Standard AI context files summarizing GoodLunch diet catering offerings, delivery in Wrocław, pricing, and trial day discounts for direct LLM synthesis.
-- **`lib/site.ts`**: Central site URL resolver using `NEXT_PUBLIC_SITE_URL` (defaults to current Vercel production domain, seamlessly switchable to `good-lunch.pl`).
-- **`lib/structured-data.ts`**: Generates Schema.org JSON-LD structured data (`FoodEstablishment`, `LocalBusiness`, `FAQPage`, `WebSite`, `Product`, `OfferCatalog`) for rich search snippets and LLM extraction.
+- **`app/robots.ts`**: SEO & AI crawler instructions allowing full indexation for search engines (Google, Bing, DuckDuckGo) and top AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, Google-Extended, PerplexityBot). Disallows `/admin`, `/api`, `/old`, and `/*/old`.
+- **`app/sitemap.ts`**: Dynamic sitemap with localized hreflang alternates (`pl-PL`, `uk-UA`, `ru-RU`, `en-US`, `x-default`) and priority weighting on `https://good-lunch.pl`.
+- **`public/llms.txt` & `public/llms-full.txt`**: Comprehensive AI context files summarizing GoodLunch food delivery in Wrocław, home meals (domowe obiady), Polish cuisine, diet catering offerings, delivery in Wrocław, pricing, and trial day discounts for direct LLM synthesis.
+- **`lib/site.ts`**: Central site URL resolver using `NEXT_PUBLIC_SITE_URL` (defaults to custom production domain `https://good-lunch.pl`).
+- **`lib/structured-data.ts`**: Generates Schema.org JSON-LD structured data (`FoodEstablishment`, `Restaurant`, `DeliveryService`, `LocalBusiness`, `FAQPage`, `WebSite`, `Product`, `OfferCatalog`, `OrderAction`) for rich search snippets and LLM extraction.
 - **`app/[lang]/layout.tsx`**: Localized root layout containing global styles, fonts (Inter), locale-specific metadata, OpenGraph tags, Twitter Cards, geo-tags (Wrocław, Poland), Schema.org JSON-LD scripts, standard scripts, and global providers/layout components:
   - `OrderProvider` (State management for package calculators and orders)
   - `Header` (Sticky desktop nav / language flags toggler)
   - `Footer` (Copyright, logo, social media links)
   - `LoadingScreen`, `FloatingBackgrounds`, `TrackingScripts`
-- **`app/[lang]/page.tsx`**: Localized main Landing page rendering layout sections:
-  - `Hero`
+- **`app/[lang]/page.tsx`**: Localized main Landing page with **Smart Catering** as the primary flow:
+  - `Hero` (opens Smart Catering QuickOrderModal with calorie & meal picker)
   - `Features`
   - `MenuCalendar`
-  - `PriceCalculator`
+  - `SmartCateringCalculator`
   - `Reviews`
-  - `FAQ`
-  - `LeadForm`
-- **`app/[lang]/external/smartcatering/page.tsx`**: Localized Smart Catering funnel copy. Captures lead contacts without requesting delivery address, fires tracking events (`smartcatering_lead`, `InitiateCheckout`, `trackLead`), logs to Supabase with status `SmartCatering`, notifies Telegram with dedicated alert, and redirects directly to Mobilny Catering store products (3 meals: `https://goodlunch-catering.mobilnycatering.pl/sklep/produkt/3-posiki/3574`, 4 meals: `https://goodlunch-catering.mobilnycatering.pl/sklep/produkt/4-posiki/3575`).
+  - `FAQ` (5 comprehensive Q&As covering food delivery, diet catering, and restaurant comparison)
+  - `SmartCateringLeadForm`
+- **`app/[lang]/old/page.tsx`**: Archived legacy landing page (address inputs flow). Strictly marked `noindex, nofollow` and blocked in `robots.txt` so it is never indexed by crawlers.
+- **`next.config.mjs`**: Contains permanent 308 redirects from `/:lang/external/smartcatering` to `/:lang` (and `/external/smartcatering` to `/pl`), automatically preserving query parameters (`utm_source`, `fbclid`, `bw_cid`) for Meta ad campaigns.
 - **`app/[lang]/privacy-policy/page.tsx`**: Localized Privacy Policy & Cookies page displaying the full legal policy document with a desktop-sticky table of contents and back-to-home navigation links.
 - **`app/admin/`**: Admin portal layout and client component containing the dashboard:
   - `layout.tsx`: Base wrapper.

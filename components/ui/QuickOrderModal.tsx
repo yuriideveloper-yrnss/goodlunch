@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PRICING } from '@/lib/constants'
 import { TwoStepForm } from '@/components/ui/TwoStepForm'
+import { SmartCateringForm } from '@/components/smartcatering/SmartCateringForm'
 import { trackEvent } from '@/lib/tracking'
 
 export function QuickOrderModal({
@@ -11,12 +12,14 @@ export function QuickOrderModal({
   dict,
   lang,
   initialPackage = 'meals3',
+  isOld = false,
 }: {
   isOpen: boolean
   onCloseAction: () => void
   dict: any
   lang: string
   initialPackage?: 'meals3' | 'meals4'
+  isOld?: boolean
 }) {
   const [mealPackage, setMealPackage] = useState<'meals3' | 'meals4'>(initialPackage)
   const currentOptions = PRICING[mealPackage]
@@ -216,17 +219,30 @@ export function QuickOrderModal({
                   </div>
                 </div>
 
-                {/* 4. Форма контактов и адреса */}
-                <TwoStepForm
-                  dict={dict}
-                  defaultData={{
-                    package: mealPackage,
-                    calories: safeCalories,
-                    price: trialPrice,
-                  }}
-                  lang={lang}
-                  onSuccessAction={() => setIsSuccess(true)}
-                />
+                {/* 4. Форма контактов */}
+                {isOld ? (
+                  <TwoStepForm
+                    dict={dict}
+                    defaultData={{
+                      package: mealPackage,
+                      calories: safeCalories,
+                      price: trialPrice,
+                    }}
+                    lang={lang}
+                    onSuccessAction={() => setIsSuccess(true)}
+                  />
+                ) : (
+                  <SmartCateringForm
+                    dict={dict}
+                    defaultData={{
+                      package: mealPackage,
+                      calories: safeCalories,
+                      price: trialPrice,
+                    }}
+                    lang={lang}
+                    onSuccessAction={() => setIsSuccess(true)}
+                  />
+                )}
               </>
             )}
           </motion.div>

@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: '*',
                 allow: '/',
-                disallow: ['/admin', '/api/', '/_next/'],
+                disallow: ['/admin', '/api/', '/_next/', '/*/old', '/old'],
             },
             // Explicit allowlist for AI search engines & crawlers
             {
@@ -24,7 +24,7 @@ export default function robots(): MetadataRoute.Robots {
                     'CCBot',
                 ],
                 allow: '/',
-                disallow: ['/admin', '/api/'],
+                disallow: ['/admin', '/api/', '/*/old', '/old'],
             },
         ],
         sitemap: `${SITE_URL}/sitemap.xml`,

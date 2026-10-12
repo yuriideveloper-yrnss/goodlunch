@@ -7,11 +7,13 @@ import { QuickOrderModal } from '@/components/ui/QuickOrderModal'
 export default function StickyBottomCTA({ 
   lang, 
   dict,
-  ctaText = 'Zamów dzień próbny 36 zł' 
+  ctaText = 'Zamów dzień próbny 36 zł',
+  isOld = false,
 }: { 
   lang: string
   dict: any
-  ctaText?: string 
+  ctaText?: string
+  isOld?: boolean
 }) {
   const [visible, setVisible] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -70,6 +72,7 @@ export default function StickyBottomCTA({
         dict={dict}
         lang={lang}
         initialPackage="meals3"
+        isOld={isOld}
       />
     </>
   )
