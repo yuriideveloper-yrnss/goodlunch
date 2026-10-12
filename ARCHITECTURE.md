@@ -13,9 +13,9 @@
 ## 2. Route & File Map
 
 ### Routing Structure (Next.js App Router)
-- **`/middleware.ts`**: Handles automatic locale detection (detects `pl`, `ua`, `ru`, `en`, with default Polish fallback `pl` for Poland SEO priority) and redirects root routes to localized subpaths (e.g., `/` -> `/pl`).
+- **`/middleware.ts`**: Handles automatic locale detection (detects `pl`, `ua`, `ru`, `be`, `en`, with default Polish fallback `pl` for Poland SEO priority) and redirects root routes to localized subpaths (e.g., `/` -> `/pl`).
 - **`app/robots.ts`**: SEO & AI crawler instructions allowing full indexation for search engines (Google, Bing, DuckDuckGo) and top AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, Google-Extended, PerplexityBot). Disallows `/admin`, `/api`, `/old`, and `/*/old`.
-- **`app/sitemap.ts`**: Dynamic sitemap with localized hreflang alternates (`pl-PL`, `uk-UA`, `ru-RU`, `en-US`, `x-default`) and priority weighting on `https://good-lunch.pl`.
+- **`app/sitemap.ts`**: Dynamic sitemap with localized hreflang alternates (`pl-PL`, `uk-UA`, `ru-RU`, `be-BY`, `en-US`, `x-default`) and priority weighting on `https://good-lunch.pl`.
 - **`public/llms.txt` & `public/llms-full.txt`**: Comprehensive AI context files summarizing GoodLunch food delivery in Wrocław, home meals (domowe obiady), Polish cuisine, diet catering offerings, delivery in Wrocław, pricing, and trial day discounts for direct LLM synthesis.
 - **`lib/site.ts`**: Central site URL resolver using `NEXT_PUBLIC_SITE_URL` (defaults to custom production domain `https://good-lunch.pl`).
 - **`lib/structured-data.ts`**: Generates Schema.org JSON-LD structured data (`FoodEstablishment`, `Restaurant`, `DeliveryService`, `LocalBusiness`, `FAQPage`, `WebSite`, `Product`, `OfferCatalog`, `OrderAction`) for rich search snippets and LLM extraction.

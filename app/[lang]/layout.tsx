@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     pl: 'pl_PL',
     ua: 'uk_UA',
     ru: 'ru_RU',
+    be: 'be_BY',
     en: 'en_US',
   };
 
@@ -58,6 +59,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         'pl-PL': `${SITE_URL}/pl`,
         'uk-UA': `${SITE_URL}/ua`,
         'ru-RU': `${SITE_URL}/ru`,
+        'be-BY': `${SITE_URL}/be`,
         'en-US': `${SITE_URL}/en`,
         'x-default': `${SITE_URL}/pl`,
       },
@@ -123,6 +125,7 @@ export default async function RootLayout({
     pl: 'Gotujemy...',
     ua: 'Готуємо...',
     ru: 'Готовим...',
+    be: 'Гатуем...',
     en: 'Cooking...'
   };
   const loadingText = loadingTextMap[lang] || loadingTextMap.en;

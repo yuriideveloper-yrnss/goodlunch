@@ -21,6 +21,7 @@ export default function Header({ lang }: { lang: string }) {
     pl: { menu: 'Menu', price: 'Cennik', reviews: 'Opinie', faq: 'FAQ' },
     ua: { menu: 'Меню', price: 'Ціни', reviews: 'Відгуки', faq: 'Питання' },
     ru: { menu: 'Меню', price: 'Цены', reviews: 'Отзывы', faq: 'Частые вопросы' },
+    be: { menu: 'Меню', price: 'Цэны', reviews: 'Водгукі', faq: 'Пытанні' },
     en: { menu: 'Menu', price: 'Pricing', reviews: 'Reviews', faq: 'FAQ' },
   }
   const txt = navText[lang] || navText.en;
@@ -99,6 +100,13 @@ export default function Header({ lang }: { lang: string }) {
             className={`p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-full hover:scale-115 transition-transform ${lang === 'ru' ? 'ring-2 ring-brand-orange bg-white shadow-xs' : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'}`}
           >
             🇷🇺
+          </Link>
+          <Link 
+            href={getLangUrl('be')} 
+            title="Беларуская" 
+            className={`p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-full hover:scale-115 transition-transform ${lang === 'be' ? 'ring-2 ring-brand-orange bg-white shadow-xs' : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'}`}
+          >
+            🇧🇾
           </Link>
           <Link 
             href={getLangUrl('en')} 

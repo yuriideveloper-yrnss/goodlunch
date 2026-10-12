@@ -3,7 +3,7 @@ import { SITE_URL } from '@/lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
-  const languages = ['pl', 'ua', 'ru', 'en'];
+  const languages = ['pl', 'ua', 'ru', 'be', 'en'];
 
   // Base routes for each language
   const routes = [
@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       for (const l of languages) {
         // Map internal language code to proper BCP-47 hreflang
-        const hreflangCode = l === 'ua' ? 'uk-UA' : l === 'pl' ? 'pl-PL' : l === 'ru' ? 'ru' : 'en';
+        const hreflangCode = l === 'ua' ? 'uk-UA' : l === 'pl' ? 'pl-PL' : l === 'ru' ? 'ru' : l === 'be' ? 'be-BY' : 'en';
         alternatesLanguages[hreflangCode] = `${SITE_URL}/${l}${route}`;
       }
 

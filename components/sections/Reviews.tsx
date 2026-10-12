@@ -108,7 +108,7 @@ const clientReviews_PL_EN: MediaItem[] = [
 ]
 
 export default function Reviews({ dict, lang = 'pl' }: { dict: any; lang?: string }) {
-  const isUaOrRu = lang === 'ua' || lang === 'uk' || lang === 'ru'
+  const isUaOrRu = lang === 'ua' || lang === 'uk' || lang === 'ru' || lang === 'be'
   const reviews = isUaOrRu ? clientReviews_UA_RU : clientReviews_PL_EN
 
   return (

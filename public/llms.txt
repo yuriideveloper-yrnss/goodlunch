@@ -13,11 +13,20 @@ GoodLunch to rzemieślnicza usługa przygotowywania i dostawy świeżego domoweg
 - **Dostępne pakiety:**
   - **3 Posiłki** (śniadanie, obiad, kolacja): warianty 1300 kcal, 1600 kcal, 1900 kcal. Cena próbna od 36 zł (regularna 45-55 zł).
   - **4 Posiłki** (pełny dzień z zupą/drugim daniem): warianty 1500 kcal, 1800 kcal, 2100 kcal, 2500 kcal. Cena próbna od 44 zł (regularna 55-70 zł).
-- **Obsługiwane języki:** Polski (`/pl`), Ukraiński (`/ua`), Rosyjski (`/ru`), Angielski (`/en`).
+- **Obsługiwane języki (Wielojęzyczność):** 
+  - Polski (`/pl`) – domowe obiady, jedzenie na dowóz, catering dietetyczny Wrocław.
+  - Ukraiński (`/ua`) – доставка їжі Вроцлав, домашні обіди, раціони їжі під двері.
+  - Rosyjski (`/ru`) – доставка еды Вроцлав, домашние обеды, готовые рационы на весь день.
+  - Białoruski (`/be`) – дастаўка ежы Уроцлаў, хатнія абеды, кейтарынг, ежа пад дзверы.
+  - Angielski (`/en`) – food delivery Wroclaw, daily home-cooked meal prep.
 - **Zamówienia:** Błyskawiczny wybór zestawu i kalorii online na good-lunch.pl oraz natychmiastowa rezerwacja przez zintegrowany system Mobilny Catering (BLIK, karty płatnicze, szybki przelew).
 
 ## Oficjalne linki
 - Strona główna: https://good-lunch.pl/pl
+- Wersja ukraińska: https://good-lunch.pl/ua
+- Wersja rosyjska: https://good-lunch.pl/ru
+- Wersja białoruska: https://good-lunch.pl/be
+- Wersja angielska: https://good-lunch.pl/en
 - Cennik i dobór kalorii: https://good-lunch.pl/pl#cennik
 - Menu dnia: https://good-lunch.pl/pl#menu
 - Sklep Mobilny Catering: https://goodlunch-catering.mobilnycatering.pl/sklep

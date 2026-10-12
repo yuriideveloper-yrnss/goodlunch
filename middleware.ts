@@ -16,7 +16,7 @@ export function middleware(request: NextRequest) {
   }
 
   // 2. Проверяем, есть ли уже язык в URL
-  const pathnameHasLocale = ['/pl', '/ua', '/ru', '/en'].some(loc => pathname.startsWith(loc))
+  const pathnameHasLocale = ['/pl', '/ua', '/ru', '/be', '/en'].some(loc => pathname.startsWith(loc))
   if (pathnameHasLocale) return
 
   // 3. Магия определения языка
@@ -26,7 +26,8 @@ export function middleware(request: NextRequest) {
   // Для польского рынка по умолчанию ставим 'pl'
   let locale = 'pl';
   if (/uk|ua/i.test(acceptLanguage)) locale = 'ua';
-  else if (/ru|be|kz/i.test(acceptLanguage)) locale = 'ru';
+  else if (/be/i.test(acceptLanguage)) locale = 'be';
+  else if (/ru|kz/i.test(acceptLanguage)) locale = 'ru';
   else if (/en/i.test(acceptLanguage)) locale = 'en';
   else if (/pl/i.test(acceptLanguage)) locale = 'pl';
 
