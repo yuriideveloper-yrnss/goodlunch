@@ -1,10 +1,14 @@
 'use client'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import Image from 'next/image'
 import { trackEvent } from '@/lib/tracking'
+import { QuickOrderModal } from '@/components/ui/QuickOrderModal'
 
 export default function Hero({ lang, dict }: { lang: string, dict: any }) {
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false)
+
   return (
     <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-brand-bg pt-14 pb-6 sm:py-20 lg:py-0">
 
@@ -42,15 +46,29 @@ export default function Hero({ lang, dict }: { lang: string, dict: any }) {
             {dict.hero.subtitle}
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-row gap-2.5 sm:gap-4 justify-center lg:justify-start w-full max-w-sm sm:max-w-md">
-            <a href="#cennik" className="flex-1 sm:flex-initial" onClick={() => trackEvent('hero_cta_click', { target: 'cennik' })}>
-              <Button size="md" variant="primary" className="w-full text-xs sm:text-base py-3 sm:py-4 px-4 sm:px-8 shadow-brand-orange/40 shadow-lg font-bold">
-                {dict.hero.cta_main}
-              </Button>
-            </a>
-            <a href="#menu" className="flex-1 sm:flex-initial" onClick={() => trackEvent('hero_cta_click', { target: 'menu' })}>
-              <Button size="md" variant="outline" className="w-full text-xs sm:text-base py-3 sm:py-4 px-4 sm:px-8 bg-white/70 backdrop-blur-sm font-semibold">
+          {/* CTA Buttons — одна под другой, оранжевая сверху, вторая снизу, заполняют ширину */}
+          <div className="flex flex-col gap-2 sm:gap-2.5 w-full max-w-sm sm:max-w-md">
+            <Button
+              size="md"
+              variant="primary"
+              onClick={() => {
+                setIsOrderModalOpen(true)
+                trackEvent('hero_cta_click', { target: 'quick_order_modal' })
+              }}
+              className="w-full text-sm sm:text-base py-3 sm:py-3.5 px-6 shadow-brand-orange/40 shadow-lg font-bold"
+            >
+              {dict.hero.cta_main}
+            </Button>
+            <a
+              href="#menu"
+              className="w-full"
+              onClick={() => trackEvent('hero_cta_click', { target: 'menu' })}
+            >
+              <Button
+                size="md"
+                variant="outline"
+                className="w-full text-sm sm:text-base py-3 sm:py-3.5 px-6 bg-white/80 backdrop-blur-sm font-semibold border-gray-300 hover:bg-gray-100"
+              >
                 {dict.hero.cta_menu}
               </Button>
             </a>
@@ -94,6 +112,15 @@ export default function Hero({ lang, dict }: { lang: string, dict: any }) {
         </motion.div>
 
       </div>
+
+      {/* Модалка оформления заказа с выбором калорийности */}
+      <QuickOrderModal
+        isOpen={isOrderModalOpen}
+        onCloseAction={() => setIsOrderModalOpen(false)}
+        dict={dict}
+        lang={lang}
+        initialPackage="meals3"
+      />
     </section>
   )
 }

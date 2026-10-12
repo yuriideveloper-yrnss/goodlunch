@@ -82,14 +82,14 @@ export default function PriceCalculator({ dict, lang }: { dict: any; lang?: stri
               <span className="text-brand-orange font-bold text-lg">{calories} kcal</span>
             </div>
 
-            <div className="flex gap-2 flex-wrap sm:flex-nowrap bg-white p-1 rounded-xl shadow-sm relative">
+            <div className={`grid gap-1.5 sm:gap-2 p-1 bg-white rounded-xl shadow-sm relative ${mealPackage === 'meals4' ? 'grid-cols-4' : 'grid-cols-3'}`}>
               {currentOptions.map((tier) => {
                 const isActive = calories === tier.value;
                 return (
                   <button
                     key={tier.value}
                     onClick={() => setCalories(tier.value)}
-                    className={`flex-1 min-w-[80px] py-3 rounded-lg text-sm font-bold transition-colors relative z-10 ${isActive ? 'text-white' : 'text-gray-600 hover:text-gray-800'
+                    className={`py-2.5 sm:py-3 px-1 rounded-lg text-xs sm:text-sm font-bold transition-colors relative z-10 text-center whitespace-nowrap ${isActive ? 'text-white' : 'text-gray-600 hover:text-gray-800'
                       }`}
                   >
                     {isActive && (
@@ -118,24 +118,24 @@ export default function PriceCalculator({ dict, lang }: { dict: any; lang?: stri
           </div>
 
           {/* Підсумкова ціна з анімацією */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-white p-6 rounded-2xl border border-brand-orange/20">
-            <div className="text-center sm:text-left">
-              <p className="text-gray-500 text-sm mb-1">{dict.calc.price_label}</p>
-              <div className="flex items-baseline justify-center sm:justify-start gap-3">
-                <span className="text-4xl font-bold text-brand-dark">{trialPrice} zł</span>
-                <span className="text-xl text-gray-500 line-through decoration-brand-orange">{fullPrice} zł</span>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-5 bg-white p-5 sm:p-6 rounded-2xl border border-brand-orange/20">
+            <div className="text-center sm:text-left w-full sm:w-auto">
+              <p className="text-gray-500 text-xs sm:text-sm mb-1">{dict.calc.price_label}</p>
+              <div className="flex items-baseline justify-center sm:justify-start gap-2.5 sm:gap-3 flex-nowrap whitespace-nowrap">
+                <span className="text-3xl sm:text-4xl font-black text-brand-dark tracking-tight whitespace-nowrap">{trialPrice} zł</span>
+                <span className="text-lg sm:text-xl text-gray-400 font-semibold line-through decoration-brand-orange whitespace-nowrap">{fullPrice} zł</span>
               </div>
-              <p className="text-xs text-brand-green mt-1">{dict.calc.discount_tag}</p>
+              <p className="text-xs text-brand-green font-semibold mt-1 whitespace-nowrap">{dict.calc.discount_tag}</p>
             </div>
 
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => {
                 setIsModalOpen(true);
                 trackEvent('calculator_order_click', { package: mealPackage, calories: calories, price: trialPrice });
               }}
-              className="w-full sm:w-auto bg-brand-orange text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-brand-orange/30"
+              className="w-full sm:w-auto bg-brand-orange hover:bg-orange-600 text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold shadow-lg shadow-brand-orange/30 whitespace-nowrap text-base"
             >
               {dict.calc.order_btn}
             </motion.button>
