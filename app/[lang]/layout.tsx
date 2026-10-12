@@ -6,6 +6,7 @@ import { SITE_URL } from "@/lib/site";
 import { generateStructuredData } from "@/lib/structured-data";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import StickyBottomCTA from "@/components/ui/StickyBottomCTA";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import FloatingBackgrounds from "@/components/ui/FloatingBackgrounds";
 import { OrderProvider } from "@/components/providers/OrderProvider";
@@ -156,6 +157,7 @@ export default async function RootLayout({
           <Header lang={lang} />
           {children}
           <Footer lang={lang} />
+          <StickyBottomCTA lang={lang} ctaText={dict.hero?.cta_main || 'Zamów dzień próbny 36 zł'} />
           <Analytics />
         </OrderProvider>
       </body>

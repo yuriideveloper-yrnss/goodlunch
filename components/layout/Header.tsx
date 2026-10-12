@@ -40,54 +40,71 @@ export default function Header({ lang }: { lang: string }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-5'
-        }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-2' : 'bg-transparent py-2.5 sm:py-3.5'
+      }`}
     >
-      <div className="container mx-auto px-4 flex justify-between items-center gap-4">
+      <div className="container mx-auto px-4 flex justify-between items-center gap-3">
 
         {/* ЛОГОТИП -> Инстаграм */}
         <a 
           href="https://www.instagram.com/goodlunch1/" 
           target="_blank" 
           rel="noopener noreferrer" 
-          className="flex items-center gap-2 flex-shrink-0 cursor-pointer"
+          className="flex items-center gap-2 flex-shrink-0 cursor-pointer group"
           onClick={() => trackEvent('click_instagram_logo')}
         >
-          <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-brand-orange hover:scale-105 transition-transform">
+          <div className="relative w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full overflow-hidden border-2 border-brand-orange group-hover:scale-105 transition-transform">
             <Image
               src="/logo.png"
               alt="GoodLunch Logo"
               fill
-              sizes="48px"
+              sizes="40px"
               loading="lazy"
               className="object-cover"
             />
           </div>
-          <span className={`hidden sm:inline-block font-bold text-lg md:text-xl tracking-tight ${scrolled ? 'text-brand-dark' : 'text-brand-dark'}`}>
+          <span className="hidden sm:inline-block font-bold text-base sm:text-lg tracking-tight text-brand-dark">
             Good<span className="text-brand-orange">Lunch</span>
           </span>
         </a>
 
-        {/* НАВИГАЦИЯ (Только на больших экранах, можно сделать меню-бургер для мобильных потом) */}
-        <nav className="hidden md:flex gap-6 lg:gap-8 font-medium text-sm text-gray-600">
+        {/* НАВИГАЦИЯ (Только на больших экранах) */}
+        <nav className="hidden lg:flex gap-6 xl:gap-8 font-medium text-sm text-gray-600">
           <a href={getNavHref('menu')} className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'menu' })}>{txt.menu}</a>
           <a href={getNavHref('cennik')} className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'cennik' })}>{txt.price}</a>
           <a href={getNavHref('opinie')} className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'opinie' })}>{txt.reviews}</a>
           <a href={getNavHref('faq')} className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'faq' })}>{txt.faq}</a>
         </nav>
 
-        {/* Переключатель языка (Флаги) */}
-        <div className="flex gap-1 md:gap-2 text-xl md:text-2xl flex-shrink-0">
-          <Link href={getLangUrl('pl')} title="Polski" className={`p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:scale-110 transition-transform ${lang !== 'pl' ? 'opacity-50 grayscale hover:grayscale-0' : ''}`}>
+        {/* Переключатель языка (Флаги) — ВСЕГДА ВИДНО И НА МОБИЛКЕ, И НА ПК */}
+        <div className="flex items-center gap-1 sm:gap-1.5 text-lg sm:text-xl flex-shrink-0 bg-white/70 backdrop-blur-sm px-2 py-1 rounded-full border border-gray-200/50 shadow-sm">
+          <Link 
+            href={getLangUrl('pl')} 
+            title="Polski" 
+            className={`p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-full hover:scale-115 transition-transform ${lang === 'pl' ? 'ring-2 ring-brand-orange bg-white shadow-xs' : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'}`}
+          >
             🇵🇱
           </Link>
-          <Link href={getLangUrl('ua')} title="Українська" className={`p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:scale-110 transition-transform ${lang !== 'ua' ? 'opacity-50 grayscale hover:grayscale-0' : ''}`}>
+          <Link 
+            href={getLangUrl('ua')} 
+            title="Українська" 
+            className={`p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-full hover:scale-115 transition-transform ${lang === 'ua' ? 'ring-2 ring-brand-orange bg-white shadow-xs' : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'}`}
+          >
             🇺🇦
           </Link>
-          <Link href={getLangUrl('ru')} title="Русский" className={`p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:scale-110 transition-transform ${lang !== 'ru' ? 'opacity-50 grayscale hover:grayscale-0' : ''}`}>
+          <Link 
+            href={getLangUrl('ru')} 
+            title="Русский" 
+            className={`p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-full hover:scale-115 transition-transform ${lang === 'ru' ? 'ring-2 ring-brand-orange bg-white shadow-xs' : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'}`}
+          >
             🇷🇺
           </Link>
-          <Link href={getLangUrl('en')} title="English" className={`p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:scale-110 transition-transform ${lang !== 'en' ? 'opacity-50 grayscale hover:grayscale-0' : ''}`}>
+          <Link 
+            href={getLangUrl('en')} 
+            title="English" 
+            className={`p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-full hover:scale-115 transition-transform ${lang === 'en' ? 'ring-2 ring-brand-orange bg-white shadow-xs' : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'}`}
+          >
             🇬🇧
           </Link>
         </div>
