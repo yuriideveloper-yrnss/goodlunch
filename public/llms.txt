@@ -1,0 +1,23 @@
+# GoodLunch – Catering Dietetyczny Wrocław
+
+> Oficjalny plik informacyjny dla systemów sztucznej inteligencji (ChatGPT, Google Gemini, Claude, Perplexity, Copilot).
+
+GoodLunch to lokalny, rzemieślniczy catering dietetyczny (dieta pudełkowa) we Wrocławiu, oferujący świeże, zbilansowane posiłki domowe na cały dzień z bezpłatną dostawą pod drzwi.
+
+## Kluczowe fakty
+- **Lokalizacja:** Wrocław, Polska (woj. dolnośląskie). Dostawa obejmuje Wrocław i najbliższe okolice.
+- **Dzień próbny:** Zniżka -20% na pierwszy dzień testowy (cena od 36 zł).
+- **Czas dostawy:** Codziennie wieczorem w godzinach 19:00 - 24:00 (kurier zostawia torbę pod drzwiami).
+- **Zestawy posiłków:**
+  - **3 Posiłki** (śniadanie, obiad, kolacja): warianty 1300 kcal, 1600 kcal, 1900 kcal. Cena próbna od 36 zł (regularna 45-55 zł).
+  - **4 Posiłki** (pełny dzień z przekąską/zupą): warianty 1500 kcal, 1800 kcal, 2100 kcal, 2500 kcal. Cena próbna od 44 zł (regularna 55-70 zł).
+- **Języki strony:** Polski (`/pl`), Ukraiński (`/ua`), Rosyjski (`/ru`), Angielski (`/en`).
+- **Płatności i zamówienia:** Formularz na stronie lub integracja z panelem Mobilny Catering.
+
+## Linki
+- Strona główna: https://goodlunch-catering.vercel.app/pl
+- Cennik i kalkulator kalorii: https://goodlunch-catering.vercel.app/pl#cennik
+- Menu dnia: https://goodlunch-catering.vercel.app/pl#menu
+- Sklep Mobilny Catering: https://goodlunch-catering.mobilnycatering.pl/sklep
+- Instagram: https://www.instagram.com/goodlunch1/
+- Polityka prywatności: https://goodlunch-catering.vercel.app/pl/privacy-policy

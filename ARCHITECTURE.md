@@ -13,9 +13,13 @@
 ## 2. Route & File Map
 
 ### Routing Structure (Next.js App Router)
-- **`/middleware.ts`**: Handles automatic locale detection (detects `pl`, `ua`, `ru`, defaulting to `en`) and redirects root routes to localized subpaths (e.g., `/` -> `/pl`).
-- **`app/robots.ts`**: SEO robots instructions.
-- **`app/[lang]/layout.tsx`**: Localized root layout containing global styles, fonts (Inter), locale-specific metadata, standard scripts, and global providers/layout components:
+- **`/middleware.ts`**: Handles automatic locale detection (detects `pl`, `ua`, `ru`, `en`, with default Polish fallback `pl` for Poland SEO priority) and redirects root routes to localized subpaths (e.g., `/` -> `/pl`).
+- **`app/robots.ts`**: SEO & AI crawler instructions allowing full indexation for search engines (Google, Bing, DuckDuckGo) and top AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, Google-Extended, PerplexityBot). Disallows `/admin` and `/api`.
+- **`app/sitemap.ts`**: Dynamic sitemap with localized hreflang alternates (`pl-PL`, `uk-UA`, `ru-RU`, `en-US`, `x-default`) and priority weighting.
+- **`public/llms.txt` & `public/llms-full.txt`**: Standard AI context files summarizing GoodLunch diet catering offerings, delivery in Wrocław, pricing, and trial day discounts for direct LLM synthesis.
+- **`lib/site.ts`**: Central site URL resolver using `NEXT_PUBLIC_SITE_URL` (defaults to current Vercel production domain, seamlessly switchable to `good-lunch.pl`).
+- **`lib/structured-data.ts`**: Generates Schema.org JSON-LD structured data (`FoodEstablishment`, `LocalBusiness`, `FAQPage`, `WebSite`, `Product`, `OfferCatalog`) for rich search snippets and LLM extraction.
+- **`app/[lang]/layout.tsx`**: Localized root layout containing global styles, fonts (Inter), locale-specific metadata, OpenGraph tags, Twitter Cards, geo-tags (Wrocław, Poland), Schema.org JSON-LD scripts, standard scripts, and global providers/layout components:
   - `OrderProvider` (State management for package calculators and orders)
   - `Header` (Sticky desktop nav / language flags toggler)
   - `Footer` (Copyright, logo, social media links)

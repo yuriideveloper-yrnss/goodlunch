@@ -1,8 +1,9 @@
 export const dictionary = {
   pl: {
     meta: {
-      title: "GoodLunch | Catering dietetyczny Wrocław -20%",
-      desc: "Smaczne domowe jedzenie z dostawą pod drzwi. Dzień próbny tylko 36 zł.",
+      title: "GoodLunch | Catering dietetyczny Wrocław – Dieta pudełkowa od 36 zł",
+      desc: "Smaczne domowe jedzenie z bezpłatną dostawą pod drzwi we Wrocławiu. Pełnowartościowe posiłki na cały dzień. Zamów dzień próbny ze zniżką -20% za jedyne 36 zł!",
+      keywords: "catering dietetyczny Wrocław, dieta pudełkowa Wrocław, tani catering Wrocław, jedzenie z dostawą Wrocław, fit catering Wrocław, dzień próbny catering, posiłki do domu Wrocław, zdrowy catering Wrocław",
     },
     nav: {
       menu: "Menu",
@@ -129,8 +130,9 @@ export const dictionary = {
 
   ua: {
     meta: {
-      title: "GoodLunch | Доставка їжі Вроцлав -20%",
-      desc: "Смачна домашня їжа з доставкою під двері. Пробний день всього 36 зл.",
+      title: "GoodLunch | Доставка їжі та раціонів Вроцлав – від 36 зл",
+      desc: "Смачна домашня їжа та збалансоване харчування з доставкою під двері у Вроцлаві. Пробний день зі знижкою -20% всього за 36 zł!",
+      keywords: "доставка їжі Вроцлав, кейтеринг Вроцлав, раціони їжі Вроцлав, домашня їжа Вроцлав, доставка раціонів Польща",
     },
     nav: {
       menu: "Меню",
@@ -257,8 +259,9 @@ export const dictionary = {
 
   ru: {
     meta: {
-      title: "GoodLunch | Доставка еды Вроцлав -20%",
-      desc: "Вкусная домашняя еда с доставкой до двери. Пробный день всего 36 зл.",
+      title: "GoodLunch | Доставка еды и рационов Вроцлав – от 36 зл",
+      desc: "Вкусная домашняя еда и готовые рационы с бесплатной доставкой до двери во Вроцлаве. Пробный день со скидкой -20% всего за 36 zł!",
+      keywords: "доставка еды Вроцлав, готовая еда Вроцлав, кейтеринг рационы Вроцлав, домашняя еда Вроцлав, пробный день питания",
     },
     nav: {
       menu: "Меню",
@@ -385,8 +388,9 @@ export const dictionary = {
 
   en: {
     meta: {
-      title: "GoodLunch | Diet Catering Wroclaw -20%",
-      desc: "Delicious homemade food delivered to your door. Trial day for only 36 zł.",
+      title: "GoodLunch | Meal Prep & Diet Catering Wroclaw – From 36 zł",
+      desc: "Delicious homemade meal prep with free door-to-door delivery in Wroclaw. Full daily meals. Order a trial day with a 20% discount for only 36 zł!",
+      keywords: "diet catering Wroclaw, meal prep Wroclaw, healthy food delivery Wroclaw, box diet Wroclaw, trial day catering Wroclaw",
     },
     nav: {
       menu: "Menu",

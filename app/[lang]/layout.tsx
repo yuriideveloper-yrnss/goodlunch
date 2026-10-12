@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { dictionary } from "@/lib/dictionary";
+import { SITE_URL } from "@/lib/site";
+import { generateStructuredData } from "@/lib/structured-data";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import LoadingScreen from "@/components/ui/LoadingScreen";
@@ -13,30 +15,108 @@ import { Analytics } from "@vercel/analytics/react";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#FF6B00",
 };
 
 const inter = Inter({ subsets: ["latin"] });
 
-// Исправляем Metadata
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
-  const { lang } = await params; // <--- ЖДЕМ
+  const { lang } = await params;
   // @ts-ignore
-  const meta = dictionary[lang]?.meta || dictionary.pl.meta;
+  const dict = dictionary[lang] || dictionary.pl;
+  const meta = dict.meta;
+
+  const canonicalUrl = `${SITE_URL}/${lang}`;
+  const ogLocaleMap: Record<string, string> = {
+    pl: 'pl_PL',
+    ua: 'uk_UA',
+    ru: 'ru_RU',
+    en: 'en_US',
+  };
+
   return {
-    title: meta.title,
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: meta.title,
+      template: `%s | GoodLunch Wrocław`,
+    },
     description: meta.desc,
+    keywords: meta.keywords,
+    applicationName: 'GoodLunch',
+    authors: [{ name: 'GoodLunch Catering Dietetyczny Wrocław', url: SITE_URL }],
+    creator: 'GoodLunch',
+    publisher: 'GoodLunch',
+    formatDetection: {
+      telephone: true,
+      address: true,
+      email: true,
+    },
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        'pl-PL': `${SITE_URL}/pl`,
+        'uk-UA': `${SITE_URL}/ua`,
+        'ru-RU': `${SITE_URL}/ru`,
+        'en-US': `${SITE_URL}/en`,
+        'x-default': `${SITE_URL}/pl`,
+      },
+    },
+    openGraph: {
+      title: meta.title,
+      description: meta.desc,
+      url: canonicalUrl,
+      siteName: 'GoodLunch – Catering Dietetyczny Wrocław',
+      locale: ogLocaleMap[lang] || 'pl_PL',
+      alternateLocale: Object.values(ogLocaleMap).filter((l) => l !== (ogLocaleMap[lang] || 'pl_PL')),
+      type: 'website',
+      images: [
+        {
+          url: `${SITE_URL}/logo.png`,
+          width: 512,
+          height: 512,
+          alt: 'GoodLunch Catering Dietetyczny Wrocław',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: meta.title,
+      description: meta.desc,
+      images: [`${SITE_URL}/logo.png`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    category: 'food',
+    other: {
+      'geo.region': 'PL-DS',
+      'geo.placename': 'Wrocław',
+      'geo.position': '51.107883;17.038538',
+      'ICBM': '51.107883, 17.038538',
+    },
   };
 }
 
 export default async function RootLayout({
   children,
-  params, // <--- Не разбираем сразу, а берем целиком
+  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ lang: string }>; // <--- Типизируем как Promise
+  params: Promise<{ lang: string }>;
 }>) {
+  const { lang } = await params;
 
-  const { lang } = await params; // <--- ЖДЕМ ЗДЕСЬ
+  // @ts-ignore
+  const dict = dictionary[lang] || dictionary.pl;
+  const { businessSchema, faqSchema, websiteSchema } = generateStructuredData(lang, dict);
 
   const loadingTextMap: Record<string, string> = {
     pl: 'Gotujemy...',
@@ -46,9 +126,27 @@ export default async function RootLayout({
   };
   const loadingText = loadingTextMap[lang] || loadingTextMap.en;
 
+  // Map internal lang to HTML lang standard
+  const htmlLang = lang === 'ua' ? 'uk' : lang;
+
   return (
-    <html lang={lang}>
+    <html lang={htmlLang}>
       <head>
+        <link rel="icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
+        {/* Schema.org Structured Data for Search Engines & AI Crawlers */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
       </head>
       <body className={inter.className}>
         <OrderProvider>

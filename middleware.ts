@@ -22,14 +22,12 @@ export function middleware(request: NextRequest) {
   // 3. Магия определения языка
   const acceptLanguage = request.headers.get('accept-language') || ''
 
-  // ЛОГИКА:
-  // uk/ua -> 'ua'
-  // ru/be/kz -> 'ru'
-  // pl -> 'pl'
-  // остальные -> 'en'
-  let locale = 'en';
+  // ЛОГИКА ОПРЕДЕЛЕНИЯ ЯЗЫКА:
+  // Для польского рынка по умолчанию ставим 'pl'
+  let locale = 'pl';
   if (/uk|ua/i.test(acceptLanguage)) locale = 'ua';
   else if (/ru|be|kz/i.test(acceptLanguage)) locale = 'ru';
+  else if (/en/i.test(acceptLanguage)) locale = 'en';
   else if (/pl/i.test(acceptLanguage)) locale = 'pl';
 
   // 4. Делаем редирект
