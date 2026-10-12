@@ -10,44 +10,47 @@ export default function Hero({ lang, dict }: { lang: string, dict: any }) {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false)
 
   return (
-    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-brand-bg pt-14 pb-6 sm:py-20 lg:py-0">
+    <section className="relative min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-brand-bg pt-14 pb-4 sm:pt-20 sm:pb-8 lg:py-0 lg:justify-center">
 
       {/* ГИГАНТСКОЕ Свечение справа сверху (Ambient Light) */}
-      <div className="absolute -top-20 -right-20 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-brand-orange/20 blur-[120px] sm:blur-[150px] rounded-full pointer-events-none"></div>
+      <div className="absolute -top-20 -right-20 w-[420px] sm:w-[600px] h-[420px] sm:h-[600px] bg-brand-orange/20 blur-[120px] sm:blur-[150px] rounded-full pointer-events-none"></div>
 
       {/* Контейнер */}
-      <div className="container mx-auto px-4 z-10 flex flex-col lg:flex-row gap-3 sm:gap-6 lg:gap-12 items-center justify-center min-h-full">
+      <div className="container mx-auto px-4 z-10 flex-1 flex flex-col lg:flex-row gap-2 sm:gap-6 lg:gap-12 items-center justify-between lg:justify-center w-full max-w-6xl">
 
-        {/* Текстовая часть (на мобилке идет вторым блоком после тарелки) */}
+        {/* Текстовая часть + кнопки (на мобилке занимает нижнюю часть и прижимает кнопки к низу) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="w-full lg:w-[48%] text-center lg:text-left relative z-20 flex flex-col items-center lg:items-start order-2 lg:order-1"
+          className="w-full lg:w-[48%] text-center lg:text-left relative z-20 flex-1 lg:flex-initial flex flex-col justify-between lg:justify-start items-center lg:items-start order-2 lg:order-1"
         >
-          {/* Badge */}
-          <div className="mb-2 sm:mb-4">
-            <span className="inline-flex items-center gap-1.5 py-1 px-3 sm:py-1.5 sm:px-4 rounded-full bg-white/90 backdrop-blur-sm border border-brand-orange/25 text-brand-orange text-xs sm:text-sm font-bold shadow-xs">
-              🔥 {dict.hero.badge}
-            </span>
+          {/* Текстовый блок */}
+          <div className="flex flex-col items-center lg:items-start my-auto lg:my-0">
+            {/* Badge */}
+            <div className="mb-2 sm:mb-4">
+              <span className="inline-flex items-center gap-1.5 py-1 px-3 sm:py-1.5 sm:px-4 rounded-full bg-white/90 backdrop-blur-sm border border-brand-orange/25 text-brand-orange text-xs sm:text-sm font-bold shadow-xs">
+                🔥 {dict.hero.badge}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h1 className="text-2xl min-[380px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-brand-dark leading-[1.12] sm:leading-[1.1] mb-2 sm:mb-4 tracking-tight">
+              {dict.hero.title}{' '}
+              <span className="inline-flex items-baseline gap-2 whitespace-nowrap">
+                <del className="text-xl sm:text-3xl lg:text-5xl text-gray-400 font-semibold decoration-brand-orange/50">45 zł</del>
+                <span className="text-brand-orange text-3xl min-[380px]:text-4xl sm:text-5xl lg:text-6xl font-black">36 zł</span>
+              </span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-xs min-[380px]:text-sm sm:text-base lg:text-lg text-gray-600 mb-2 sm:mb-6 lg:mb-8 max-w-md lg:max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal">
+              {dict.hero.subtitle}
+            </p>
           </div>
 
-          {/* Title */}
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-brand-dark leading-[1.12] sm:leading-[1.1] mb-2 sm:mb-4 tracking-tight">
-            {dict.hero.title}{' '}
-            <span className="inline-flex items-baseline gap-2 whitespace-nowrap">
-              <del className="text-xl sm:text-3xl lg:text-5xl text-gray-400 font-semibold decoration-brand-orange/50">45 zł</del>
-              <span className="text-brand-orange text-3xl sm:text-4xl lg:text-6xl font-black">36 zł</span>
-            </span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-xs sm:text-base lg:text-lg text-gray-600 mb-4 sm:mb-6 lg:mb-8 max-w-md lg:max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal">
-            {dict.hero.subtitle}
-          </p>
-
-          {/* CTA Buttons — одна под другой, оранжевая сверху, вторая снизу, заполняют ширину */}
-          <div className="flex flex-col gap-2 sm:gap-2.5 w-full max-w-sm sm:max-w-md">
+          {/* CTA Buttons — прижаты к низу на мобилках */}
+          <div className="flex flex-col gap-2 sm:gap-2.5 w-full max-w-sm sm:max-w-md mt-auto pt-2 pb-[env(safe-area-inset-bottom,0px)]">
             <Button
               size="md"
               variant="primary"
@@ -55,7 +58,7 @@ export default function Hero({ lang, dict }: { lang: string, dict: any }) {
                 setIsOrderModalOpen(true)
                 trackEvent('hero_cta_click', { target: 'quick_order_modal' })
               }}
-              className="w-full text-sm sm:text-base py-3 sm:py-3.5 px-6 shadow-brand-orange/40 shadow-lg font-bold"
+              className="w-full text-base sm:text-lg py-3.5 sm:py-4 px-6 shadow-brand-orange/40 shadow-xl font-black active:scale-[0.98]"
             >
               {dict.hero.cta_main}
             </Button>
@@ -67,7 +70,7 @@ export default function Hero({ lang, dict }: { lang: string, dict: any }) {
               <Button
                 size="md"
                 variant="outline"
-                className="w-full text-sm sm:text-base py-3 sm:py-3.5 px-6 bg-white/80 backdrop-blur-sm font-semibold border-gray-300 hover:bg-gray-100"
+                className="w-full text-sm sm:text-base py-3 sm:py-3.5 px-6 bg-white/90 backdrop-blur-sm font-bold border-gray-300 hover:bg-gray-100"
               >
                 {dict.hero.cta_menu}
               </Button>
@@ -75,15 +78,15 @@ export default function Hero({ lang, dict }: { lang: string, dict: any }) {
           </div>
         </motion.div>
 
-        {/* Визуальная часть (ЕДА НА МОБИЛКЕ НАВЕРХУ) */}
+        {/* Визуальная часть (ЕДА НА МОБИЛКЕ НАВЕРХУ - увеличенный масштаб) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="w-full lg:w-[52%] relative flex justify-center items-center order-1 lg:order-2"
+          className="w-full lg:w-[52%] relative flex justify-center items-center order-1 lg:order-2 flex-shrink-0 pt-2 lg:pt-0"
         >
-          {/* Контейнер для картинки: Мобилка адаптивно 220px-280px (или 32-38vh), Десктоп до 680px */}
-          <div className="relative w-[210px] h-[210px] sm:w-[300px] sm:h-[300px] md:w-[380px] md:h-[380px] lg:w-[580px] lg:h-[580px] xl:w-[680px] xl:h-[680px]">
+          {/* Контейнер для картинки: Мобилка адаптивно 240px-330px, Десктоп до 680px */}
+          <div className="relative w-[240px] h-[240px] min-[380px]:w-[270px] min-[380px]:h-[270px] sm:w-[340px] sm:h-[340px] md:w-[420px] md:h-[420px] lg:w-[580px] lg:h-[580px] xl:w-[680px] xl:h-[680px]">
 
             {/* Плашка цены (плавает) */}
             <motion.div
@@ -105,8 +108,8 @@ export default function Hero({ lang, dict }: { lang: string, dict: any }) {
               alt="GoodLunch Catering Dietetyczny Wrocław – Świeży zbilansowany posiłek"
               fill
               priority
-              sizes="(max-width: 640px) 240px, (max-width: 1024px) 380px, 680px"
-              className="object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.2)] hover:scale-105 transition-transform duration-700"
+              sizes="(max-width: 640px) 280px, (max-width: 1024px) 420px, 680px"
+              className="object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.22)] hover:scale-105 transition-transform duration-700"
             />
           </div>
         </motion.div>
