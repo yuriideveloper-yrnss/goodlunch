@@ -56,8 +56,8 @@ export default function StickyBottomCTA({
                   <span className="flex h-2.5 w-2.5 rounded-full bg-white animate-pulse" />
                   <span className="text-base font-extrabold tracking-tight">{ctaText}</span>
                 </div>
-                <div className="flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-xl text-sm font-black">
-                  <span>36 zł</span>
+                <div className="flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-xl text-sm font-black whitespace-nowrap flex-shrink-0">
+                  <span className="whitespace-nowrap">36&nbsp;zł</span>
                   <span className="text-xs">➔</span>
                 </div>
               </button>

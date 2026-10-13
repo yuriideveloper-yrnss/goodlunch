@@ -209,12 +209,12 @@ export function QuickOrderModal({
                   <span className="text-xs text-gray-600 font-medium">
                     {dict.calc.price_label}
                   </span>
-                  <div className="flex items-baseline gap-2 whitespace-nowrap">
-                    <span className="text-xl sm:text-2xl font-black text-brand-dark">
-                      {trialPrice} zł
+                  <div className="flex items-baseline gap-2 whitespace-nowrap flex-nowrap">
+                    <span className="text-xl sm:text-2xl font-black text-brand-dark whitespace-nowrap">
+                      {trialPrice}&nbsp;zł
                     </span>
-                    <span className="text-xs sm:text-sm text-gray-400 font-semibold line-through">
-                      {fullPrice} zł
+                    <span className="text-xs sm:text-sm text-gray-400 font-semibold line-through whitespace-nowrap">
+                      {fullPrice}&nbsp;zł
                     </span>
                   </div>
                 </div>

@@ -72,7 +72,7 @@ export function OrderModal({
                                 <h3 className="text-2xl font-bold text-brand-dark mb-2">{dict.form.title}</h3>
                                 <p className="text-gray-500 text-sm mb-6 pb-6 border-b border-gray-100">
                                     {dict.form.subtitle}
-                                    <br /> <span className="font-bold text-brand-dark">{selectedPackage === 'meals3' ? '3 Posiłki' : '4 Posiłki'} • {selectedCalories} kcal • {price} zł</span>
+                                    <br /> <span className="font-bold text-brand-dark whitespace-nowrap">{selectedPackage === 'meals3' ? '3 Posiłki' : '4 Posiłki'} • {selectedCalories}&nbsp;kcal • {price}&nbsp;zł</span>
                                 </p>
 
                                 <TwoStepForm

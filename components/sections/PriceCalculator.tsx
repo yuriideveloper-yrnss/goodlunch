@@ -122,8 +122,8 @@ export default function PriceCalculator({ dict, lang }: { dict: any; lang?: stri
             <div className="text-center sm:text-left w-full sm:w-auto">
               <p className="text-gray-500 text-xs sm:text-sm mb-1">{dict.calc.price_label}</p>
               <div className="flex items-baseline justify-center sm:justify-start gap-2.5 sm:gap-3 flex-nowrap whitespace-nowrap">
-                <span className="text-3xl sm:text-4xl font-black text-brand-dark tracking-tight whitespace-nowrap">{trialPrice} zł</span>
-                <span className="text-lg sm:text-xl text-gray-400 font-semibold line-through decoration-brand-orange whitespace-nowrap">{fullPrice} zł</span>
+                <span className="text-3xl min-[380px]:text-4xl font-black text-brand-dark tracking-tight whitespace-nowrap">{trialPrice}&nbsp;zł</span>
+                <span className="text-lg min-[380px]:text-xl text-gray-400 font-semibold line-through decoration-brand-orange whitespace-nowrap">{fullPrice}&nbsp;zł</span>
               </div>
               <p className="text-xs text-brand-green font-semibold mt-1 whitespace-nowrap">{dict.calc.discount_tag}</p>
             </div>
