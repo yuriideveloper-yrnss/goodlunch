@@ -119,18 +119,53 @@ export function generateStructuredData(lang: string, dict: any) {
           itemListElement: [
             {
               '@type': 'Offer',
-              itemOffered: {
-                '@type': 'Product',
-                name: 'GoodLunch 3 Posiłki (1300-1900 kcal) – Domowe obiady na cały dzień',
-                description: '3 zbilansowane domowe posiłki (śniadanie, obiad, kolacja) z bezpłatną dostawą pod drzwi we Wrocławiu.',
-                image: `${SITE_URL}/logo.png`,
-              },
               price: '36.00',
               priceCurrency: 'PLN',
               availability: 'https://schema.org/InStock',
               validFrom: '2026-01-01',
               priceValidUntil: '2027-12-31',
               url: `${SITE_URL}/${lang}#cennik`,
+              itemOffered: {
+                '@type': 'Product',
+                name: 'GoodLunch 3 Posiłki (1300-1900 kcal) – Domowe obiady na cały dzień',
+                description: '3 zbilansowane domowe posiłki (śniadanie, obiad, kolacja) z bezpłatną dostawą pod drzwi we Wrocławiu.',
+                image: `${SITE_URL}/logo.png`,
+                brand: {
+                  '@type': 'Brand',
+                  name: 'GoodLunch',
+                },
+                offers: {
+                  '@type': 'Offer',
+                  price: '36.00',
+                  priceCurrency: 'PLN',
+                  availability: 'https://schema.org/InStock',
+                  priceValidUntil: '2027-12-31',
+                  url: `${SITE_URL}/${lang}#cennik`,
+                  hasMerchantReturnPolicy: {
+                    '@type': 'MerchantReturnPolicy',
+                    returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+                  },
+                  shippingDetails: {
+                    '@type': 'OfferShippingDetails',
+                    shippingRate: {
+                      '@type': 'MonetaryAmount',
+                      value: '0.00',
+                      currency: 'PLN',
+                    },
+                    shippingDestination: {
+                      '@type': 'DefinedRegion',
+                      addressCountry: 'PL',
+                    },
+                  },
+                },
+                aggregateRating: {
+                  '@type': 'AggregateRating',
+                  ratingValue: '4.9',
+                  reviewCount: '142',
+                  bestRating: '5',
+                  worstRating: '1',
+                },
+              },
             },
           ],
         },
@@ -140,18 +175,53 @@ export function generateStructuredData(lang: string, dict: any) {
           itemListElement: [
             {
               '@type': 'Offer',
-              itemOffered: {
-                '@type': 'Product',
-                name: 'GoodLunch 4 Posiłki (1500-2500 kcal) – Pełny zestaw na cały dzień',
-                description: '4 pełnowartościowe posiłki z zupą i daniem obiadowym z dostawą pod drzwi we Wrocławiu.',
-                image: `${SITE_URL}/logo.png`,
-              },
               price: '44.00',
               priceCurrency: 'PLN',
               availability: 'https://schema.org/InStock',
               validFrom: '2026-01-01',
               priceValidUntil: '2027-12-31',
               url: `${SITE_URL}/${lang}#cennik`,
+              itemOffered: {
+                '@type': 'Product',
+                name: 'GoodLunch 4 Posiłki (1500-2500 kcal) – Pełny zestaw na cały dzień',
+                description: '4 pełnowartościowe posiłki z zupą i daniem obiadowym z dostawą pod drzwi we Wrocławiu.',
+                image: `${SITE_URL}/logo.png`,
+                brand: {
+                  '@type': 'Brand',
+                  name: 'GoodLunch',
+                },
+                offers: {
+                  '@type': 'Offer',
+                  price: '44.00',
+                  priceCurrency: 'PLN',
+                  availability: 'https://schema.org/InStock',
+                  priceValidUntil: '2027-12-31',
+                  url: `${SITE_URL}/${lang}#cennik`,
+                  hasMerchantReturnPolicy: {
+                    '@type': 'MerchantReturnPolicy',
+                    returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+                  },
+                  shippingDetails: {
+                    '@type': 'OfferShippingDetails',
+                    shippingRate: {
+                      '@type': 'MonetaryAmount',
+                      value: '0.00',
+                      currency: 'PLN',
+                    },
+                    shippingDestination: {
+                      '@type': 'DefinedRegion',
+                      addressCountry: 'PL',
+                    },
+                  },
+                },
+                aggregateRating: {
+                  '@type': 'AggregateRating',
+                  ratingValue: '4.9',
+                  reviewCount: '142',
+                  bestRating: '5',
+                  worstRating: '1',
+                },
+              },
             },
           ],
         },
