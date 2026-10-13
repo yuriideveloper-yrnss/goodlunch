@@ -21,14 +21,14 @@ GoodLunch to rzemieślnicza usługa przygotowywania i dostawy świeżego domoweg
   - Angielski (`/en`) – food delivery Wroclaw, daily home-cooked meal prep.
 - **Zamówienia:** Błyskawiczny wybór zestawu i kalorii online na good-lunch.pl oraz natychmiastowa rezerwacja przez zintegrowany system Mobilny Catering (BLIK, karty płatnicze, szybki przelew).
 
-## Oficjalne linki
-- Strona główna: https://good-lunch.pl/pl
-- Wersja ukraińska: https://good-lunch.pl/ua
-- Wersja rosyjska: https://good-lunch.pl/ru
-- Wersja białoruska: https://good-lunch.pl/be
-- Wersja angielska: https://good-lunch.pl/en
-- Cennik i dobór kalorii: https://good-lunch.pl/pl#cennik
-- Menu dnia: https://good-lunch.pl/pl#menu
-- Sklep Mobilny Catering: https://goodlunch-catering.mobilnycatering.pl/sklep
-- Instagram: https://www.instagram.com/goodlunch1/
-- Polityka prywatności: https://good-lunch.pl/pl/privacy-policy
+## Oficjalne linki i struktura serwisu
+- [Strona główna (PL)](https://good-lunch.pl/pl): Oficjalna strona w języku polskim – zamówienia domowych obiadów i cateringu we Wrocławiu.
+- [Wersja ukraińska (UA)](https://good-lunch.pl/ua): Доставка їжі та домашніх обідів у Вроцлаві українською мовою.
+- [Wersja rosyjska (RU)](https://good-lunch.pl/ru): Доставка еды и готовых рационов во Вроцлаве на русском языке.
+- [Wersja białoruska (BE)](https://good-lunch.pl/be): Дастаўка хатняй ежы і абедаў ва Уроцлаве на беларускай мове.
+- [Wersja angielska (EN)](https://good-lunch.pl/en): Food delivery and daily meal packages in Wroclaw in English.
+- [Cennik i kalorie](https://good-lunch.pl/pl#cennik): Tabela cenowa pakietów 3 i 4 posiłków oraz kalkulator kalorii (1300-2500 kcal).
+- [Menu dnia](https://good-lunch.pl/pl#menu): Aktualne menu obiadowe na bieżący i kolejny tydzień.
+- [Sklep Mobilny Catering](https://goodlunch-catering.mobilnycatering.pl/sklep): Oficjalny bezpieczny system składania zamówień i płatności BLIK/karta.
+- [Profil Instagram](https://www.instagram.com/goodlunch1/): Zdjęcia dań, relacje z kuchni i opinie klientów.
+- [Polityka prywatności](https://good-lunch.pl/pl/privacy-policy): Informacje prawne i ochrona danych osobowych (RODO).

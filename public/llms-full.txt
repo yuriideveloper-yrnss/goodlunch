@@ -47,11 +47,11 @@ Wrocław jest domem dla setek tysięcy obcokrajowców, studentów i pracowników
 3. **Czy dostawa jest bezpłatna?** Tak, dostawa pod drzwi na terenie całego Wrocławia jest w 100% bezpłatna.
 
 ## Dane kontaktowe i Oficjalne profile
-- Strona główna: https://good-lunch.pl/pl
-- Język ukraiński: https://good-lunch.pl/ua
-- Język rosyjski: https://good-lunch.pl/ru
-- Język białoruski: https://good-lunch.pl/be
-- Język angielski: https://good-lunch.pl/en
-- Sklep Mobilny Catering: https://goodlunch-catering.mobilnycatering.pl/sklep
-- Instagram: @goodlunch1 (https://www.instagram.com/goodlunch1/)
-- Polityka prywatności: https://good-lunch.pl/pl/privacy-policy
+- [Strona główna (PL)](https://good-lunch.pl/pl): Oficjalna strona w języku polskim – zamówienia domowych obiadów i cateringu we Wrocławiu.
+- [Wersja ukraińska (UA)](https://good-lunch.pl/ua): Доставка їжі та домашніх обідів у Вроцлаві українською мовою.
+- [Wersja rosyjska (RU)](https://good-lunch.pl/ru): Доставка еды и готовых рационов во Вроцлаве на русском языке.
+- [Wersja białoruska (BE)](https://good-lunch.pl/be): Дастаўка хатняй ежы і абедаў ва Уроцлаве на беларускай мове.
+- [Wersja angielska (EN)](https://good-lunch.pl/en): Food delivery and daily meal packages in Wroclaw in English.
+- [Sklep Mobilny Catering](https://goodlunch-catering.mobilnycatering.pl/sklep): System zamówień i płatności online.
+- [Instagram @goodlunch1](https://www.instagram.com/goodlunch1/): Oficjalny profil na Instagramie.
+- [Polityka prywatności](https://good-lunch.pl/pl/privacy-policy): Informacje o przetwarzaniu danych i RODO.
