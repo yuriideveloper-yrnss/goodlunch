@@ -138,6 +138,11 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/logo.png" />
         <link rel="apple-touch-icon" href="/logo.png" />
+        {/* Preconnect to external critical origins */}
+        <link rel="preconnect" href="https://gwoimelzacginflgccax.supabase.co" />
+        <link rel="dns-prefetch" href="https://gwoimelzacginflgccax.supabase.co" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         {/* Schema.org Structured Data for Search Engines & AI Crawlers */}
         <script
           type="application/ld+json"

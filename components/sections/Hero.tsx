@@ -79,12 +79,7 @@ export default function Hero({ lang, dict, isOld = false }: { lang: string, dict
         </motion.div>
 
         {/* Визуальная часть (ЕДА НА МОБИЛКЕ НАВЕРХУ - увеличенный масштаб) */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="w-full lg:w-[52%] relative flex justify-center items-center order-1 lg:order-2 flex-shrink-0 pt-2 lg:pt-0"
-        >
+        <div className="w-full lg:w-[52%] relative flex justify-center items-center order-1 lg:order-2 flex-shrink-0 pt-2 lg:pt-0">
           {/* Контейнер для картинки: Мобилка адаптивно 240px-330px, Десктоп до 680px */}
           <div className="relative w-[240px] h-[240px] min-[380px]:w-[270px] min-[380px]:h-[270px] sm:w-[340px] sm:h-[340px] md:w-[420px] md:h-[420px] lg:w-[580px] lg:h-[580px] xl:w-[680px] xl:h-[680px]">
 
@@ -92,7 +87,7 @@ export default function Hero({ lang, dict, isOld = false }: { lang: string, dict
             <motion.div
               initial={{ y: 15, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
+              transition={{ delay: 0.2, duration: 0.4 }}
               className="absolute top-1 -left-2 sm:top-6 sm:-left-4 lg:top-14 lg:-left-6 bg-white/95 backdrop-blur-md py-1.5 px-3 sm:py-3 sm:px-5 rounded-2xl sm:rounded-3xl shadow-xl z-20 border border-white/80"
             >
               <p className="text-[10px] sm:text-xs text-gray-500 font-semibold uppercase tracking-wider mb-0.5">
@@ -108,11 +103,13 @@ export default function Hero({ lang, dict, isOld = false }: { lang: string, dict
               alt="GoodLunch Catering Dietetyczny Wrocław – Świeży zbilansowany posiłek"
               fill
               priority
+              // @ts-ignore
+              fetchPriority="high"
               sizes="(max-width: 640px) 280px, (max-width: 1024px) 420px, 680px"
               className="object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.22)] hover:scale-105 transition-transform duration-700"
             />
           </div>
-        </motion.div>
+        </div>
 
       </div>
 

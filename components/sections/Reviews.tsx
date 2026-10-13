@@ -1,5 +1,6 @@
 'use client'
 import Image from 'next/image'
+import { useState, useEffect, useRef } from 'react'
 
 interface MediaItem {
   id: number
@@ -8,6 +9,52 @@ interface MediaItem {
   mp4?: string
   webm?: string
   label: string
+}
+
+function LazyVideo({ media }: { media: MediaItem }) {
+  const [shouldLoad, setShouldLoad] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setShouldLoad(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '300px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={ref} className="absolute inset-0 w-full h-full">
+      {shouldLoad ? (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-cover opacity-90 transition-opacity duration-300 group-hover:opacity-100"
+        >
+          {media.webm && <source src={media.webm} type="video/webm" />}
+          {media.mp4 && <source src={media.mp4} type="video/mp4" />}
+          {media.url && <source src={media.url} />}
+        </video>
+      ) : (
+        <div className="w-full h-full bg-neutral-900 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/50 text-sm">
+            ▶
+          </div>
+        </div>
+      )}
+    </div>
+  )
 }
 
 const STORAGE_BASE = 'https://gwoimelzacginflgccax.supabase.co/storage/v1/object/public/goodlunch%20content'
@@ -127,18 +174,7 @@ export default function Reviews({ dict, lang = 'pl' }: { dict: any; lang?: strin
               className="relative w-[280px] sm:w-[320px] lg:w-full aspect-[9/16] bg-brand-dark rounded-3xl overflow-hidden flex-shrink-0 snap-center group cursor-pointer shadow-xl border border-white/10"
             >
               {media.type === 'video' ? (
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-300 group-hover:opacity-100"
-                >
-                  {media.webm && <source src={media.webm} type="video/webm" />}
-                  {media.mp4 && <source src={media.mp4} type="video/mp4" />}
-                  {media.url && <source src={media.url} />}
-                </video>
+                <LazyVideo media={media} />
               ) : (
                 <Image
                   src={media.url!}
