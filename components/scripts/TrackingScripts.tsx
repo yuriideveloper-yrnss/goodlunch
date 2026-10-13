@@ -51,11 +51,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <Script
                 async
                 src="https://www.googletagmanager.com/gtag/js?id=AW-18066459268"
-                strategy="afterInteractive"
+                strategy="lazyOnload"
             />
             <Script
                 id="google-tag"
-                strategy="afterInteractive"
+                strategy="lazyOnload"
                 dangerouslySetInnerHTML={{
                     __html: `
                         window.dataLayer = window.dataLayer || [];
@@ -102,7 +102,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </noscript>
 
             {/* TikTok Pixel */}
-            <Script id="tiktok-pixel" strategy="afterInteractive">
+            <Script id="tiktok-pixel" strategy="lazyOnload">
                 {`
           !function (w, d, t) {
             w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
@@ -116,7 +116,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </Script>
 
             {/* Microsoft Clarity */}
-            <Script id="microsoft-clarity" strategy="afterInteractive">
+            <Script id="microsoft-clarity" strategy="lazyOnload">
                 {`
           (function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};

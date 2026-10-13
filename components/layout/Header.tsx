@@ -101,7 +101,7 @@ export default function Header({ lang }: { lang: string }) {
               <Link
                 key={l.code}
                 href={getLangUrl(l.code)}
-                prefetch={true}
+                prefetch={false}
                 title={l.title}
                 onClick={() => {
                   setActiveLang(l.code)

@@ -1,28 +1,32 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { getMenuForDate, generateUpcomingDays, WeekMenu, mapDbMenuToAppStructure } from '@/lib/menuData'
+import { getMenuForDate, generateUpcomingDays, WeekMenu, mapDbMenuToAppStructure, seedWeek1, seedWeek2 } from '@/lib/menuData'
 import { getTranslatedTitle } from '@/lib/menuTranslations'
 import { useOrder } from '@/components/providers/OrderProvider'
 import { trackEvent } from '@/lib/tracking'
 
 export default function MenuCalendar({ dict, lang }: { dict: any, lang: string }) {
-    const [selectedDate, setSelectedDate] = useState<Date | null>(null)
-    const [dates, setDates] = useState<Date[]>([])
-    const [dbMenu, setDbMenu] = useState<{ week1: WeekMenu, week2: WeekMenu } | null>(null)
+    const [dates, setDates] = useState<Date[]>(() => {
+        const tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        return generateUpcomingDays(tomorrow, 14)
+    })
+    const [selectedDate, setSelectedDate] = useState<Date | null>(() => {
+        const tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        return tomorrow
+    })
+    const [dbMenu, setDbMenu] = useState<{ week1: WeekMenu, week2: WeekMenu } | null>({
+        week1: seedWeek1,
+        week2: seedWeek2,
+    })
 
     // Global State for Meal Package
     const { mealPackage } = useOrder()
 
     useEffect(() => {
-        // Generate dates on client to avoid hydration mismatch
-        const tomorrow = new Date()
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        const upcoming = generateUpcomingDays(tomorrow, 14) // Two weeks starting from tomorrow
-        setDates(upcoming)
-        setSelectedDate(upcoming[0])
-
-        // Fetch menu from Supabase
+        // Fetch fresh menu updates from Supabase in the background
         const fetchMenu = async () => {
             try {
                 const res = await fetch('/api/menu')
