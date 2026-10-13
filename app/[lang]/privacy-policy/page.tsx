@@ -47,7 +47,7 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
   const activeToc = tocs.pl; // The policy is in Polish, so the table of contents is too.
 
   return (
-    <main className="min-h-screen bg-brand-bg pt-28 md:pt-36 pb-24 text-brand-dark" key={lang}>
+    <main className="min-h-screen bg-brand-bg pt-28 md:pt-36 pb-24 text-brand-dark">
       <div className="container mx-auto px-4 max-w-6xl">
         
         {/* Back Button */}

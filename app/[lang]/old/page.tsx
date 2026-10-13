@@ -29,7 +29,7 @@ export default async function OldHome({ params }: { params: Promise<{ lang: stri
   const dict = dictionary[lang] || dictionary.pl
 
   return (
-    <main className="flex flex-col min-h-screen" key={`old-${lang}`}>
+    <main className="flex flex-col min-h-screen">
       <Hero lang={lang} dict={dict} isOld={true} />
       <Features dict={dict} />
       <MenuCalendar dict={dict} lang={lang} />

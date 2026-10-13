@@ -3,15 +3,23 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function LoadingScreen({ text = 'Gotujemy...' }: { text?: string }) {
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        // Hide as soon as the component is mounted (hydration complete)
-        // A tiny timeout ensures the animation starts smoothly
-        const timer = setTimeout(() => {
-            setIsLoading(false)
-        }, 100)
-        return () => clearTimeout(timer)
+        try {
+            // Guard: Show loading screen only once per user browser session
+            if (typeof window !== 'undefined' && sessionStorage.getItem('goodlunch_has_loaded')) {
+                return
+            }
+            sessionStorage.setItem('goodlunch_has_loaded', '1')
+            setIsLoading(true)
+            const timer = setTimeout(() => {
+                setIsLoading(false)
+            }, 600)
+            return () => clearTimeout(timer)
+        } catch {
+            // Safe fallback if sessionStorage is inaccessible
+        }
     }, [])
 
     const loopTransition = {

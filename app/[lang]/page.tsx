@@ -17,7 +17,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   const dict = dictionary[lang] || dictionary.pl
 
   return (
-    <main className="flex flex-col min-h-screen" key={lang}>
+    <main className="flex flex-col min-h-screen">
       <Hero lang={lang} dict={dict} />
       <Features dict={dict} />
       <MenuCalendar dict={dict} lang={lang} />

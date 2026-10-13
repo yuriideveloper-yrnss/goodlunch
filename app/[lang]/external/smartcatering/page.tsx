@@ -14,7 +14,7 @@ export default async function SmartCateringPage({ params }: { params: Promise<{ 
   const dict = dictionary[lang] || dictionary.pl;
 
   return (
-    <main className="flex flex-col min-h-screen" key={`smartcatering-${lang}`}>
+    <main className="flex flex-col min-h-screen">
       <Hero lang={lang} dict={dict} />
       <Features dict={dict} />
       <MenuCalendar dict={dict} lang={lang} />

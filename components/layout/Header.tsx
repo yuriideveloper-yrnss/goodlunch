@@ -3,11 +3,26 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useParams, usePathname } from 'next/navigation'
+import { motion } from 'framer-motion'
 import { trackEvent } from '@/lib/tracking'
+
+const languages = [
+  { code: 'pl', flag: '🇵🇱', title: 'Polski' },
+  { code: 'ua', flag: '🇺🇦', title: 'Українська' },
+  { code: 'ru', flag: '🇷🇺', title: 'Русский' },
+  { code: 'be', flag: '🇧🇾', title: 'Беларуская' },
+  { code: 'en', flag: '🇬🇧', title: 'English' },
+] as const
 
 export default function Header({ lang }: { lang: string }) {
   const [scrolled, setScrolled] = useState(false)
+  const [activeLang, setActiveLang] = useState(lang)
   const pathname = usePathname()
+
+  // Синхронизация активного языка при смене роута
+  useEffect(() => {
+    setActiveLang(lang)
+  }, [lang])
 
   // Эффект: если проскроллили, добавляем тень и фон
   useEffect(() => {
@@ -78,43 +93,39 @@ export default function Header({ lang }: { lang: string }) {
           <a href={getNavHref('faq')} className="hover:text-brand-orange transition-colors" onClick={() => trackEvent('nav_click', { target: 'faq' })}>{txt.faq}</a>
         </nav>
 
-        {/* Переключатель языка (Флаги) — ВСЕГДА ВИДНО И НА МОБИЛКЕ, И НА ПК */}
-        <div className="flex items-center gap-1 sm:gap-1.5 text-lg sm:text-xl flex-shrink-0 bg-white/70 backdrop-blur-sm px-2 py-1 rounded-full border border-gray-200/50 shadow-sm">
-          <Link 
-            href={getLangUrl('pl')} 
-            title="Polski" 
-            className={`p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-full hover:scale-115 transition-transform ${lang === 'pl' ? 'ring-2 ring-brand-orange bg-white shadow-xs' : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'}`}
-          >
-            🇵🇱
-          </Link>
-          <Link 
-            href={getLangUrl('ua')} 
-            title="Українська" 
-            className={`p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-full hover:scale-115 transition-transform ${lang === 'ua' ? 'ring-2 ring-brand-orange bg-white shadow-xs' : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'}`}
-          >
-            🇺🇦
-          </Link>
-          <Link 
-            href={getLangUrl('ru')} 
-            title="Русский" 
-            className={`p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-full hover:scale-115 transition-transform ${lang === 'ru' ? 'ring-2 ring-brand-orange bg-white shadow-xs' : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'}`}
-          >
-            🇷🇺
-          </Link>
-          <Link 
-            href={getLangUrl('be')} 
-            title="Беларуская" 
-            className={`p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-full hover:scale-115 transition-transform ${lang === 'be' ? 'ring-2 ring-brand-orange bg-white shadow-xs' : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'}`}
-          >
-            🇧🇾
-          </Link>
-          <Link 
-            href={getLangUrl('en')} 
-            title="English" 
-            className={`p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-full hover:scale-115 transition-transform ${lang === 'en' ? 'ring-2 ring-brand-orange bg-white shadow-xs' : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'}`}
-          >
-            🇬🇧
-          </Link>
+        {/* Переключатель языка (Флаги с плавной spring-анимацией переключения) */}
+        <div className="flex items-center gap-1 sm:gap-1.5 text-base sm:text-lg flex-shrink-0 bg-white/80 backdrop-blur-md p-1 rounded-full border border-gray-200/60 shadow-sm relative">
+          {languages.map((l) => {
+            const isActive = activeLang === l.code
+            return (
+              <Link
+                key={l.code}
+                href={getLangUrl(l.code)}
+                prefetch={true}
+                title={l.title}
+                onClick={() => {
+                  setActiveLang(l.code)
+                  trackEvent('change_language', { lang: l.code })
+                }}
+                className={`relative z-10 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all duration-200 active:scale-95 select-none ${
+                  isActive
+                    ? 'opacity-100 scale-105'
+                    : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activeLangTab"
+                    className="absolute inset-0 bg-white rounded-full shadow-md border border-brand-orange/40 ring-2 ring-brand-orange/80 z-[-1]"
+                    transition={{ type: "spring", stiffness: 450, damping: 32 }}
+                  />
+                )}
+                <span className="leading-none pointer-events-none select-none">
+                  {l.flag}
+                </span>
+              </Link>
+            )
+          })}
         </div>
 
       </div>
