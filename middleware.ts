@@ -31,8 +31,9 @@ export function middleware(request: NextRequest) {
   else if (/en/i.test(acceptLanguage)) locale = 'en';
   else if (/pl/i.test(acceptLanguage)) locale = 'pl';
 
-  // 4. Делаем редирект
-  const url = new URL(`/${locale}${pathname}`, request.url)
+  // 4. Делаем редирект напрямую без двойных слешей (минимизируем цепочку редиректов для PageSpeed и SEO)
+  const cleanPath = pathname === '/' ? '' : pathname
+  const url = new URL(`/${locale}${cleanPath}`, request.url)
   url.search = request.nextUrl.search
   return NextResponse.redirect(url)
 }
