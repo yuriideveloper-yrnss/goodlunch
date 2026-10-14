@@ -47,24 +47,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 />
             </noscript>
 
-            {/* Google tag (gtag.js) */}
-            <Script
-                async
-                src="https://www.googletagmanager.com/gtag/js?id=AW-18066459268"
-                strategy="lazyOnload"
-            />
-            <Script
-                id="google-tag"
-                strategy="lazyOnload"
-                dangerouslySetInnerHTML={{
-                    __html: `
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){window.dataLayer.push(arguments);}
-                        gtag('js', new Date());
-                        gtag('config', 'AW-18066459268');
-                    `,
-                }}
-            />
 
             {/* Facebook Meta Pixel - queue immediately, load script on lazyOnload */}
             <Script

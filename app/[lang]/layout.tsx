@@ -139,8 +139,6 @@ export default async function RootLayout({
         <link rel="icon" href="/logo.png" />
         <link rel="apple-touch-icon" href="/logo.png" />
         {/* Preconnect to external critical origins */}
-        <link rel="preconnect" href="https://gwoimelzacginflgccax.supabase.co" />
-        <link rel="dns-prefetch" href="https://gwoimelzacginflgccax.supabase.co" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         {/* Preload hero dish image for fastest LCP */}

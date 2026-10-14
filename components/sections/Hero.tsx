@@ -110,7 +110,7 @@ export default function Hero({ lang, dict, isOld = false }: { lang: string, dict
               priority
               // @ts-ignore
               fetchPriority="high"
-              sizes="(max-width: 640px) 280px, (max-width: 1024px) 420px, 680px"
+              sizes="(max-width: 480px) 270px, (max-width: 640px) 340px, (max-width: 1024px) 420px, (max-width: 1280px) 580px, 680px"
               className="object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.22)] hover:scale-105 transition-transform duration-700"
             />
           </div>
