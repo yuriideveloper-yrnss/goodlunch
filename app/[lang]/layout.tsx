@@ -143,6 +143,14 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://gwoimelzacginflgccax.supabase.co" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        {/* Preload hero dish image for fastest LCP */}
+        <link
+          rel="preload"
+          as="image"
+          href="/hero-dish.webp"
+          type="image/webp"
+          fetchPriority="high"
+        />
         {/* Schema.org Structured Data for Search Engines & AI Crawlers */}
         <script
           type="application/ld+json"

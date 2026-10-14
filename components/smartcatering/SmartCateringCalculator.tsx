@@ -1,11 +1,20 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import dynamic from 'next/dynamic'
 import { PRICING } from '@/lib/constants'
 import { useOrder } from '@/components/providers/OrderProvider'
-import { SmartCateringModal } from '@/components/smartcatering/SmartCateringModal'
-import { CalorieAdvisor } from '@/components/ui/CalorieAdvisor'
 import { trackEvent } from '@/lib/tracking'
+
+const SmartCateringModal = dynamic(
+  () => import('@/components/smartcatering/SmartCateringModal').then((mod) => mod.SmartCateringModal),
+  { ssr: false }
+)
+
+const CalorieAdvisor = dynamic(
+  () => import('@/components/ui/CalorieAdvisor').then((mod) => mod.CalorieAdvisor),
+  { ssr: false }
+)
 
 export default function SmartCateringCalculator({ dict, lang }: { dict: any; lang?: string }) {
   const { mealPackage, setMealPackage } = useOrder()

@@ -1,10 +1,15 @@
 'use client'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import dynamic from 'next/dynamic'
 import { PRICING } from '@/lib/constants'
-import { TwoStepForm } from '@/components/ui/TwoStepForm'
 import { SmartCateringForm } from '@/components/smartcatering/SmartCateringForm'
 import { trackEvent } from '@/lib/tracking'
+
+const TwoStepForm = dynamic(
+  () => import('@/components/ui/TwoStepForm').then((mod) => mod.TwoStepForm),
+  { ssr: false }
+)
 
 export function QuickOrderModal({
   isOpen,
