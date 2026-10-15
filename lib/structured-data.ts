@@ -139,10 +139,12 @@ export function generateStructuredData(lang: string, dict: any) {
                   price: '36.00',
                   priceCurrency: 'PLN',
                   availability: 'https://schema.org/InStock',
+                  validFrom: '2026-01-01',
                   priceValidUntil: '2027-12-31',
                   url: `${SITE_URL}/${lang}#cennik`,
                   hasMerchantReturnPolicy: {
                     '@type': 'MerchantReturnPolicy',
+                    applicableCountry: 'PL',
                     returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
                   },
                   shippingDetails: {
@@ -155,6 +157,21 @@ export function generateStructuredData(lang: string, dict: any) {
                     shippingDestination: {
                       '@type': 'DefinedRegion',
                       addressCountry: 'PL',
+                    },
+                    deliveryTime: {
+                      '@type': 'ShippingDeliveryTime',
+                      handlingTime: {
+                        '@type': 'QuantitativeValue',
+                        minValue: 0,
+                        maxValue: 1,
+                        unitCode: 'DAY',
+                      },
+                      transitTime: {
+                        '@type': 'QuantitativeValue',
+                        minValue: 0,
+                        maxValue: 1,
+                        unitCode: 'DAY',
+                      },
                     },
                   },
                 },
@@ -195,10 +212,12 @@ export function generateStructuredData(lang: string, dict: any) {
                   price: '44.00',
                   priceCurrency: 'PLN',
                   availability: 'https://schema.org/InStock',
+                  validFrom: '2026-01-01',
                   priceValidUntil: '2027-12-31',
                   url: `${SITE_URL}/${lang}#cennik`,
                   hasMerchantReturnPolicy: {
                     '@type': 'MerchantReturnPolicy',
+                    applicableCountry: 'PL',
                     returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
                   },
                   shippingDetails: {
@@ -211,6 +230,21 @@ export function generateStructuredData(lang: string, dict: any) {
                     shippingDestination: {
                       '@type': 'DefinedRegion',
                       addressCountry: 'PL',
+                    },
+                    deliveryTime: {
+                      '@type': 'ShippingDeliveryTime',
+                      handlingTime: {
+                        '@type': 'QuantitativeValue',
+                        minValue: 0,
+                        maxValue: 1,
+                        unitCode: 'DAY',
+                      },
+                      transitTime: {
+                        '@type': 'QuantitativeValue',
+                        minValue: 0,
+                        maxValue: 1,
+                        unitCode: 'DAY',
+                      },
                     },
                   },
                 },
