@@ -13,13 +13,13 @@ const nextConfig = {
         return [
             {
                 source: '/:lang/external/smartcatering',
-                destination: '/:lang',
-                permanent: true, // 308 Permanent Redirect (preserves query params for Meta Pixel/CAPI)
+                destination: 'https://good-lunch.pl/:lang',
+                permanent: true, // 308 Permanent Redirect to official domain
             },
             {
                 source: '/external/smartcatering',
-                destination: '/pl',
-                permanent: true, // 308 Permanent Redirect
+                destination: 'https://good-lunch.pl/pl',
+                permanent: true, // 308 Permanent Redirect to official domain
             },
         ];
     },
