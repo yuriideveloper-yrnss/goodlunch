@@ -15,10 +15,10 @@ export default function Hero({ lang, dict, isOld = false }: { lang: string, dict
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false)
 
   return (
-    <section className="relative min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-brand-bg pt-14 pb-4 sm:pt-20 sm:pb-8 lg:py-0 lg:justify-center">
+    <section className="relative min-h-screen min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-brand-bg pt-14 pb-4 sm:pt-20 sm:pb-8 lg:py-0 lg:justify-center">
 
-      {/* ГИГАНТСКОЕ Свечение справа сверху (Ambient Light) */}
-      <div className="absolute -top-20 -right-20 w-[420px] sm:w-[600px] h-[420px] sm:h-[600px] bg-brand-orange/20 blur-[120px] sm:blur-[150px] rounded-full pointer-events-none"></div>
+      {/* Свечение справа сверху (Ambient Light) */}
+      <div className="absolute -top-20 -right-20 w-[320px] sm:w-[500px] h-[320px] sm:h-[500px] bg-brand-orange/20 blur-[60px] sm:blur-[80px] rounded-full pointer-events-none transform-gpu"></div>
 
       {/* Контейнер */}
       <div className="container mx-auto px-4 z-10 flex-1 flex flex-col lg:flex-row gap-2 sm:gap-6 lg:gap-12 items-center justify-between lg:justify-center w-full max-w-6xl">

@@ -13,7 +13,7 @@ export default function TrackingScripts() {
             {/* Default Consent Mode v2 */}
             <Script
                 id="consent-mode-default"
-                strategy="beforeInteractive"
+                strategy="afterInteractive"
                 dangerouslySetInnerHTML={{
                     __html: `
                         window.dataLayer = window.dataLayer || [];
@@ -23,8 +23,7 @@ export default function TrackingScripts() {
                             'ad_storage': 'denied',
                             'analytics_storage': 'denied',
                             'ad_user_data': 'denied',
-                            'ad_personalization': 'denied',
-                            'wait_for_update': 500
+                            'ad_personalization': 'denied'
                         });
                     `,
                 }}
@@ -109,7 +108,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </Script>
 
             {/* Attribution / UTM Storage Script */}
-            <Script id="attribution-storage" strategy="beforeInteractive">
+            <Script id="attribution-storage" strategy="afterInteractive">
                 {`
                 (function() {
                     try {
