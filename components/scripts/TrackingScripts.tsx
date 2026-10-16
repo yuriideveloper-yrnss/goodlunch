@@ -48,31 +48,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </noscript>
 
 
-            {/* Facebook Meta Pixel - queue immediately, load script on lazyOnload */}
-            <Script
-                id="meta-pixel-init"
-                strategy="beforeInteractive"
-                dangerouslySetInnerHTML={{
-                    __html: `
-                        !function(f,b,e,v,n,t,s)
-                        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                        n.queue=[];t=b.createElement(e);t.async=!0;
-                        t.src=v;s=b.getElementsByTagName(e)[0];
-                        // Stub queue ready immediately, script tag inserted on demand
-                        }(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js');
-                        fbq('init', '1799620697600783');
-                        fbq('init', '2250400022435269');
-                        fbq('track', 'PageView');
-                    `,
-                }}
-            />
-            <Script
-                id="meta-pixel-loader"
-                strategy="lazyOnload"
-                src="https://connect.facebook.net/en_US/fbevents.js"
-            />
+            {/* Facebook Meta Pixel */}
+            <Script id="meta-pixel" strategy="afterInteractive">
+                {`
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '1799620697600783');
+          fbq('init', '2250400022435269');
+          fbq('track', 'PageView');
+        `}
+            </Script>
             <noscript>
                 <img
                     height="1"

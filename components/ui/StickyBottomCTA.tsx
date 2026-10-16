@@ -1,8 +1,13 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import dynamic from 'next/dynamic'
 import { trackEvent } from '@/lib/tracking'
-import { QuickOrderModal } from '@/components/ui/QuickOrderModal'
+
+const QuickOrderModal = dynamic(
+  () => import('@/components/ui/QuickOrderModal').then((mod) => mod.QuickOrderModal),
+  { ssr: false }
+)
 
 export default function StickyBottomCTA({ 
   lang, 

@@ -15,6 +15,15 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // 1. Единый канонический редирект (308) со старого vercel.app алиаса на официальный домен good-lunch.pl
+  const host = request.headers.get('host') || ''
+  if (host.includes('vercel.app')) {
+    const canonicalUrl = new URL(request.url)
+    canonicalUrl.host = 'good-lunch.pl'
+    canonicalUrl.protocol = 'https:'
+    return NextResponse.redirect(canonicalUrl, 308)
+  }
+
   // 2. Проверяем, есть ли уже язык в URL
   const pathnameHasLocale = ['/pl', '/ua', '/ru', '/be', '/en'].some(loc => pathname.startsWith(loc))
   if (pathnameHasLocale) return
