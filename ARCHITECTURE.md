@@ -20,12 +20,13 @@
 - **`lib/site.ts`**: Central site URL resolver using `NEXT_PUBLIC_SITE_URL` (defaults to custom production domain `https://good-lunch.pl`).
 - **`lib/structured-data.ts`**: Generates Schema.org JSON-LD structured data (`FoodEstablishment`, `Restaurant`, `DeliveryService`, `LocalBusiness`, `FAQPage`, `WebSite`, `Product`, `OfferCatalog`, `OrderAction`) for rich search snippets and LLM extraction.
 - **`app/[lang]/layout.tsx`**: Localized root layout containing global styles, fonts (Inter), locale-specific metadata, OpenGraph tags, Twitter Cards, geo-tags (Wrocław, Poland), Schema.org JSON-LD scripts, standard scripts, and global providers/layout components:
-  - `OrderProvider` (State management for package calculators and orders)
-  - `Header` (Sticky desktop nav / language flags toggler)
+  - `OrderProvider` (State management for package calculators, orders, and centralized QuickOrder modal orchestration)
+  - `GlobalQuickOrderModal` (Single-instance root modal portal eliminating duplicate DOM overlays)
+  - `Header` (Sticky desktop nav / language flags toggler isolated in LayoutGroup)
   - `Footer` (Copyright, logo, social media links)
   - `LoadingScreen`, `FloatingBackgrounds`, `TrackingScripts`
 - **`app/[lang]/page.tsx`**: Localized main Landing page with **Smart Catering** as the primary flow:
-  - `Hero` (opens Smart Catering QuickOrderModal with calorie & meal picker)
+  - `Hero` (opens Smart Catering QuickOrderModal via centralized `openQuickOrder`)
   - `Features`
   - `MenuCalendar`
   - `SmartCateringCalculator`

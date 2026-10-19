@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useParams, usePathname } from 'next/navigation'
-import { motion } from 'framer-motion'
+import { motion, LayoutGroup } from 'framer-motion'
 import { trackEvent } from '@/lib/tracking'
 
 const languages = [
@@ -94,39 +94,41 @@ export default function Header({ lang }: { lang: string }) {
         </nav>
 
         {/* Переключатель языка (Флаги с плавной spring-анимацией переключения) */}
-        <div className="flex items-center gap-1 sm:gap-1.5 text-base sm:text-lg flex-shrink-0 bg-white/80 backdrop-blur-md p-1 rounded-full border border-gray-200/60 shadow-sm relative">
-          {languages.map((l) => {
-            const isActive = activeLang === l.code
-            return (
-              <Link
-                key={l.code}
-                href={getLangUrl(l.code)}
-                prefetch={false}
-                title={l.title}
-                onClick={() => {
-                  setActiveLang(l.code)
-                  trackEvent('change_language', { lang: l.code })
-                }}
-                className={`relative z-10 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all duration-200 active:scale-95 select-none ${
-                  isActive
-                    ? 'opacity-100 scale-105'
-                    : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'
-                }`}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="activeLangTab"
-                    className="absolute inset-0 bg-white rounded-full shadow-md border border-brand-orange/40 ring-2 ring-brand-orange/80 z-[-1]"
-                    transition={{ type: "spring", stiffness: 450, damping: 32 }}
-                  />
-                )}
-                <span className="leading-none pointer-events-none select-none">
-                  {l.flag}
-                </span>
-              </Link>
-            )
-          })}
-        </div>
+        <LayoutGroup id="header-lang">
+          <div className="flex items-center gap-1 sm:gap-1.5 text-base sm:text-lg flex-shrink-0 bg-white/80 backdrop-blur-md p-1 rounded-full border border-gray-200/60 shadow-sm relative">
+            {languages.map((l) => {
+              const isActive = activeLang === l.code
+              return (
+                <Link
+                  key={l.code}
+                  href={getLangUrl(l.code)}
+                  prefetch={false}
+                  title={l.title}
+                  onClick={() => {
+                    setActiveLang(l.code)
+                    trackEvent('change_language', { lang: l.code })
+                  }}
+                  className={`relative z-10 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all duration-200 active:scale-95 select-none ${
+                    isActive
+                      ? 'opacity-100 scale-105'
+                      : 'opacity-55 grayscale hover:grayscale-0 hover:opacity-100'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeLangTab"
+                      className="absolute inset-0 bg-white rounded-full shadow-md border border-brand-orange/40 ring-2 ring-brand-orange/80 z-[-1]"
+                      transition={{ type: "spring", stiffness: 450, damping: 32 }}
+                    />
+                  )}
+                  <span className="leading-none pointer-events-none select-none">
+                    {l.flag}
+                  </span>
+                </Link>
+              )
+            })}
+          </div>
+        </LayoutGroup>
 
       </div>
     </header>

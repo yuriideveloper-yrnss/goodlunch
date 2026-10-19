@@ -10,6 +10,7 @@ import StickyBottomCTA from "@/components/ui/StickyBottomCTA";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import FloatingBackgrounds from "@/components/ui/FloatingBackgrounds";
 import { OrderProvider } from "@/components/providers/OrderProvider";
+import { GlobalQuickOrderModal } from "@/components/ui/QuickOrderModal";
 import TrackingScripts from "@/components/scripts/TrackingScripts";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -172,6 +173,7 @@ export default async function RootLayout({
           {children}
           <Footer lang={lang} />
           <StickyBottomCTA lang={lang} dict={dict} ctaText={dict.hero?.cta_main || 'Zamów dzień próbny 36 zł'} />
+          <GlobalQuickOrderModal dict={dict} lang={lang} />
           <Analytics />
         </OrderProvider>
       </body>

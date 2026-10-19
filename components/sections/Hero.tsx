@@ -1,18 +1,13 @@
 'use client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import dynamic from 'next/dynamic'
 import { Button } from '@/components/ui/Button'
 import Image from 'next/image'
 import { trackEvent } from '@/lib/tracking'
-
-const QuickOrderModal = dynamic(
-  () => import('@/components/ui/QuickOrderModal').then((mod) => mod.QuickOrderModal),
-  { ssr: false }
-)
+import { useOrder } from '@/components/providers/OrderProvider'
 
 export default function Hero({ lang, dict, isOld = false }: { lang: string, dict: any, isOld?: boolean }) {
-  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false)
+  const { openQuickOrder } = useOrder()
 
   return (
     <section className="relative min-h-screen min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-brand-bg pt-14 pb-4 sm:pt-20 sm:pb-8 lg:py-0 lg:justify-center">
@@ -60,8 +55,8 @@ export default function Hero({ lang, dict, isOld = false }: { lang: string, dict
               size="md"
               variant="primary"
               onClick={() => {
-                setIsOrderModalOpen(true)
                 trackEvent('hero_cta_click', { target: 'quick_order_modal' })
+                openQuickOrder({ package: 'meals3', isOld })
               }}
               className="w-full text-base sm:text-lg py-3.5 sm:py-4 px-6 shadow-brand-orange/40 shadow-xl font-black active:scale-[0.98]"
             >
@@ -117,16 +112,6 @@ export default function Hero({ lang, dict, isOld = false }: { lang: string, dict
         </div>
 
       </div>
-
-      {/* Модалка оформления заказа с выбором калорийности */}
-      <QuickOrderModal
-        isOpen={isOrderModalOpen}
-        onCloseAction={() => setIsOrderModalOpen(false)}
-        dict={dict}
-        lang={lang}
-        initialPackage="meals3"
-        isOld={isOld}
-      />
     </section>
   )
 }

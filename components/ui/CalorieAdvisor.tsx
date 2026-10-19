@@ -1,5 +1,6 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PRICING } from '@/lib/constants'
 import { trackEvent } from '@/lib/tracking'
@@ -91,23 +92,55 @@ export function CalorieAdvisor({
     }
   }
 
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') handleClose()
+      }
+      window.addEventListener('keydown', handleKeyDown)
+      return () => {
+        document.body.style.overflow = ''
+        window.removeEventListener('keydown', handleKeyDown)
+      }
+    } else {
+      document.body.style.overflow = ''
+    }
+  }, [isOpen])
+
   const handleClose = () => {
     setResult(null)
     setSuggestion(null)
     onCloseAction()
   }
 
-  return (
+  if (!mounted) return null
+
+  const modalNode = (
     <AnimatePresence>
       {isOpen && (
         <motion.div
           key="advisor-overlay"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[300] flex items-center justify-center p-4"
+          exit={{ opacity: 0, transition: { duration: 0.15 } }}
+          style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+          className={`fixed inset-0 z-[300] flex items-center justify-center p-4 ${
+            !isOpen ? 'pointer-events-none' : ''
+          }`}
         >
-          <div onClick={handleClose} className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          <div
+            onClick={handleClose}
+            className={`absolute inset-0 bg-black/50 backdrop-blur-sm ${
+              !isOpen ? 'pointer-events-none' : ''
+            }`}
+          />
 
           <motion.div
             initial={{ scale: 0.92, y: 20, opacity: 0 }}
@@ -284,4 +317,6 @@ export function CalorieAdvisor({
       )}
     </AnimatePresence>
   )
+
+  return createPortal(modalNode, document.body)
 }
