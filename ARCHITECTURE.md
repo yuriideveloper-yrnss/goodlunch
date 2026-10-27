@@ -33,6 +33,7 @@
   - `Reviews`
   - `FAQ` (5 comprehensive Q&As covering food delivery, diet catering, and restaurant comparison)
   - `SmartCateringLeadForm`
+- **`app/[lang]/global/page.tsx`**: Poland-wide delivery landing page (`/global` & `/:lang/global`) with direct 2-step address capture (City, Street, House, Apt), +5 zł pricing tiers (`GLOBAL_PRICING`), and completely sanitized texts with zero Wrocław-specific references.
 - **`app/[lang]/old/page.tsx`**: Archived legacy landing page (address inputs flow). Strictly marked `noindex, nofollow` and blocked in `robots.txt` so it is never indexed by crawlers.
 - **`next.config.mjs`**: Contains permanent 308 redirects from `/:lang/external/smartcatering` to `/:lang` (and `/external/smartcatering` to `/pl`), automatically preserving query parameters (`utm_source`, `fbclid`, `bw_cid`) for Meta ad campaigns.
 - **`app/[lang]/privacy-policy/page.tsx`**: Localized Privacy Policy & Cookies page displaying the full legal policy document with a desktop-sticky table of contents and back-to-home navigation links.
@@ -62,8 +63,8 @@
 - **`lib/smartcatering.ts`**: Mobilny Catering product URL mapping (3 meals vs 4 meals) and redirect resolver.
 - **`lib/supabaseClient.ts`**: Supabase client connection (using Service Role Key for secure server-side execution).
 - **Supabase Storage**: `goodlunch content` public bucket hosting all video (`.mp4`/`.webm`) and photo (`.png`/`.jpg`) testimonials.
-- **`lib/dictionary.ts`**: Translation dictionaries for `pl`, `ua`, `ru`, and `en`.
-- **`lib/constants.ts`**: Hardcoded menu sizes, calories, pricing formulas, and contact credentials.
+- **`lib/dictionary.ts` & `lib/global-dictionary.ts`**: Translation dictionaries for `pl`, `ua`, `ru`, `en`, `be`, and Poland-wide global text overrides.
+- **`lib/constants.ts`**: Menu sizes, calories, baseline pricing (`PRICING`), and Poland-wide +5 zł pricing tiers (`GLOBAL_PRICING`).
 - **`lib/tracking.ts`**: Event tracking utilities.
 
 ---

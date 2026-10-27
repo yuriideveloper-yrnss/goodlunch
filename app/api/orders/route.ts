@@ -10,7 +10,8 @@ async function sendTelegramNotification(orderData: any, isFinished: boolean) {
         return null;
     }
 
-    const isSmartCatering = orderData.source === 'smartcatering' || orderData.status === 'SmartCatering' || orderData.street === 'Mobilny Catering Store';
+    const isGlobal = orderData.source === 'global' || orderData.isGlobal;
+    const isSmartCatering = !isGlobal && (orderData.source === 'smartcatering' || orderData.status === 'SmartCatering' || orderData.street === 'Mobilny Catering Store');
 
     const attr = orderData.attribution || {};
     const utmDetails = [
@@ -47,7 +48,9 @@ ${messengerLine}📦 <b>Выбранный пакет:</b> ${pkgText}
 🔗 <b>Магазин:</b> ${targetUrl}${utmSection}
         `.trim();
     } else {
-        const title = isFinished ? '🚨 <b>НОВАЯ ЗАЯВКА (Оформлена)</b> 🚨' : '⚠️ <b>Новая заявка (Шаг 1 - Контакты)</b> ⚠️';
+        const title = isGlobal
+            ? (isFinished ? '🇵🇱 <b>НОВАЯ ЗАЯВКА: ВСЯ ПОЛЬША (/global)</b> 🇵🇱' : '⚠️ <b>Новая заявка: Вся Польша (Шаг 1)</b> ⚠️')
+            : (isFinished ? '🚨 <b>НОВАЯ ЗАЯВКА (Оформлена)</b> 🚨' : '⚠️ <b>Новая заявка (Шаг 1 - Контакты)</b> ⚠️');
         message = `
 ${title}
 
@@ -89,7 +92,8 @@ async function editTelegramNotification(messageId: number | string, orderData: a
         return null;
     }
 
-    const isSmartCatering = orderData.source === 'smartcatering' || orderData.status === 'SmartCatering' || orderData.street === 'Mobilny Catering Store';
+    const isGlobal = orderData.source === 'global' || orderData.isGlobal;
+    const isSmartCatering = !isGlobal && (orderData.source === 'smartcatering' || orderData.status === 'SmartCatering' || orderData.street === 'Mobilny Catering Store');
 
     const attr = orderData.attribution || {};
     const utmDetails = [
@@ -126,7 +130,9 @@ ${messengerLine}📦 <b>Выбранный пакет:</b> ${pkgText}
 🔗 <b>Магазин:</b> ${targetUrl}${utmSection}
         `.trim();
     } else {
-        const title = isFinished ? '🚨 <b>НОВАЯ ЗАЯВКА (Оформлена)</b> 🚨' : '⚠️ <b>Новая заявка (Шаг 1 - Контакты)</b> ⚠️';
+        const title = isGlobal
+            ? (isFinished ? '🇵🇱 <b>НОВАЯ ЗАЯВКА: ВСЯ ПОЛЬША (/global)</b> 🇵🇱' : '⚠️ <b>Новая заявка: Вся Польша (Шаг 1)</b> ⚠️')
+            : (isFinished ? '🚨 <b>НОВАЯ ЗАЯВКА (Оформлена)</b> 🚨' : '⚠️ <b>Новая заявка (Шаг 1 - Контакты)</b> ⚠️');
         message = `
 ${title}
 
@@ -197,7 +203,8 @@ export async function POST(request: Request) {
                 .single();
 
             if (existingOrder) {
-                const isSmart = body.source === 'smartcatering' || body.status === 'SmartCatering';
+                const isGlobal = body.source === 'global' || body.isGlobal;
+        const isSmart = !isGlobal && (body.source === 'smartcatering' || body.status === 'SmartCatering');
                 let status = 'Unfinished';
                 if (isSmart) {
                     status = 'SmartCatering';
@@ -255,7 +262,8 @@ export async function POST(request: Request) {
         }
 
         // Generate a new UUID for the order if it's completely new or not found
-        const isSmart = body.source === 'smartcatering' || body.status === 'SmartCatering';
+        const isGlobal = body.source === 'global' || body.isGlobal;
+        const isSmart = !isGlobal && (body.source === 'smartcatering' || body.status === 'SmartCatering');
         const orderId = body.id || crypto.randomUUID();
         const newOrder = {
             id: orderId,

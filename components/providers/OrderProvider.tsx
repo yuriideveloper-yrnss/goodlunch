@@ -6,6 +6,7 @@ type MealPackage = 'meals3' | 'meals4'
 export interface QuickOrderConfig {
     package?: MealPackage
     isOld?: boolean
+    isGlobal?: boolean
 }
 
 interface OrderContextType {

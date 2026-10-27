@@ -10,14 +10,18 @@ export default function StickyBottomCTA({
   dict,
   ctaText = 'Zamów z rabatem -25%',
   isOld = false,
+  isGlobal = false,
 }: { 
   lang: string
   dict: any
   ctaText?: string
   isOld?: boolean
+  isGlobal?: boolean
 }) {
-  const [visible, setVisible] = useState(false)
   const pathname = usePathname()
+  const isGlobalRoute = isGlobal || pathname?.includes('/global')
+  const currentCtaPrice = isGlobalRoute ? '37,50 zł' : '33,75 zł'
+  const [visible, setVisible] = useState(false)
   const { openQuickOrder } = useOrder()
 
   useEffect(() => {
@@ -33,9 +37,9 @@ export default function StickyBottomCTA({
   }, [])
 
   const handleButtonClick = () => {
-    const isOldRoute = isOld || pathname?.includes('/old')
-    trackEvent('sticky_bottom_cta_click', { lang, target: 'quick_order_modal' })
-    openQuickOrder({ package: 'meals3', isOld: isOldRoute })
+    const isOldRoute = isOld || pathname?.includes('/old') || isGlobalRoute
+    trackEvent('sticky_bottom_cta_click', { lang, target: 'quick_order_modal', isGlobal: isGlobalRoute })
+    openQuickOrder({ package: 'meals3', isOld: isOldRoute, isGlobal: isGlobalRoute })
   }
 
   return (
@@ -59,7 +63,7 @@ export default function StickyBottomCTA({
                 <span className="text-base font-extrabold tracking-tight">{ctaText}</span>
               </div>
               <div className="flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-xl text-sm font-black whitespace-nowrap flex-shrink-0">
-                <span className="whitespace-nowrap">33,75&nbsp;zł</span>
+                <span className="whitespace-nowrap">{currentCtaPrice}</span>
                 <span className="text-xs">➔</span>
               </div>
             </button>

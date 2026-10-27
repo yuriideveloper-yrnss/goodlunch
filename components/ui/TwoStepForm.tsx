@@ -54,7 +54,7 @@ const getReadableDate = (dateStr: string, lang: string) => {
     return `${capitalizedWeekday}, ${day}.${month}.${year}`;
 };
 
-export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSuccessAction }: { dict: any, defaultData?: any, lang?: string, onSuccessAction?: () => void }) {
+export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', isGlobal = false, onSuccessAction }: { dict: any, defaultData?: any, lang?: string, isGlobal?: boolean, onSuccessAction?: () => void }) {
     const [step, setStep] = useState(1)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [orderId, setOrderId] = useState<string | null>(null)
@@ -64,6 +64,7 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
         name: '',
         phone: '',
         messenger: 'telegram',
+        city: '',
         street: '',
         house: '',
         floor: '',
@@ -86,6 +87,7 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
                                 name: data.order.name || '',
                                 phone: data.order.phone || '',
                                 messenger: data.order.messenger || 'telegram',
+                                city: data.order.city || '',
                                 street: data.order.street || '',
                                 house: data.order.house || '',
                                 floor: data.order.floor || '',
@@ -105,7 +107,7 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
         setIsSubmitting(true)
         try {
             const attribution = getStoredAttribution()
-            const bodyPayload: any = { ...formData, ...defaultData, lang, step: 1, attribution }
+            const bodyPayload: any = { ...formData, ...defaultData, source: isGlobal ? 'global' : (defaultData.source || 'TwoStepForm'), isGlobal, lang, step: 1, attribution }
             if (orderId) {
                 bodyPayload.id = orderId
             }
@@ -138,7 +140,8 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
         setIsSubmitting(true)
         try {
             const attribution = getStoredAttribution()
-            const bodyPayload: any = { ...formData, ...defaultData, lang, step: 2, attribution }
+            const fullStreet = formData.city ? `${formData.city}, ${formData.street}` : formData.street
+            const bodyPayload: any = { ...formData, ...defaultData, street: fullStreet, source: isGlobal ? 'global' : (defaultData.source || 'TwoStepForm'), isGlobal, lang, step: 2, attribution }
             if (orderId) {
                 bodyPayload.id = orderId
             }
@@ -241,6 +244,17 @@ export function TwoStepForm({ dict, defaultData = {}, lang = 'unknown', onSucces
                         className="space-y-4"
                     >
                         <div className="grid grid-cols-2 gap-4">
+                            <div className="col-span-2">
+                                <label className="block text-sm font-bold text-gray-700 mb-1">{dict.form.city || 'Miasto'}</label>
+                                <input
+                                    required
+                                    value={formData.city}
+                                    onChange={e => setFormData({ ...formData, city: e.target.value })}
+                                    type="text"
+                                    placeholder={dict.form.city_placeholder || (lang === 'pl' || lang === 'en' ? 'np. Warszawa, Kraków, Poznań, Wrocław' : 'напр. Варшава, Краків, Познань')}
+                                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all font-medium text-gray-900"
+                                />
+                            </div>
                             <div className="col-span-2">
                                 <label className="block text-sm font-bold text-gray-700 mb-1">{dict.form.street}</label>
                                 <input

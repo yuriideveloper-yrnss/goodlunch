@@ -7,7 +7,9 @@ import { trackEvent } from '@/lib/tracking'
 import { useOrder } from '@/components/providers/OrderProvider'
 import { PromoCodeBox } from '@/components/ui/PromoCodeBox'
 
-export default function Hero({ lang, dict, isOld = false }: { lang: string, dict: any, isOld?: boolean }) {
+export default function Hero({ lang, dict, isOld = false, isGlobal = false }: { lang: string, dict: any, isOld?: boolean, isGlobal?: boolean }) {
+  const regularPrice = isGlobal ? '50 zł' : '45 zł'
+  const discountedPrice = isGlobal ? '37,50 zł' : '33,75 zł'
   const { openQuickOrder } = useOrder()
 
   return (
@@ -39,8 +41,8 @@ export default function Hero({ lang, dict, isOld = false }: { lang: string, dict
             <h1 className="text-2xl min-[380px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-brand-dark leading-[1.12] sm:leading-[1.1] mb-2 sm:mb-4 tracking-tight">
               {dict.hero.title}{' '}
               <span className="inline-flex items-baseline gap-2 whitespace-nowrap flex-nowrap">
-                <del className="text-xl sm:text-3xl lg:text-5xl text-gray-400 font-semibold decoration-brand-orange/50 whitespace-nowrap">45&nbsp;zł</del>
-                <span className="text-brand-orange text-3xl min-[380px]:text-4xl sm:text-5xl lg:text-6xl font-black whitespace-nowrap">33,75&nbsp;zł</span>
+                <del className="text-xl sm:text-3xl lg:text-5xl text-gray-400 font-semibold decoration-brand-orange/50 whitespace-nowrap">{regularPrice}</del>
+                <span className="text-brand-orange text-3xl min-[380px]:text-4xl sm:text-5xl lg:text-6xl font-black whitespace-nowrap">{discountedPrice}</span>
               </span>
             </h1>
 
@@ -65,8 +67,8 @@ export default function Hero({ lang, dict, isOld = false }: { lang: string, dict
               size="md"
               variant="primary"
               onClick={() => {
-                trackEvent('hero_cta_click', { target: 'quick_order_modal' })
-                openQuickOrder({ package: 'meals3', isOld })
+                trackEvent('hero_cta_click', { target: 'quick_order_modal', isGlobal })
+                openQuickOrder({ package: 'meals3', isOld: isOld || isGlobal, isGlobal })
               }}
               className="w-full text-base sm:text-lg py-3.5 sm:py-4 px-6 shadow-brand-orange/40 shadow-xl font-black active:scale-[0.98]"
             >
@@ -104,13 +106,13 @@ export default function Hero({ lang, dict, isOld = false }: { lang: string, dict
                 {dict.hero.trial_price_label}
               </p>
               <p className="text-xl sm:text-3xl lg:text-4xl font-black text-brand-orange tracking-tight leading-none whitespace-nowrap">
-                33,75&nbsp;zł
+                {discountedPrice}
               </p>
             </motion.div>
 
             <Image
               src="/hero-dish.webp"
-              alt="GoodLunch Catering Dietetyczny Wrocław – Świeży zbilansowany posiłek"
+              alt={isGlobal ? "GoodLunch Catering Dietetyczny Polska – Świeży zbilansowany posiłek" : "GoodLunch Catering Dietetyczny Wrocław – Świeży zbilansowany posiłek"}
               fill
               priority
               // @ts-ignore

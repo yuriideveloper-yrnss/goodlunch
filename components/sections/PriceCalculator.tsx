@@ -1,17 +1,18 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PRICING } from '@/lib/constants'
+import { PRICING, GLOBAL_PRICING } from '@/lib/constants'
 import { useOrder } from '@/components/providers/OrderProvider'
 import { OrderModal } from '@/components/ui/OrderModal'
 import { CalorieAdvisor } from '@/components/ui/CalorieAdvisor'
 import { PromoCodeBox } from '@/components/ui/PromoCodeBox'
 import { trackEvent } from '@/lib/tracking'
 
-export default function PriceCalculator({ dict, lang }: { dict: any; lang?: string }) {
+export default function PriceCalculator({ dict, lang = 'pl', isGlobal = false }: { dict: any; lang?: string; isGlobal?: boolean }) {
+  const pricingTiers = isGlobal ? GLOBAL_PRICING : PRICING
   const { mealPackage, setMealPackage } = useOrder()
 
-  const currentOptions = PRICING[mealPackage];
+  const currentOptions = pricingTiers[mealPackage];
   const [calories, setCalories] = useState(currentOptions[0].value)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isAdvisorOpen, setIsAdvisorOpen] = useState(false)
@@ -30,7 +31,7 @@ export default function PriceCalculator({ dict, lang }: { dict: any; lang?: stri
 
   const currentTier = currentOptions.find(c => c.value === calories) || currentOptions[0]
   const fullPrice = currentTier.price.toFixed(2)
-  const trialPrice = (currentTier.price * (1 - PRICING.trialDiscount)).toFixed(2)
+  const trialPrice = (currentTier.price * (1 - pricingTiers.trialDiscount)).toFixed(2)
 
   const handleAdvisorSelectPackageAndCalories = (pkg: 'meals3' | 'meals4', selectedCalories: number) => {
     setMealPackage(pkg)
@@ -156,6 +157,7 @@ export default function PriceCalculator({ dict, lang }: { dict: any; lang?: stri
         selectedCalories={calories}
         price={trialPrice}
         lang={lang}
+        isGlobal={isGlobal}
       />
 
       <CalorieAdvisor

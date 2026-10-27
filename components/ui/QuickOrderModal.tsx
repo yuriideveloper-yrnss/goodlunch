@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { PRICING } from '@/lib/constants'
+import { PRICING, GLOBAL_PRICING } from '@/lib/constants'
 import { SmartCateringForm } from '@/components/smartcatering/SmartCateringForm'
 import { trackEvent } from '@/lib/tracking'
 import { useOrder } from '@/components/providers/OrderProvider'
@@ -21,6 +21,7 @@ export function QuickOrderModal({
   lang,
   initialPackage = 'meals3',
   isOld = false,
+  isGlobal = false,
 }: {
   isOpen: boolean
   onCloseAction: () => void
@@ -28,10 +29,12 @@ export function QuickOrderModal({
   lang: string
   initialPackage?: 'meals3' | 'meals4'
   isOld?: boolean
+  isGlobal?: boolean
 }) {
+  const pricingTiers = isGlobal ? GLOBAL_PRICING : PRICING
   const [mounted, setMounted] = useState(false)
   const [mealPackage, setMealPackage] = useState<'meals3' | 'meals4'>(initialPackage)
-  const currentOptions = PRICING[mealPackage]
+  const currentOptions = pricingTiers[mealPackage]
   const [calories, setCalories] = useState<number>(currentOptions[0].value)
   const [isSuccess, setIsSuccess] = useState(false)
 
@@ -74,7 +77,7 @@ export function QuickOrderModal({
     : currentOptions[0].value
 
   const currentTier = currentOptions.find((c) => c.value === safeCalories) || currentOptions[0]
-  const trialPrice = (currentTier.price * (1 - PRICING.trialDiscount)).toFixed(2)
+  const trialPrice = (currentTier.price * (1 - pricingTiers.trialDiscount)).toFixed(2)
   const fullPrice = currentTier.price.toFixed(2)
 
   const handlePackageToggle = (pkg: 'meals3' | 'meals4') => {
@@ -163,7 +166,7 @@ export function QuickOrderModal({
                 {/* Header */}
                 <div className="mb-4 pr-8">
                   <span className="inline-block py-1 px-3 rounded-full bg-brand-orange/10 text-brand-orange text-xs font-bold mb-2">
-                    🔥 {dict.hero.badge || 'Wrocław'} • -25% z kodem Jesień
+                    🔥 {isGlobal ? 'Polska' : (dict.hero.badge || 'Wrocław')} • -25% z kodem Jesień
                   </span>
                   <h3 className="text-xl sm:text-2xl font-black text-brand-dark tracking-tight leading-tight">
                     {dict.calc.title || 'Wybierz swój zestaw'}
@@ -253,15 +256,17 @@ export function QuickOrderModal({
                 </div>
 
                 {/* 4. Formularz */}
-                {isOld ? (
+                {isOld || isGlobal ? (
                   <TwoStepForm
                     dict={dict}
                     defaultData={{
                       package: mealPackage,
                       calories: safeCalories,
                       price: trialPrice,
+                      isGlobal,
                     }}
                     lang={lang}
+                    isGlobal={isGlobal}
                     onSuccessAction={() => setIsSuccess(true)}
                   />
                 ) : (
@@ -293,6 +298,8 @@ export function QuickOrderModal({
  */
 export function GlobalQuickOrderModal({ dict, lang }: { dict: any; lang: string }) {
   const { isQuickOrderOpen, closeQuickOrder, quickOrderConfig } = useOrder()
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
+  const isGlobalRoute = quickOrderConfig.isGlobal || pathname?.includes('/global')
 
   return (
     <QuickOrderModal
@@ -301,7 +308,8 @@ export function GlobalQuickOrderModal({ dict, lang }: { dict: any; lang: string 
       dict={dict}
       lang={lang}
       initialPackage={quickOrderConfig.package || 'meals3'}
-      isOld={quickOrderConfig.isOld || false}
+      isOld={quickOrderConfig.isOld || isGlobalRoute}
+      isGlobal={isGlobalRoute}
     />
   )
 }

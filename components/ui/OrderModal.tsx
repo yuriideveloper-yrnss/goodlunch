@@ -11,8 +11,10 @@ export function OrderModal({
     selectedPackage,
     selectedCalories,
     price,
-    lang
+    lang,
+    isGlobal = false
 }: {
+    isGlobal?: boolean
     isOpen: boolean
     onCloseAction: () => void
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -113,8 +115,9 @@ export function OrderModal({
 
                                 <TwoStepForm
                                     dict={dict}
-                                    defaultData={{ package: selectedPackage, calories: selectedCalories, price }}
+                                    defaultData={{ package: selectedPackage, calories: selectedCalories, price, isGlobal }}
                                     lang={lang}
+                                    isGlobal={isGlobal}
                                     onSuccessAction={() => setIsSuccess(true)}
                                 />
                             </>
