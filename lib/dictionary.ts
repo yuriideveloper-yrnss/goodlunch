@@ -23,7 +23,7 @@ export const dictionary = {
     hero: {
       badge: "Wrocław: Jedzenie pod drzwi",
       title: "Pyszne domowe jedzenie na cały dzień w cenie burgera:",
-      subtitle: "Zapomnij o gotowaniu i zakupach. Pełnowartościowe posiłki (śniadanie, obiad, kolacja) z dostawą we Wrocławiu.",
+      subtitle: "Zapomnij o gotowaniu i zakupach. Świeże posiłki (śniadanie, zupa, dania główne + świeży chleb) z bezpłatną dostawą pod drzwi we Wrocławiu.",
       trial_price_label: "Z kodem Jesień (-25%)",
       cta_main: "Zamów z rabatem -25%",
       cta_menu: "Zobacz menu",
@@ -63,6 +63,10 @@ export const dictionary = {
       title: "Dobierz swoją dietę",
       meals3_label: "3 Posiłki",
       meals4_label: "4 Posiłki",
+      meals3_desc: "Śniadanie + zupa + danie główne",
+      meals4_desc: "Śniadanie + zupa + 2 dania główne",
+      bread_included: "Do diety dodajemy świeży chleb",
+      free_delivery: "Bezpłatna dostawa",
       choose_kcal: "Wybierz kaloryczność:",
       goals: {
         lose: "Schudnąć",
@@ -164,7 +168,7 @@ export const dictionary = {
     hero: {
       badge: "Вроцлав: Їжа під двері",
       title: "Смачна домашня їжа на весь день за ціною одного бургера:",
-      subtitle: "Забудь про готування та магазини. Повноцінний раціон (сніданок, обід, вечеря) з доставкою у Вроцлаві.",
+      subtitle: "Забудь про готування та магазини. Свіжий раціон (сніданок, суп, основні страви + хліб) з безкоштовною доставкою під двері у Вроцлаві.",
       trial_price_label: "З кодом Jesień (-25%)",
       cta_main: "Замовити зі знижкою -25%",
       cta_menu: "Подивитися меню",
@@ -305,7 +309,7 @@ export const dictionary = {
     hero: {
       badge: "Вроцлав: Еда до двери",
       title: "Вкусная домашняя еда на весь день по цене одного бургера:",
-      subtitle: "Забудь о готовке и магазинах. Полноценный рацион (завтрак, обед, ужин) с доставкой во Вроцлаве.",
+      subtitle: "Забудь о готовке и магазинах. Свежий рацион (завтрак, суп, основные блюда + хлеб) с бесплатной доставкой до двери во Вроцлаве.",
       trial_price_label: "С кодом Jesień (-25%)",
       cta_main: "Заказать со скидкой -25%",
       cta_menu: "Посмотреть меню",
@@ -446,7 +450,7 @@ export const dictionary = {
     hero: {
       badge: "Wroclaw: Food to your door",
       title: "Delicious home meals for the whole day for the price of a burger:",
-      subtitle: "Forget about cooking and groceries. Full meals (breakfast, lunch, dinner) delivered in Wroclaw.",
+      subtitle: "Forget cooking and grocery shopping. Fresh meals (breakfast, soup, main dishes + bread) delivered to your door in Wroclaw.",
       trial_price_label: "With code Jesień (-25%)",
       cta_main: "Order with 25% discount",
       cta_menu: "See the menu",
@@ -586,7 +590,7 @@ export const dictionary = {
     hero: {
       badge: "Уроцлаў: Ежа пад дзверы",
       title: "Смачная хатняя ежа на ўвесь дзень па цане аднаго бургера:",
-      subtitle: "Забудзь пра гатаванне і крамы. Паўнавартасны рацыён (сняданак, абед, вячэра) з дастаўкай ва Уроцлаве.",
+      subtitle: "Забудзь пра гатаванне і крамы. Свежы рацыён (сняданак, суп, асноўныя стравы + хлеб) з бясплатнай дастаўкай ва Уроцлаве.",
       trial_price_label: "З кодам Jesień (-25%)",
       cta_main: "Замовіць са зніжкай -25%",
       cta_menu: "Паглядзець меню",

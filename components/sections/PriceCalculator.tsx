@@ -77,6 +77,15 @@ export default function PriceCalculator({ dict, lang = 'pl', isGlobal = false }:
             </button>
           </div>
 
+          {/* Opis dań w wybranym pakiecie */}
+          <div className="mb-6 -mt-4 text-center">
+            <span className="inline-flex items-center gap-1.5 bg-orange-100/80 text-brand-orange text-xs sm:text-sm font-extrabold px-3.5 py-1.5 rounded-full border border-brand-orange/20">
+              {mealPackage === 'meals3'
+                ? `🥣 ${dict.calc?.meals3_desc || 'Śniadanie + zupa + danie główne'}`
+                : `🍴 ${dict.calc?.meals4_desc || 'Śniadanie + zupa + 2 dania główne'}`}
+            </span>
+          </div>
+
           {/* Вибір ккал */}
           <div className="mb-10">
             <div className="flex justify-between mb-4">
@@ -144,6 +153,19 @@ export default function PriceCalculator({ dict, lang = 'pl', isGlobal = false }:
             >
               {dict.calc.order_btn}
             </motion.button>
+          </div>
+
+          {/* Dodatkowe korzyści: chleb + bezpłatna dostawa */}
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-bold text-gray-600">
+            <span className="flex items-center gap-1.5">
+              <span>🥖</span>
+              <span>{dict.calc?.bread_included || 'Do diety dodajemy świeży chleb'}</span>
+            </span>
+            <span className="text-gray-300 hidden sm:inline">•</span>
+            <span className="flex items-center gap-1.5 text-brand-green">
+              <span>🚐</span>
+              <span>{dict.calc?.free_delivery || 'Bezpłatna dostawa'}</span>
+            </span>
           </div>
 
         </div>

@@ -87,7 +87,11 @@ export function SmartCateringModal({
                             {dict.form.subtitle}
                             <br />
                             <span className="font-bold text-brand-dark whitespace-nowrap">
-                                {selectedPackage === 'meals3' ? '3 Posiłki' : '4 Posiłki'} • {selectedCalories}&nbsp;kcal • {price}&nbsp;zł
+                                {selectedPackage === 'meals3' ? '3 Posiłki (Śniadanie + Zupa + Danie)' : '4 Posiłki (Śniadanie + Zupa + 2 Dania)'} • {selectedCalories}&nbsp;kcal • {price}&nbsp;zł
+                            </span>
+                            <br />
+                            <span className="text-xs text-gray-500 font-semibold mt-1 inline-block">
+                                🥖 Do diety dodajemy świeży chleb • 🚐 Bezpłatna dostawa
                             </span>
                         </p>
 
