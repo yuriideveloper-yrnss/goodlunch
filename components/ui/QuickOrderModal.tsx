@@ -7,6 +7,7 @@ import { PRICING } from '@/lib/constants'
 import { SmartCateringForm } from '@/components/smartcatering/SmartCateringForm'
 import { trackEvent } from '@/lib/tracking'
 import { useOrder } from '@/components/providers/OrderProvider'
+import { PromoCodeBox } from '@/components/ui/PromoCodeBox'
 
 const TwoStepForm = dynamic(
   () => import('@/components/ui/TwoStepForm').then((mod) => mod.TwoStepForm),
@@ -162,7 +163,7 @@ export function QuickOrderModal({
                 {/* Header */}
                 <div className="mb-4 pr-8">
                   <span className="inline-block py-1 px-3 rounded-full bg-brand-orange/10 text-brand-orange text-xs font-bold mb-2">
-                    🔥 {dict.hero.badge || 'Wrocław'} • -20%
+                    🔥 {dict.hero.badge || 'Wrocław'} • -25% z kodem Jesień
                   </span>
                   <h3 className="text-xl sm:text-2xl font-black text-brand-dark tracking-tight leading-tight">
                     {dict.calc.title || 'Wybierz swój zestaw'}
@@ -244,6 +245,11 @@ export function QuickOrderModal({
                       {fullPrice}&nbsp;zł
                     </span>
                   </div>
+                </div>
+
+                {/* Promo Code Callout */}
+                <div className="mb-4">
+                  <PromoCodeBox dict={dict} variant="box" source="quick_order_modal" />
                 </div>
 
                 {/* 4. Formularz */}

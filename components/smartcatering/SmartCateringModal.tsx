@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SmartCateringForm } from '@/components/smartcatering/SmartCateringForm'
+import { PromoCodeBox } from '@/components/ui/PromoCodeBox'
 
 export function SmartCateringModal({
     isOpen,
@@ -90,6 +91,9 @@ export function SmartCateringModal({
                             </span>
                         </p>
 
+                        <div className="mb-5">
+                            <PromoCodeBox dict={dict} variant="box" source="smartcatering_modal" />
+                        </div>
                         <SmartCateringForm
                             dict={dict}
                             defaultData={{ package: selectedPackage, calories: selectedCalories, price }}

@@ -25,7 +25,7 @@ export function generateStructuredData(lang: string, dict: any) {
     image: `${SITE_URL}/logo.png`,
     description: dict.meta?.desc || 'GoodLunch Wrocław',
     telephone: '+48123456789',
-    priceRange: '36 - 70 PLN',
+    priceRange: '33.75 - 70 PLN',
     servesCuisine: ['Polska', 'Domowa', 'Europejska', 'Zdrowa żywność', 'Dietetyczna'],
     currenciesAccepted: 'PLN',
     paymentAccepted: 'Przelew, Karta płatnicza, BLIK, Mobilny Catering',
@@ -119,7 +119,7 @@ export function generateStructuredData(lang: string, dict: any) {
           itemListElement: [
             {
               '@type': 'Offer',
-              price: '36.00',
+              price: '33.75',
               priceCurrency: 'PLN',
               availability: 'https://schema.org/InStock',
               validFrom: '2026-01-01',
@@ -136,7 +136,7 @@ export function generateStructuredData(lang: string, dict: any) {
                 },
                 offers: {
                   '@type': 'Offer',
-                  price: '36.00',
+                  price: '33.75',
                   priceCurrency: 'PLN',
                   availability: 'https://schema.org/InStock',
                   validFrom: '2026-01-01',

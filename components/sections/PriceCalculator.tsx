@@ -5,6 +5,7 @@ import { PRICING } from '@/lib/constants'
 import { useOrder } from '@/components/providers/OrderProvider'
 import { OrderModal } from '@/components/ui/OrderModal'
 import { CalorieAdvisor } from '@/components/ui/CalorieAdvisor'
+import { PromoCodeBox } from '@/components/ui/PromoCodeBox'
 import { trackEvent } from '@/lib/tracking'
 
 export default function PriceCalculator({ dict, lang }: { dict: any; lang?: string }) {
@@ -126,6 +127,9 @@ export default function PriceCalculator({ dict, lang }: { dict: any; lang?: stri
                 <span className="text-lg min-[380px]:text-xl text-gray-400 font-semibold line-through decoration-brand-orange whitespace-nowrap">{fullPrice}&nbsp;zł</span>
               </div>
               <p className="text-xs text-brand-green font-semibold mt-1 whitespace-nowrap">{dict.calc.discount_tag}</p>
+              <div className="mt-2.5">
+                <PromoCodeBox dict={dict} variant="compact" source="price_calculator" />
+              </div>
             </div>
 
             <motion.button

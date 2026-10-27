@@ -1,8 +1,8 @@
 export const dictionary = {
   pl: {
     meta: {
-      title: "GoodLunch | Jedzenie na dowóz Wrocław & Catering – Domowe obiady od 36 zł",
-      desc: "Pyszne domowe jedzenie na dowóz i catering dietetyczny we Wrocławiu. Świeże obiady, zupy i kolacje dostarczane bezpłatnie pod Twoje drzwi. Zamów zestaw na cały dzień od 36 zł!",
+      title: "GoodLunch | Jedzenie na dowóz Wrocław & Catering – Domowe obiady od 33,75 zł",
+      desc: "Pyszne domowe jedzenie na dowóz i catering dietetyczny we Wrocławiu. Świeże obiady, zupy i kolacje dostarczane bezpłatnie pod Twoje drzwi. Zniżka -25% na cały pierwszy koszyk z kodem Jesień (od 33,75 zł)!",
       keywords: "jedzenie na dowóz Wrocław, dostawa jedzenia Wrocław, domowe obiady Wrocław dowóz, obiady z dowozem Wrocław, jedzenie do domu Wrocław, tani obiad Wrocław dostawa, polska kuchnia Wrocław dostawa, catering dietetyczny Wrocław, dieta pudełkowa Wrocław, tani catering Wrocław, zamów jedzenie online Wrocław, fit catering Wrocław, zupy na dowóz Wrocław, kolacja na dowóz Wrocław, dzień próbny catering Wrocław",
     },
     nav: {
@@ -12,12 +12,20 @@ export const dictionary = {
       faq: "FAQ",
       cta: "Zamów",
     },
+        promo: {
+      code: "Jesień",
+      badge: "Kod -25%: Jesień",
+      label: "Kod rabatowy na 1. zamówienie:",
+      helper: "Wpisz kod w koszyku w Mobilnym Cateringu, aby otrzymać rabat -25% na całe zamówienie!",
+      copy_btn: "Kopiuj kod",
+      copied: "Skopiowano!",
+    },
     hero: {
       badge: "Wrocław: Jedzenie pod drzwi",
       title: "Pyszne domowe jedzenie na cały dzień w cenie burgera:",
       subtitle: "Zapomnij o gotowaniu i zakupach. Pełnowartościowe posiłki (śniadanie, obiad, kolacja) z dostawą we Wrocławiu.",
-      trial_price_label: "Dzień próbny (-20%)",
-      cta_main: "Chcę spróbować za 36 zł",
+      trial_price_label: "Z kodem Jesień (-25%)",
+      cta_main: "Zamów z rabatem -25%",
       cta_menu: "Zobacz menu",
     },
     features: {
@@ -62,8 +70,8 @@ export const dictionary = {
         gain: "Przytyć",
       },
       unknown_btn: "Nie wiem ile potrzebuję",
-      price_label: "Cena za dzień próbny:",
-      discount_tag: "Zniżka -20% naliczona",
+      price_label: "Cena z kodem rabatowym (-25%):",
+      discount_tag: "Zniżka -25% z kodem Jesień naliczona",
       order_btn: "Zamów ten zestaw",
     },
     advisor: {
@@ -103,7 +111,7 @@ export const dictionary = {
       phone_label: "Numer telefonu",
       phone_placeholder: "np. 700 123 456",
       messenger_label: "Gdzie potwierdzić zamówienie?",
-      submit_btn: "Zamów dzień próbny (-20%)",
+      submit_btn: "Przejdź do zamówienia (-25%)",
       step2_btn: "Przejdź do dostawy ➔",
       success_title: "Super! Zamówienie przyjęte.",
       success_desc: "Zadzwonimy lub napiszemy w ciągu 15 minut.",
@@ -128,14 +136,14 @@ export const dictionary = {
       q4: "Czy dowozicie jedzenie na terenie całego Wrocławia?",
       a4: "Tak! Dowozimy jedzenie do każdej dzielnicy Wrocławia (m.in. Stare Miasto, Krzyki, Fabryczna, Psie Pole, Śródmieście, Jagodno, Ołtaszyn, Maślice) oraz w bezpośrednich okolicach. Bezpłatna dostawa wieczorna.",
       q5: "Czym GoodLunch różni się od zamawiania z Pyszne.pl lub restauracji?",
-      a5: "W cenie pojedynczego dania z restauracji (od 36 zł za dzień próbny) otrzymujesz pełnowartościowe posiłki na cały dzień (śniadanie, obiad, kolacja). Zero gotowania, zmywania i czekania na kuriera w ciągu dnia.",
+      a5: "W cenie pojedynczego dania z restauracji (od 33,75 zł z kodem Jesień) otrzymujesz pełnowartościowe posiłki na cały dzień (śniadanie, obiad, kolacja). Zero gotowania, zmywania i czekania na kuriera w ciągu dnia.",
     },
   },
 
   ua: {
     meta: {
-      title: "GoodLunch | Доставка їжі Вроцлав & Кейтеринг – Домашні обіди від 36 зл",
-      desc: "Смачна домашня їжа з доставкою під двері у Вроцлаві. Свіжі обіди, супи та вечері на весь день за ціною фастфуду. Пробний день зі знижкою -20% всього за 36 zł!",
+      title: "GoodLunch | Доставка їжі Вроцлав & Кейтеринг – Домашні обіди від 33,75 зл",
+      desc: "Смачна домашня їжа з доставкою під двері у Вроцлаві. Свіжі обіди, супи та вечері на весь день за ціною фастфуду. Знижка -25% на перше замовлення з промокодом Jesień (всього від 33,75 zł)!",
       keywords: "доставка їжі Вроцлав, домашні обіди Вроцлав, їжа з доставкою Вроцлав, доставка обідів Вроцлав, кейтеринг Вроцлав, раціони їжі Вроцлав, домашня кухня Вроцлав, замовити їжу онлайн Вроцлав, дешевий кейтеринг Вроцлав, правильне харчування Вроцлав, комплексна їжа Вроцлав, вечеря з доставкою Вроцлав, обіди в офіс Вроцлав, смачна їжа Вроцлав, їжа під двері Вроцлав, польська кухня доставка Вроцлав, їжа на замовлення Вроцлав",
     },
     nav: {
@@ -145,12 +153,20 @@ export const dictionary = {
       faq: "Питання",
       cta: "Замовити",
     },
+        promo: {
+      code: "Jesień",
+      badge: "Промокод -25%: Jesień",
+      label: "Промокод на 1-е замовлення:",
+      helper: "Введіть промокод у кошику Mobilny Catering, щоб отримати знижку -25% на все замовлення!",
+      copy_btn: "Скопіювати",
+      copied: "Скопійовано!",
+    },
     hero: {
       badge: "Вроцлав: Їжа під двері",
       title: "Смачна домашня їжа на весь день за ціною одного бургера:",
       subtitle: "Забудь про готування та магазини. Повноцінний раціон (сніданок, обід, вечеря) з доставкою у Вроцлаві.",
-      trial_price_label: "Пробний день (-20%)",
-      cta_main: "Спробувати за 36 зл",
+      trial_price_label: "З кодом Jesień (-25%)",
+      cta_main: "Замовити зі знижкою -25%",
       cta_menu: "Подивитися меню",
     },
     features: {
@@ -196,7 +212,7 @@ export const dictionary = {
       },
       unknown_btn: "Не знаю скільки треба",
       price_label: "Ціна за пробний день:",
-      discount_tag: "Знижка -20% врахована",
+      discount_tag: "Знижка -25% з кодом Jesień врахована",
       order_btn: "Замовити цей набір",
     },
     advisor: {
@@ -236,7 +252,7 @@ export const dictionary = {
       phone_label: "Номер телефону",
       phone_placeholder: "напр. 700 123 456",
       messenger_label: "Де підтвердити замовлення?",
-      submit_btn: "Замовити пробний день (-20%)",
+      submit_btn: "Перейти до замовлення (-25%)",
       step2_btn: "Перейти до доставки ➔",
       success_title: "Супер! Замовлення прийнято.",
       success_desc: "Ми зателефонуємо або напишемо протягом 15 хвилин.",
@@ -261,14 +277,14 @@ export const dictionary = {
       q4: "Чи доставляєте ви по всьому Вроцлаву?",
       a4: "Так! Безкоштовна доставка здійснюється в усі райони Вроцлава (Stare Miasto, Krzyki, Fabryczna, Psie Pole, Śródmieście тощо). Кур'єр залишає пакет біля ваших дверей щовечора.",
       q5: "Чим GoodLunch відрізняється від замовлення з ресторану або Uber Eats?",
-      a5: "За ціною однієї ресторанної страви або бургера (від 36 zł за пробний день) ви отримуєте повноцінне домашнє харчування на весь день — сніданок, обід та вечерю, збалансовані за калоріями.",
+      a5: "За ціною однієї ресторанної страви або бургера (від 33,75 zł з промокодом Jesień) ви отримуєте повноцінне домашнє харчування на весь день — сніданок, обід та вечерю, збалансовані за калоріями.",
     },
   },
 
   ru: {
     meta: {
-      title: "GoodLunch | Доставка еды Вроцлав & Кейтеринг – Домашние обеды от 36 zł",
-      desc: "Вкусная домашняя еда с бесплатной доставкой до двери во Вроцлаве. Свежие обеды, супы и ужины на весь день по цене фастфуда. Пробный день со скидкой -20% всего за 36 zł!",
+      title: "GoodLunch | Доставка еды Вроцлав & Кейтеринг – Домашние обеды от 33,75 zł",
+      desc: "Вкусная домашняя еда с бесплатной доставкой до двери во Вроцлаве. Свежие обеды, супы и ужины на весь день по цене фастфуда. Скидка -25% на весь первый заказ по промокоду Jesień (всего от 33,75 zł)!",
       keywords: "доставка еды Вроцлав, домашние обеды Вроцлав, доставка обедов Вроцлав, кейтеринг Вроцлав, рационы еды Вроцлав, заказать еду Вроцлав, польская кухня доставка Вроцлав, еда на дом Вроцлав, здоровое питание Вроцлав, готовая еда Вроцлав, правильное питание Вроцлав, комплексные обеды Вроцлав, обед на работу Вроцлав, доставка ужинов Вроцлав, недорогой кейтеринг Вроцлав, еда под дверь Вроцлав, заказать рацион питания Вроцлав",
     },
     nav: {
@@ -278,12 +294,20 @@ export const dictionary = {
       faq: "Вопросы",
       cta: "Заказать",
     },
+        promo: {
+      code: "Jesień",
+      badge: "Промокод -25%: Jesień",
+      label: "Промокод на 1-й заказ:",
+      helper: "Введите промокод в корзине Mobilny Catering, чтобы получить скидку -25% на весь заказ!",
+      copy_btn: "Скопировать",
+      copied: "Скопировано!",
+    },
     hero: {
       badge: "Вроцлав: Еда до двери",
       title: "Вкусная домашняя еда на весь день по цене одного бургера:",
       subtitle: "Забудь о готовке и магазинах. Полноценный рацион (завтрак, обед, ужин) с доставкой во Вроцлаве.",
-      trial_price_label: "Пробный день (-20%)",
-      cta_main: "Попробовать за 36 зл",
+      trial_price_label: "С кодом Jesień (-25%)",
+      cta_main: "Заказать со скидкой -25%",
       cta_menu: "Посмотреть меню",
     },
     features: {
@@ -329,7 +353,7 @@ export const dictionary = {
       },
       unknown_btn: "Не знаю сколько нужно",
       price_label: "Цена за пробный день:",
-      discount_tag: "Скидка -20% учтена",
+      discount_tag: "Скидка -25% по коду Jesień учтена",
       order_btn: "Заказать этот набор",
     },
     advisor: {
@@ -369,7 +393,7 @@ export const dictionary = {
       phone_label: "Номер телефона",
       phone_placeholder: "напр. 700 123 456",
       messenger_label: "Где подтвердить заказ?",
-      submit_btn: "Заказать пробний день (-20%)",
+      submit_btn: "Перейти к заказу (-25%)",
       step2_btn: "Перейти к доставке ➔",
       success_title: "Супер! Заказ принят.",
       success_desc: "Мы позвоним или напишем в течение 15 минут.",
@@ -394,14 +418,14 @@ export const dictionary = {
       q4: "Доставляете ли вы по всему Вроцлаву?",
       a4: "Да! Бесплатная доставка осуществляется во все районы Вроцлава (Кшики, Фабрычна, Псе Поле, Старе Място, Сьрудместье и др.). Пакет доставляется прямо под дверь.",
       q5: "Чем GoodLunch отличается от доставки из ресторанов или Uber Eats?",
-      a5: "По цене одного ресторанного блюда (от 36 zł за пробный день) вы получаете полноценное домашнее питание на целый день: завтрак, обед и ужин без необходимости готовить и мыть посуду.",
+      a5: "По цене одного ресторанного блюда (от 33,75 zł с промокодом Jesień) вы получаете полноценное домашнее питание на целый день: завтрак, обед и ужин без необходимости готовить и мыть посуду.",
     },
   },
 
   en: {
     meta: {
-      title: "GoodLunch | Food Delivery Wroclaw & Diet Catering – Daily Meals from 36 zł",
-      desc: "Delicious home-cooked food delivery and meal prep in Wroclaw. Fresh lunches, dinners, and breakfasts delivered to your door. Try your first day with a 20% discount from 36 zł!",
+      title: "GoodLunch | Food Delivery Wroclaw & Diet Catering – Daily Meals from 33.75 zł",
+      desc: "Delicious home-cooked food delivery and meal prep in Wroclaw. Fresh lunches, dinners, and breakfasts delivered to your door. Get 25% off your first order with code Jesień (from 33.75 zł)!",
       keywords: "food delivery Wroclaw, home meal delivery Wroclaw, order food online Wroclaw, diet catering Wroclaw, meal prep Wroclaw, cheap food delivery Wroclaw, box diet Wroclaw, daily meal delivery Wroclaw, healthy food delivery Wroclaw",
     },
     nav: {
@@ -411,12 +435,20 @@ export const dictionary = {
       faq: "FAQ",
       cta: "Order",
     },
+        promo: {
+      code: "Jesień",
+      badge: "Code -25%: Jesień",
+      label: "Promo code for 1st order:",
+      helper: "Enter code in the Mobilny Catering cart to get 25% off your entire first order!",
+      copy_btn: "Copy code",
+      copied: "Copied!",
+    },
     hero: {
       badge: "Wroclaw: Food to your door",
       title: "Delicious home meals for the whole day for the price of a burger:",
       subtitle: "Forget about cooking and groceries. Full meals (breakfast, lunch, dinner) delivered in Wroclaw.",
-      trial_price_label: "Trial day (-20%)",
-      cta_main: "Try for 36 zł",
+      trial_price_label: "With code Jesień (-25%)",
+      cta_main: "Order with 25% discount",
       cta_menu: "See the menu",
     },
     features: {
@@ -462,7 +494,7 @@ export const dictionary = {
       },
       unknown_btn: "I don't know what I need",
       price_label: "Trial day price:",
-      discount_tag: "20% discount applied",
+      discount_tag: "25% discount with code Jesień applied",
       order_btn: "Order this set",
     },
     advisor: {
@@ -502,7 +534,7 @@ export const dictionary = {
       phone_label: "Phone number",
       phone_placeholder: "e.g. 700 123 456",
       messenger_label: "Where to confirm the order?",
-      submit_btn: "Order trial day (-20%)",
+      submit_btn: "Proceed to order (-25%)",
       step2_btn: "Go to delivery ➔",
       success_title: "Awesome! Order received.",
       success_desc: "We will call or text you within 15 minutes.",
@@ -527,13 +559,13 @@ export const dictionary = {
       q4: "Do you deliver across all of Wroclaw?",
       a4: "Yes! We deliver to every district of Wroclaw (Stare Miasto, Krzyki, Fabryczna, Psie Pole, Śródmieście, etc.) with free door-to-door evening delivery.",
       q5: "How is GoodLunch different from ordering from restaurants on Uber Eats or Pyszne.pl?",
-      a5: "For the price of a single restaurant takeout dish (from 36 zł on your trial day), you receive full balanced home-cooked meals for the entire day (breakfast, lunch, dinner) without extra delivery fees.",
+      a5: "For the price of a single restaurant takeout dish (from 33.75 zł with code Jesień), you receive full balanced home-cooked meals for the entire day (breakfast, lunch, dinner) without extra delivery fees.",
     },
   },
   be: {
     meta: {
-      title: "GoodLunch | Дастаўка ежы Уроцлаў & Кейтарынг – Хатнія абеды ад 36 zł",
-      desc: "Смачная хатняя ежа з бясплатнай дастаўкай пад дзверы ва Уроцлаве. Свежыя абеды, супы і вячэры на ўвесь дзень па цане фастфуду. Пробны дзень са зніжкай -20% усяго за 36 zł!",
+      title: "GoodLunch | Дастаўка ежы Уроцлаў & Кейтарынг – Хатнія абеды ад 33,75 zł",
+      desc: "Смачная хатняя ежа з бясплатнай дастаўкай пад дзверы ва Уроцлаве. Свежыя абеды, супы і вячэры на ўвесь дзень па цане фастфуду. Зніжка -25% на першы заказ з кодам Jesień (усяго ад 33,75 zł)!",
       keywords: "дастаўка ежы Уроцлаў, хатнія абеды Уроцлаў, дастаўка абедаў Уроцлаў, кейтарынг Уроцлаў, рацыёны ежы Уроцлаў, замовіць ежу Уроцлаў, польская кухня дастаўка Уроцлаў, ежа на дом Уроцлаў, здаровае харчаванне Уроцлаў, танны кейтарынг Уроцлаў, комплексныя абеды Уроцлаў, ежа пад дзверы Уроцлаў, гатовая ежа Уроцлаў, абеды на працу Уроцлаў",
     },
     nav: {
@@ -543,12 +575,20 @@ export const dictionary = {
       faq: "Пытанні",
       cta: "Замовіць",
     },
+        promo: {
+      code: "Jesień",
+      badge: "Промакод -25%: Jesień",
+      label: "Промакод на 1-шы заказ:",
+      helper: "Увядзіце промакод у кошыку Mobilny Catering, каб атрымаць зніжку -25% на ўвесь заказ!",
+      copy_btn: "Скапіяваць",
+      copied: "Скапіявана!",
+    },
     hero: {
       badge: "Уроцлаў: Ежа пад дзверы",
       title: "Смачная хатняя ежа на ўвесь дзень па цане аднаго бургера:",
       subtitle: "Забудзь пра гатаванне і крамы. Паўнавартасны рацыён (сняданак, абед, вячэра) з дастаўкай ва Уроцлаве.",
-      trial_price_label: "Пробны дзень (-20%)",
-      cta_main: "Паспрабаваць за 36 zł",
+      trial_price_label: "З кодам Jesień (-25%)",
+      cta_main: "Замовіць са зніжкай -25%",
       cta_menu: "Паглядзець меню",
     },
     features: {
@@ -594,7 +634,7 @@ export const dictionary = {
       },
       unknown_btn: "Не ведаю колькі трэба",
       price_label: "Цана за пробны дзень:",
-      discount_tag: "Зніжка -20% улічана",
+      discount_tag: "Зніжка -25% з кодам Jesień улічана",
       order_btn: "Замовіць гэты набор",
     },
     advisor: {
@@ -634,7 +674,7 @@ export const dictionary = {
       phone_label: "Нумар тэлефона",
       phone_placeholder: "напр. 700 123 456",
       messenger_label: "Дзе пацвердзіць замову?",
-      submit_btn: "Замовіць пробны дзень (-20%)",
+      submit_btn: "Перайсці да заказу (-25%)",
       step2_btn: "Перайсці да дастаўкі ➔",
       success_title: "Супер! Замова прынятая.",
       success_desc: "Мы патэлефануем ці напішам на працягу 15 хвілін.",
@@ -659,7 +699,7 @@ export const dictionary = {
       q4: "Ці дастаўляеце вы па ўсім Уроцлаве?",
       a4: "Так! Бясплатная дастаўка ажыццяўляецца ва ўсе раёны Уроцлава (Stare Miasto, Krzyki, Fabryczna, Psie Pole, Śródmieście, Jagodno і інш.). Кур'ер пакідае пакет каля вашых дзвярэй штовечар.",
       q5: "Чым GoodLunch адрозніваецца ад замовы з рэстарана ці Uber Eats / Pyszne.pl?",
-      a5: "Па цане адной рэстараннай стравы (ад 36 zł за пробны дзень) вы атрымліваеце паўнавартаснае хатняе харчаванне на ўвесь дзень: сняданак, абед і вячэру без лішніх выдаткаў на дастаўку.",
+      a5: "Па цане адной рэстараннай стравы (ад 33,75 zł з промакодам Jesień) вы атрымліваеце паўнавартаснае хатняе харчаванне на ўвесь дзень: сняданак, абед і вячэру без лішніх выдаткаў на дастаўку.",
     },
   },
 };

@@ -1,5 +1,6 @@
 export const PRICING = {
-  trialDiscount: 0.20, // 20% скидка
+  trialDiscount: 0.25, // 25% скидка по промокоду Jesień
+  promoCode: "Jesień",
   meals3: [
     { value: 1300, label: "1300 kcal", price: 45 },
     { value: 1600, label: "1600 kcal", price: 50 },

@@ -39,10 +39,17 @@ export function SmartCateringForm({
         e.preventDefault()
         setIsSubmitting(true)
 
+        // Auto-copy promo code so user has it ready when external store opens
+        try {
+            if (navigator?.clipboard?.writeText) {
+                navigator.clipboard.writeText(PRICING.promoCode || 'Jesień')
+            }
+        } catch {}
+
         const currentPkg: 'meals3' | 'meals4' = (showPackageSelector ? localPackage : (defaultData.package || localPackage)) as 'meals3' | 'meals4'
         const pricingTier = PRICING[currentPkg]?.[0]
         const calories = defaultData.calories || pricingTier?.value || (currentPkg === 'meals4' ? 1800 : 1500)
-        const price = defaultData.price || (pricingTier ? (pricingTier.price * (1 - PRICING.trialDiscount)).toFixed(2) : (currentPkg === 'meals4' ? '44.00' : '36.00'))
+        const price = defaultData.price || (pricingTier ? (pricingTier.price * (1 - PRICING.trialDiscount)).toFixed(2) : (currentPkg === 'meals4' ? '41.25' : '33.75'))
         const baseTargetUrl = getSmartCateringUrl(currentPkg)
         // Forward existing search parameters (UTM, fbclid, etc.) to the external shop
         const search = typeof window !== 'undefined' ? window.location.search : ''

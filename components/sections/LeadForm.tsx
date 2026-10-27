@@ -34,7 +34,7 @@ export default function LeadForm({ dict, lang }: { dict: any, lang: string }) {
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             {dict.form.title} <br />
-            <span className="text-brand-orange">-20% OFF</span>
+            <span className="text-brand-orange">-25% OFF z kodem Jesień</span>
           </h2>
           <p className="text-gray-400 text-lg mb-8">
             {dict.form.subtitle}

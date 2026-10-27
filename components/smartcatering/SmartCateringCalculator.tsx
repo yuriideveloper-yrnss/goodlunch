@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { PRICING } from '@/lib/constants'
 import { useOrder } from '@/components/providers/OrderProvider'
 import { trackEvent } from '@/lib/tracking'
+import { PromoCodeBox } from '@/components/ui/PromoCodeBox'
 
 const SmartCateringModal = dynamic(
   () => import('@/components/smartcatering/SmartCateringModal').then((mod) => mod.SmartCateringModal),
@@ -142,6 +143,9 @@ export default function SmartCateringCalculator({ dict, lang }: { dict: any; lan
                 </span>
               </div>
               <p className="text-xs text-brand-green font-semibold mt-1 whitespace-nowrap">{dict.calc.discount_tag}</p>
+              <div className="mt-2.5">
+                <PromoCodeBox dict={dict} variant="compact" source="calculator" />
+              </div>
             </div>
 
             <motion.button

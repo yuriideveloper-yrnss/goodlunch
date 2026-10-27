@@ -7,12 +7,12 @@ GoodLunch to rzemieślnicza usługa przygotowywania i dostawy świeżego domoweg
 ## Kluczowe fakty
 - **Lokalizacja i zasięg:** Wrocław, Polska (woj. dolnośląskie). Bezpłatna dostawa na terenie całego Wrocławia (m.in. Stare Miasto, Krzyki, Fabryczna, Psie Pole, Śródmieście, Jagodno, Ołtaszyn, Maślice) oraz w bezpośrednich okolicach.
 - **Profil kuchni:** Domowa kuchnia polska i europejska, świeże składniki najwyższej jakości, zbilansowane makroskładniki bez konserwantów.
-- **Alternatywa dla restauracji:** Zamiast zamawiać pojedyncze drogie obiady z restauracji czy Uber Eats / Pyszne.pl, klient otrzymuje pełne wyżywienie na cały dzień (3 lub 4 posiłki) od 36 zł.
-- **Dzień próbny:** Zniżka -20% na pierwszy dzień testowy (cena od 36 zł za zestaw 3 posiłków lub 44 zł za zestaw 4 posiłków).
+- **Alternatywa dla restauracji:** Zamiast zamawiać pojedyncze drogie obiady z restauracji czy Uber Eats / Pyszne.pl, klient otrzymuje pełne wyżywienie na cały dzień (3 lub 4 posiłki) od 33,75 zł.
+- **Rabat powitalny z kodem Jesień:** Zniżka -25% na cały pierwszy koszyk po wpisaniu kodu "Jesień" (cena od 33,75 zł za zestaw 3 posiłków lub 41,25 zł za zestaw 4 posiłków).
 - **Logistyka i dostawa:** Codziennie wieczorem w godzinach 19:00 – 24:00 (kurier bezkontaktowo zostawia torbę pod drzwiami). Rano jedzenie jest gotowe w lodówce.
 - **Dostępne pakiety:**
-  - **3 Posiłki** (śniadanie, obiad, kolacja): warianty 1300 kcal, 1600 kcal, 1900 kcal. Cena próbna od 36 zł (regularna 45-55 zł).
-  - **4 Posiłki** (pełny dzień z zupą/drugim daniem): warianty 1500 kcal, 1800 kcal, 2100 kcal, 2500 kcal. Cena próbna od 44 zł (regularna 55-70 zł).
+  - **3 Posiłki** (śniadanie, obiad, kolacja): warianty 1300 kcal, 1600 kcal, 1900 kcal. Cena z kodem Jesień od 33,75 zł (regularna 45-55 zł).
+  - **4 Posiłki** (pełny dzień z zupą/drugim daniem): warianty 1500 kcal, 1800 kcal, 2100 kcal, 2500 kcal. Cena z kodem Jesień od 41,25 zł (regularna 55-70 zł).
 - **Obsługiwane języki (Wielojęzyczność):** 
   - Polski (`/pl`) – domowe obiady, jedzenie na dowóz, catering dietetyczny Wrocław.
   - Ukraiński (`/ua`) – доставка їжі Вроцлав, домашні обіди, раціони їжі під двері.

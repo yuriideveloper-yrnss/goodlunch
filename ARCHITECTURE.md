@@ -51,7 +51,7 @@
   - `/menu`: Menu editing endpoints.
 
 ### Components & Libs
-- **`components/ui/`**: Interactive micro-animations, loading animations, dialogs, and reusable custom primitives (e.g., `apple-calendar-picker.tsx` for calendar date selection).
+- **`components/ui/`**: Interactive micro-animations, loading animations, dialogs, reusable custom primitives (e.g., `apple-calendar-picker.tsx` for calendar date selection), and `PromoCodeBox.tsx` (1-click clipboard promo code copy box with multi-variant display).
 - **`components/sections/`**: Modular sections of the landing page (Hero, Reviews, Calculator):
   - `Reviews.tsx`: Locale-aware multimedia reviews gallery (serves Polish/English reviews for `pl`/`en` and Ukrainian/Russian reviews for `ua`/`ru` directly from Supabase Storage `goodlunch content` bucket).
 - **`components/smartcatering/`**: Smart Catering external order flow components:

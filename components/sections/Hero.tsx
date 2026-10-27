@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button'
 import Image from 'next/image'
 import { trackEvent } from '@/lib/tracking'
 import { useOrder } from '@/components/providers/OrderProvider'
+import { PromoCodeBox } from '@/components/ui/PromoCodeBox'
 
 export default function Hero({ lang, dict, isOld = false }: { lang: string, dict: any, isOld?: boolean }) {
   const { openQuickOrder } = useOrder()
@@ -39,14 +40,23 @@ export default function Hero({ lang, dict, isOld = false }: { lang: string, dict
               {dict.hero.title}{' '}
               <span className="inline-flex items-baseline gap-2 whitespace-nowrap flex-nowrap">
                 <del className="text-xl sm:text-3xl lg:text-5xl text-gray-400 font-semibold decoration-brand-orange/50 whitespace-nowrap">45&nbsp;zł</del>
-                <span className="text-brand-orange text-3xl min-[380px]:text-4xl sm:text-5xl lg:text-6xl font-black whitespace-nowrap">36&nbsp;zł</span>
+                <span className="text-brand-orange text-3xl min-[380px]:text-4xl sm:text-5xl lg:text-6xl font-black whitespace-nowrap">33,75&nbsp;zł</span>
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-xs min-[380px]:text-sm sm:text-base lg:text-lg text-gray-600 mb-2 sm:mb-6 lg:mb-8 max-w-md lg:max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal">
+            <p className="text-xs min-[380px]:text-sm sm:text-base lg:text-lg text-gray-600 mb-2 sm:mb-4 lg:mb-5 max-w-md lg:max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal">
               {dict.hero.subtitle}
             </p>
+
+            {/* Promo Code Copy Bar */}
+            <div className="mb-2 sm:mb-5 w-full flex justify-center lg:justify-start">
+              <PromoCodeBox
+                dict={dict}
+                variant="hero"
+                source="hero_section"
+              />
+            </div>
           </div>
 
           {/* CTA Buttons — прижаты к низу на мобилках */}
@@ -94,7 +104,7 @@ export default function Hero({ lang, dict, isOld = false }: { lang: string, dict
                 {dict.hero.trial_price_label}
               </p>
               <p className="text-xl sm:text-3xl lg:text-4xl font-black text-brand-orange tracking-tight leading-none whitespace-nowrap">
-                36&nbsp;zł
+                33,75&nbsp;zł
               </p>
             </motion.div>
 

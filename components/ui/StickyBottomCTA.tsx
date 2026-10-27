@@ -8,7 +8,7 @@ import { useOrder } from '@/components/providers/OrderProvider'
 export default function StickyBottomCTA({ 
   lang, 
   dict,
-  ctaText = 'Zamów dzień próbny 36 zł',
+  ctaText = 'Zamów z rabatem -25%',
   isOld = false,
 }: { 
   lang: string
@@ -59,7 +59,7 @@ export default function StickyBottomCTA({
                 <span className="text-base font-extrabold tracking-tight">{ctaText}</span>
               </div>
               <div className="flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-xl text-sm font-black whitespace-nowrap flex-shrink-0">
-                <span className="whitespace-nowrap">36&nbsp;zł</span>
+                <span className="whitespace-nowrap">33,75&nbsp;zł</span>
                 <span className="text-xs">➔</span>
               </div>
             </button>

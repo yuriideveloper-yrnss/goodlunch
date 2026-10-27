@@ -172,7 +172,7 @@ export default async function RootLayout({
           <Header lang={lang} />
           {children}
           <Footer lang={lang} />
-          <StickyBottomCTA lang={lang} dict={dict} ctaText={dict.hero?.cta_main || 'Zamów dzień próbny 36 zł'} />
+          <StickyBottomCTA lang={lang} dict={dict} ctaText={dict.hero?.cta_main || 'Zamów z rabatem -25%'} />
           <GlobalQuickOrderModal dict={dict} lang={lang} />
           <Analytics />
         </OrderProvider>
