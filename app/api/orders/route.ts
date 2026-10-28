@@ -1,6 +1,45 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabaseClient';
 
+function formatAttributionSection(attr: any): string {
+    if (!attr || typeof attr !== 'object' || Object.keys(attr).length === 0) {
+        return '\n\n🌐 <b>Источник:</b> Прямой заход (Direct / Без меток)\n🏷️ <b>Тип трафика:</b> Прямой / Органика';
+    }
+
+    const lines: string[] = [];
+
+    // 1. UTM Attribution (Paid Campaigns)
+    if (attr.utm_source) {
+        lines.push(`📌 <b>Источник (UTM):</b> ${attr.utm_source}`);
+        if (attr.utm_campaign) lines.push(`🎯 <b>Кампания:</b> ${attr.utm_campaign}`);
+        if (attr.utm_medium) lines.push(`📍 <b>Medium:</b> ${attr.utm_medium}`);
+        if (attr.utm_content) lines.push(`📝 <b>Контент (Ad):</b> ${attr.utm_content}`);
+        if (attr.utm_term) lines.push(`🔑 <b>Ключевое слово:</b> ${attr.utm_term}`);
+    } else {
+        // Organic / Social / Referral / Direct
+        const sourceName = attr.traffic_source || (attr.referrer ? `Реферер: ${attr.referrer}` : 'Прямой заход (Direct / Без меток)');
+        lines.push(`🌐 <b>Источник:</b> ${sourceName}`);
+        if (attr.traffic_type) {
+            lines.push(`🏷️ <b>Тип трафика:</b> ${attr.traffic_type}`);
+        }
+    }
+
+    if (attr.fbclid) {
+        lines.push('🔵 <b>Meta Ad Click:</b> Да (fbclid сохранен)');
+    }
+    if (attr.gclid) {
+        lines.push('🟢 <b>Google Click:</b> Да (gclid сохранен)');
+    }
+    if (attr.landing_page) {
+        lines.push(`🔗 <b>Входная страница:</b> ${attr.landing_page}`);
+    }
+    if (attr.referrer && !lines.some(l => l.includes(attr.referrer))) {
+        lines.push(`🧭 <b>Реферер:</b> ${attr.referrer}`);
+    }
+
+    return lines.length > 0 ? `\n\n${lines.join('\n')}` : '\n\n🌐 <b>Источник:</b> Прямой заход (Direct / Без меток)';
+}
+
 async function sendTelegramNotification(orderData: any, isFinished: boolean) {
     const token = process.env.TELEGRAM_BOT_TOKEN;
     const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -13,14 +52,7 @@ async function sendTelegramNotification(orderData: any, isFinished: boolean) {
     const isGlobal = orderData.source === 'global' || orderData.isGlobal;
     const isSmartCatering = !isGlobal && (orderData.source === 'smartcatering' || orderData.status === 'SmartCatering' || orderData.street === 'Mobilny Catering Store');
 
-    const attr = orderData.attribution || {};
-    const utmDetails = [
-        attr.utm_source ? `📌 <b>Источник (UTM):</b> ${attr.utm_source}` : null,
-        attr.utm_campaign ? `🎯 <b>Кампания:</b> ${attr.utm_campaign}` : null,
-        attr.utm_medium ? `📍 <b>Medium:</b> ${attr.utm_medium}` : null,
-        attr.fbclid ? `🔵 <b>Meta Ad Click:</b> Да (fbclid сохранен)` : null
-    ].filter(Boolean).join('\n');
-    const utmSection = utmDetails ? `\n${utmDetails}` : '';
+    const utmSection = formatAttributionSection(orderData.attribution);
 
     let message = '';
     if (isSmartCatering) {
@@ -95,14 +127,7 @@ async function editTelegramNotification(messageId: number | string, orderData: a
     const isGlobal = orderData.source === 'global' || orderData.isGlobal;
     const isSmartCatering = !isGlobal && (orderData.source === 'smartcatering' || orderData.status === 'SmartCatering' || orderData.street === 'Mobilny Catering Store');
 
-    const attr = orderData.attribution || {};
-    const utmDetails = [
-        attr.utm_source ? `📌 <b>Источник (UTM):</b> ${attr.utm_source}` : null,
-        attr.utm_campaign ? `🎯 <b>Кампания:</b> ${attr.utm_campaign}` : null,
-        attr.utm_medium ? `📍 <b>Medium:</b> ${attr.utm_medium}` : null,
-        attr.fbclid ? `🔵 <b>Meta Ad Click:</b> Да (fbclid сохранен)` : null
-    ].filter(Boolean).join('\n');
-    const utmSection = utmDetails ? `\n${utmDetails}` : '';
+    const utmSection = formatAttributionSection(orderData.attribution);
 
     let message = '';
     if (isSmartCatering) {

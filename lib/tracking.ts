@@ -121,13 +121,106 @@ export const getStoredAttribution = (): Record<string, string> => {
   if (typeof window === 'undefined') return {};
   try {
     const urlParams = new URLSearchParams(window.location.search);
-    const getVal = (key: string) => urlParams.get(key) || localStorage.getItem('gl_' + key) || '';
+    
+    // Cookie getter helper
+    const getCookie = (name: string): string => {
+      const match = document.cookie.match(new RegExp('(^|;\\s*)' + name + '=([^;]*)'));
+      return match ? decodeURIComponent(match[3]) : '';
+    };
+
+    const getVal = (key: string): string => {
+      return urlParams.get(key) || localStorage.getItem('gl_' + key) || getCookie('gl_' + key) || '';
+    };
+
     const attr: Record<string, string> = {};
-    const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'];
+    const keys = [
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_content',
+      'utm_term',
+      'fbclid',
+      'gclid',
+      'ttclid',
+      'landing_page',
+      'referrer',
+      'traffic_source',
+      'traffic_type'
+    ];
+
     keys.forEach(k => {
       const v = getVal(k);
       if (v) attr[k] = v;
     });
+
+    // Fallbacks if not already cached
+    if (!attr.landing_page && typeof window !== 'undefined') {
+      attr.landing_page = window.location.pathname + window.location.search;
+    }
+
+    if (!attr.referrer && typeof document !== 'undefined' && document.referrer) {
+      try {
+        const curHost = window.location.hostname;
+        const refHost = new URL(document.referrer).hostname;
+        if (refHost && refHost !== curHost) {
+          attr.referrer = document.referrer;
+        }
+      } catch {
+        attr.referrer = document.referrer;
+      }
+    }
+
+    // Determine traffic source and type dynamically if missing
+    if (!attr.traffic_source) {
+      const utmSource = attr.utm_source;
+      const fbclid = attr.fbclid;
+      const gclid = attr.gclid;
+      const refVal = attr.referrer || (typeof document !== 'undefined' ? document.referrer : '');
+
+      if (utmSource) {
+        attr.traffic_source = utmSource;
+        attr.traffic_type = 'Рекламная кампания (UTM)';
+      } else if (fbclid) {
+        attr.traffic_source = 'Meta Ads (Facebook / Instagram)';
+        attr.traffic_type = 'Платный трафик (Meta)';
+      } else if (gclid) {
+        attr.traffic_source = 'Google Ads';
+        attr.traffic_type = 'Платный трафик (Google)';
+      } else if (refVal) {
+        const lowerRef = refVal.toLowerCase();
+        if (lowerRef.includes('google.')) {
+          attr.traffic_source = 'Google Search (Органика / SEO)';
+          attr.traffic_type = 'Органика (SEO / Поиск)';
+        } else if (lowerRef.includes('instagram.com')) {
+          attr.traffic_source = 'Instagram (Органика / Bio / Stories)';
+          attr.traffic_type = 'Органика (Соцсети)';
+        } else if (lowerRef.includes('facebook.com') || lowerRef.includes('fb.com')) {
+          attr.traffic_source = 'Facebook (Органика / Пост)';
+          attr.traffic_type = 'Органика (Соцсети)';
+        } else if (lowerRef.includes('t.me') || lowerRef.includes('telegram')) {
+          attr.traffic_source = 'Telegram (Ссылка / Чат)';
+          attr.traffic_type = 'Мессенджер (Telegram)';
+        } else if (lowerRef.includes('tiktok.com')) {
+          attr.traffic_source = 'TikTok (Органика)';
+          attr.traffic_type = 'Органика (Соцсети)';
+        } else if (lowerRef.includes('bing.com')) {
+          attr.traffic_source = 'Bing Search (Органика)';
+          attr.traffic_type = 'Органика (SEO / Поиск)';
+        } else {
+          try {
+            attr.traffic_source = new URL(refVal).hostname;
+            attr.traffic_type = 'Реферер (Сайт)';
+          } catch {
+            attr.traffic_source = refVal;
+            attr.traffic_type = 'Реферер';
+          }
+        }
+      } else {
+        attr.traffic_source = 'Прямой заход (Direct / Ввод URL / Закладки)';
+        attr.traffic_type = 'Прямой заход (Direct)';
+      }
+    }
+
     return attr;
   } catch {
     return {};

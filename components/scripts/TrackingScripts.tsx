@@ -113,7 +113,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 (function() {
                     try {
                         var params = new URLSearchParams(window.location.search);
-                        var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'];
+                        var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid', 'ttclid'];
                         keys.forEach(function(key) {
                             var val = params.get(key);
                             if (val) {
@@ -121,6 +121,87 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                 document.cookie = 'gl_' + key + '=' + encodeURIComponent(val) + '; path=/; max-age=2592000; SameSite=Lax';
                             }
                         });
+
+                        // Store landing page on first entry
+                        if (!localStorage.getItem('gl_landing_page')) {
+                            var lp = window.location.pathname + window.location.search;
+                            localStorage.setItem('gl_landing_page', lp);
+                            document.cookie = 'gl_landing_page=' + encodeURIComponent(lp) + '; path=/; max-age=2592000; SameSite=Lax';
+                        }
+
+                        // Store external referrer if available
+                        var ref = document.referrer;
+                        if (ref && !localStorage.getItem('gl_referrer')) {
+                            try {
+                                var curHost = window.location.hostname;
+                                var refHost = new URL(ref).hostname;
+                                if (refHost && refHost !== curHost) {
+                                    localStorage.setItem('gl_referrer', ref);
+                                    document.cookie = 'gl_referrer=' + encodeURIComponent(ref) + '; path=/; max-age=2592000; SameSite=Lax';
+                                }
+                            } catch (e) {}
+                        }
+
+                        // Determine & cache source / traffic type
+                        var utmSrc = params.get('utm_source') || localStorage.getItem('gl_utm_source');
+                        var fbclid = params.get('fbclid') || localStorage.getItem('gl_fbclid');
+                        var gclid = params.get('gclid') || localStorage.getItem('gl_gclid');
+                        var refVal = localStorage.getItem('gl_referrer') || document.referrer || '';
+
+                        var source = '';
+                        var type = '';
+
+                        if (utmSrc) {
+                            source = utmSrc;
+                            type = 'Рекламная кампания (UTM)';
+                        } else if (fbclid) {
+                            source = 'Meta Ads (Facebook / Instagram)';
+                            type = 'Платный трафик (Meta)';
+                        } else if (gclid) {
+                            source = 'Google Ads';
+                            type = 'Платный трафик (Google)';
+                        } else if (refVal) {
+                            var lowerRef = refVal.toLowerCase();
+                            if (lowerRef.indexOf('google.') !== -1) {
+                                source = 'Google Search (Органика / SEO)';
+                                type = 'Органика (SEO / Поиск)';
+                            } else if (lowerRef.indexOf('instagram.com') !== -1) {
+                                source = 'Instagram (Органика / Bio / Stories)';
+                                type = 'Органика (Соцсети)';
+                            } else if (lowerRef.indexOf('facebook.com') !== -1 || lowerRef.indexOf('fb.com') !== -1) {
+                                source = 'Facebook (Органика / Пост)';
+                                type = 'Органика (Соцсети)';
+                            } else if (lowerRef.indexOf('t.me') !== -1 || lowerRef.indexOf('telegram') !== -1) {
+                                source = 'Telegram (Ссылка / Чат)';
+                                type = 'Мессенджер (Telegram)';
+                            } else if (lowerRef.indexOf('tiktok.com') !== -1) {
+                                source = 'TikTok (Органика)';
+                                type = 'Органика (Соцсети)';
+                            } else if (lowerRef.indexOf('bing.com') !== -1) {
+                                source = 'Bing Search (Органика)';
+                                type = 'Органика (SEO / Поиск)';
+                            } else {
+                                try {
+                                    source = new URL(refVal).hostname;
+                                    type = 'Реферер (Сайт)';
+                                } catch(e) {
+                                    source = refVal;
+                                    type = 'Реферер';
+                                }
+                            }
+                        } else {
+                            source = 'Прямой заход (Direct / Ввод URL / Закладки)';
+                            type = 'Прямой заход (Direct)';
+                        }
+
+                        if (source && !localStorage.getItem('gl_traffic_source')) {
+                            localStorage.setItem('gl_traffic_source', source);
+                            document.cookie = 'gl_traffic_source=' + encodeURIComponent(source) + '; path=/; max-age=2592000; SameSite=Lax';
+                        }
+                        if (type && !localStorage.getItem('gl_traffic_type')) {
+                            localStorage.setItem('gl_traffic_type', type);
+                            document.cookie = 'gl_traffic_type=' + encodeURIComponent(type) + '; path=/; max-age=2592000; SameSite=Lax';
+                        }
                     } catch (e) {}
                 })();
                 `}
