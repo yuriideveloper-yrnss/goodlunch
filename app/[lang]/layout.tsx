@@ -11,6 +11,7 @@ import LoadingScreen from "@/components/ui/LoadingScreen";
 import FloatingBackgrounds from "@/components/ui/FloatingBackgrounds";
 import { OrderProvider } from "@/components/providers/OrderProvider";
 import { GlobalQuickOrderModal } from "@/components/ui/QuickOrderModal";
+import CookieConsentBanner from "@/components/ui/CookieConsentBanner";
 import TrackingScripts from "@/components/scripts/TrackingScripts";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -174,6 +175,7 @@ export default async function RootLayout({
           <Footer lang={lang} />
           <StickyBottomCTA lang={lang} dict={dict} ctaText={dict.hero?.cta_main || 'Zamów z rabatem -25%'} />
           <GlobalQuickOrderModal dict={dict} lang={lang} />
+          <CookieConsentBanner lang={lang} />
           <Analytics />
         </OrderProvider>
       </body>

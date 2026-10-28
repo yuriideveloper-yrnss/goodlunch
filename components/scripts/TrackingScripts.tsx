@@ -10,7 +10,7 @@ declare global {
 export default function TrackingScripts() {
     return (
         <>
-            {/* Default Consent Mode v2 */}
+            {/* Default Consent Mode v2 (GDPR / ePrivacy compliant) */}
             <Script
                 id="consent-mode-default"
                 strategy="afterInteractive"
@@ -19,12 +19,30 @@ export default function TrackingScripts() {
                         window.dataLayer = window.dataLayer || [];
                         function gtag(){window.dataLayer.push(arguments);}
                         
-                        gtag('consent', 'default', {
-                            'ad_storage': 'denied',
-                            'analytics_storage': 'denied',
-                            'ad_user_data': 'denied',
-                            'ad_personalization': 'denied'
-                        });
+                        var initialConsent = null;
+                        try {
+                            initialConsent = localStorage.getItem('gl_cookie_consent');
+                            if (!initialConsent) {
+                                var match = document.cookie.match(/(^|;\\s*)gl_cookie_consent=([^;]*)/);
+                                if (match) initialConsent = decodeURIComponent(match[2]);
+                            }
+                        } catch(e) {}
+
+                        if (initialConsent === 'all') {
+                            gtag('consent', 'default', {
+                                'ad_storage': 'granted',
+                                'analytics_storage': 'granted',
+                                'ad_user_data': 'granted',
+                                'ad_personalization': 'granted'
+                            });
+                        } else {
+                            gtag('consent', 'default', {
+                                'ad_storage': 'denied',
+                                'analytics_storage': 'denied',
+                                'ad_user_data': 'denied',
+                                'ad_personalization': 'denied'
+                            });
+                        }
                     `,
                 }}
             />
